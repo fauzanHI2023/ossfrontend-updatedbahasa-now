@@ -1,0 +1,323 @@
+{
+  "Error": {
+    "description": "<p>We've unfortunately encountered an error.</p><p>You can try to <retry>reload the page</retry> you were visiting.</p>",
+    "title": "Something went wrong!"
+  },
+  "IndexPage": {
+    "description": "This is a basic example that demonstrates the usage of <code>next-intl</code> with the Next.js App Router. Try changing the locale in the top right corner and see how the content changes.",
+    "title": "Human Initiative"
+  },
+  "LocaleLayout": {
+    "title": "Human Initiative"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, ar {🇸🇦 ar} en {🇺🇸 en} id {🇮🇩 id} other {Unknown}}"
+  },
+  "Manifest": {
+    "name": "Human Initiative"
+  },
+  "Navigation": {
+    "home": "Halaman Utama",
+    "pathnames": "Pathname"
+  },
+  "NotFoundPage": {
+    "description": "Please double-check the browser address bar or use the navigation to go to a known page.",
+    "title": "Page not found"
+  },
+  "PageLayout": {
+    "links": {
+      "docs": {
+        "description": "Learn more about next-intl in the official docs.",
+        "href": "https://next-intl.dev",
+        "title": "Docs"
+      },
+      "source": {
+        "description": "Browse the source code of this example on GitHub.",
+        "href": "https://github.com/amannn/next-intl/tree/main/examples/example-app-router",
+        "title": "Source code"
+      }
+    }
+  },
+  "PathnamesPage": {
+    "description": "<p>The pathnames are internationalized too.</p><p>If you're using the default language English, you'll see <code>/en/pathnames</code> in the browser address bar on this page.</p><p>If you change the locale to German, the URL is localized accordingly (<code>/de/pfadnamen</code>).</p>",
+    "title": "Pathnames"
+  },
+  "WhoweAreMenu": {
+    "whoWeAre": "Siapa Kami",
+    "visionAndMission": "Visi & Misi",
+    "meetOurManagement": "Temui Manajemen Kami",
+    "ourStory": "Kisah Kami",
+    "ourAward": "Penghargaan Kami",
+    "ourLegality": "Legalitas Kami",
+    "seeOurImpact": "Lihat Dampak Kami",
+    "branch": "Cabang",
+    "contactUs": "Hubungi Kami"
+  },
+  "Whatwedo": {
+    "whatweDo": "Apa yang kami lakukan",
+    "initiativeforDisaster": "Initiative Disaster",
+    "initiativeforEmpowerment": "Initiative Empowerment",
+    "initiativeforChildreb": "Initiative Children",
+    "infrastructureProgram": "Initiative Infrastruktur",
+    "humaninitiativeInstitute": "Human Initiative Institute"
+  },
+  "JoinOurMovement": {
+    "joinourMovement": "Bergabung Dengan Kami",
+    "Donate": "Donasi",
+    "Project": "Bermitra dengan kami",
+    "beRightholders": "Calon Pemegang Hak Program"
+  },
+  "Publication": {
+    "publication": "Publikasi",
+    "publicReport": "Laporan Publik",
+    "situationReport": "Laporan Situasi",
+    "mediaRelease": "Siaran Pers",
+    "newsStories": "Berita & Cerita",
+    "event": "Acara",
+    "library": "Pustaka",
+    "petition": "Petisi",
+    "gallery": "Galeri",
+    "document": "Dokumen"
+  },
+  "SectionMainHomeTitle": {
+    "connect": "hubungkan",
+    "helps": "Bantu",
+    "desc": "yang peduli dengan membutuhkan."
+  },
+  "SectionMainHomeDesc": {
+    "text": "Mari bekerja sama untuk membantu saudara-saudara kita yang sedang dilanda bencana. Satu rupee dari Anda pasti sangat berharga bagi mereka."
+  },
+  "FormOneTimeDonatiom": {
+    "title": "Donasi Satu Kali",
+    "desc": "Pilih Jumlah Donasi Anda",
+    "button": "Donasi Sekarang",
+    "notes": "Donasi yang Anda berikan akan digunakan untuk menjalankan program-program yang telah disiapkan oleh Human Initiative. Jika Anda ingin berdonasi untuk program tertentu, silakan klik",
+    "click": "disini"
+  },
+  "SectionTwoHome": {
+    "welcome": "Selamat datang di",
+    "hi": "Human Initiative",
+    "title": "Bersama Kita Ciptakan Perubahan Nyata untuk Kemanusiaan",
+    "desc": "Human Initiative hadir untuk memberikan solusi berkelanjutan bagi gerakan kemanusiaan, menciptakan perubahan nyata yang memulihkan harapan, memberdayakan masyarakat, dan membangun masa depan yang lebih baik bagi semua."
+  },
+  "SectionThreeHome": {
+    "title": "Human Initiative",
+    "titlenext": "Impact",
+    "desc": "Melalui program-program kemanusiaan yang inovatif, kami telah menjadi mercusuar harapan bagi jutaan nyawa, mengubah krisis menjadi peluang dan membangun masa depan yang lebih baik bagi masyarakat di seluruh dunia.​"
+  },
+  "SectionFourHome": {
+    "title": "Berita dan Cerita",
+    "desc": "Terus ikuti perkembangan terbaru tentang kampanye inisiatif manusia untuk membuat Anda tetap terlibat."
+  },
+  "SectionFiveHome": {
+    "title": "Setiap Donasi Membawa Harapan Baru",
+    "desc": "Mari Wujudkannya Bersama-sama!."
+  },
+  "SectionSixHome": {
+    "title": "Jelajahi Pengetahuan dan Inspirasi: Temukan Publikasi dan Koleksi Kami!",
+    "desc": "Mari Wujudkannya Bersama-sama!."
+  },
+  "cardInitiativeforDisaster": {
+    "title": "Inisiatif Untuk Disaster",
+    "desc": "Menjadi inisiator dalam membangun ketangguhan masyarakat terhadap bencana dan perubahan iklim"
+  },
+  "cardInitiativeforChildren": {
+    "title": "Inisiatif Untuk Anak",
+    "desc": "Pemenuhan hak-hak anak untuk meningkatkan kualitas hidup anak"
+  },
+  "cardInitiativeforEmpowerment": {
+    "title": "Inisiatif Untuk Pemberdayaan",
+    "desc": "Membangun sumber daya manusia & sistem untuk peningkatan kualitas hidup masyarakat yang berkelanjutan"
+  },
+  "cardInitiativeforInfrastructure": {
+    "title": "Prakarsa Untuk Infrastruktur",
+    "desc": "Akses terbuka untuk meningkatkan kualitas hidup masyarakat"
+  },
+  "HomeMenuDashboard": {
+    "dashboard": "Dashboard"
+  },
+  "MyAccountMenuDashboard": {
+    "myaccount": "Akun Saya"
+  },
+  "DonationMenuDashboard": {
+    "donation": "Donasi",
+    "qurbanhistory": "Riwayat Qurban",
+    "donationhistory": "Riwayat Donasi"
+  },
+  "ProjectMenuDashboard": {
+    "project": "Proyek",
+    "sponsoriprogram": "Program Sponsor"
+  },
+  "RightholdersMenuDashboard": {
+    "rightholders": "Pemegang Hak Program",
+    "programlist": "Daftar Program",
+    "applicationlist": "Daftar Aplikasi"
+  },
+  "RegisterPage": {
+    "titleUtama": "Silahkan Pilih Jenis Donor Terlebih Dahulu",
+    "buttonRegisterPersonal": "Daftar Pribadi",
+    "buttonRegisterCompanyorCommunity": "Daftar Perusahaan atau Komunitas",
+    "titlePersonal": "Daftar Donor Pribadi",
+    "titleCompanyorCommunity": "Daftar Donor Perusahaan atau Komunitas",
+    "formFieldUsername": "Nama Pengguna",
+    "formPlaceUsername": "mkhoirul",
+    "formFieldFullname": "Nama Lengkap",
+    "formPlaceFullname": "Muhammad Khoirul",
+    "formFieldEmail": "Email",
+    "formPlaceEmail": "mkhoirul@gmail.com",
+    "formFieldPhone": "Nomor Telepon",
+    "formPlacePhone": "82789243443",
+    "formFieldPassword": "Kata Sandi",
+    "formPlacePassword": "Khoirul8739#&",
+    "formFieldCompanyorCommunity": "Nama Perusahaan / Organisasi",
+    "formPlaceCompanyorCommunity": "Mandiri Bina Karya",
+    "formFieldLegality": "Nomor Legalitas",
+    "formPlaceLegality": "892739127491241398"
+  },
+  "bannerInitiativeDisaster": {
+    "title": "Initiative For Disaster",
+    "desc": "Menjadi inisiator dalam membangun ketangguhan masyarakat terhadap bencana dan perubahan iklim"
+  },
+  "bannerInitiativeChildren": {
+    "title": "Initiative For Children",
+    "desc": "Pemenuhan hak-hak anak untuk meningkatkan kualitas hidup anak"
+  },
+  "bannerInitiativeEmpowerment": {
+    "title": "Initiative For Empowerment",
+    "desc": "Membangun sumber daya manusia & sistem untuk peningkatan kualitas hidup masyarakat yang berkelanjutan​​"
+  },
+  "bannerInitiativeInfrastructure": {
+    "title": "Initiative For Infrastructure",
+    "desc": "Akses terbuka untuk meningkatkan kualitas hidup masyarakat​"
+  },
+  "dashboardHome": {
+    "bantuan": "Pengajuan Bantuan",
+    "transaksi": "Transaksi",
+    "donasi": "Donasi",
+    "qurban": "Qurban"
+  },
+  "footerSection": {
+    "termandconditions": "Syarat dan Ketentuan",
+    "privacyPolicy": "Kebijakan Privasi",
+    "faq": "Pertanyaan Umum",
+    "whistleBlowingHi": "Pelaporan Pelanggaran HI",
+    "contact": "Kontak",
+    "locations": "Lokasi",
+    "descFooter": "Human Initiative berkomitmen untuk menerapkan Sistem Manajemen Anti-Suap yang tidak mengizinkan segala bentuk penyuapan dan gratifikasi, dan tidak akan mendukung atau memberikan dana/materi kepada individu atau organisasi yang diketahui mengadvokasi, mendukung, atau terlibat dalam kegiatan ilegal, kekerasan, pencucian uang, atau terorisme."
+  },
+  "whoWeArePage": {
+    "sectionOne": {
+      "titleWe": "Kami",
+      "titlleEnd": "gerakan kemanusiaan untuk keberlanjutan",
+      "titleEndTwo": "dampak positif bagi masyarakat"
+    },
+    "sectionTwo": {
+      "title": "Tentang Human Initiative",
+      "descone": "Human Initiative adalah organisasi kemanusiaan global yang terus berupaya untuk memberikan manfaat yang lebih bermakna dengan dukungan berbagai pemangku kepentingan.​",
+      "desctwo": "Didirikan di Indonesia pada tanggal 10 Desember 1999, Human Initiative menjalankan strategi Theory of Change (TOC) yang berfokus pada dampak positif dari implementasi program terhadap masyarakat dan menjadikan Humanitarian-Development Nexus sebagai ruang lingkup program.​",
+      "descthree": "Hal ini diturunkan dalam empat pilar program utama, yaitu Inisiatif Pemberdayaan, Inisiatif Anak, Inisiatif Penanggulangan Risiko Bencana, dan Inisiatif Infrastruktur di mana manusia menjadi arus utama intervensi program.​"
+    },
+    "sectionThree": {
+      "titleOur": "Visi",
+      "titleVisions": "Kami",
+      "descOne": "Kebaikan untuk Martabat"
+    },
+    "sectionFour": {
+      "titleOur": "Misi",
+      "titleMissions": "Kami",
+      "titleOrganization": "Organisasi",
+      "descOrganization": "Memperkuat tata kelola organisasi yang adaptif, inovatif, dan memiliki jangkauan global.​",
+      "titleResource": "Sumber Daya",
+      "descResource": "Memperkuat kolaborasi inklusif di antara para pemangku kepentingan dalam tanggap krisis kemanusiaan dan pengembangan masyarakat.​",
+      "titleImpact": "Dampak",
+      "descImpact": "Mengembangkan program dengan mengoptimalkan sumber daya masyarakat untuk mendorong kemandirian"
+    },
+    "sectionFive": {
+      "titleOrganizational": "Budaya",
+      "titleCulture": "Organisasi",
+      "titleEmpowered": "Berdaya",
+      "titleCollaboration": "Kolaborasi",
+      "titleTrustworthy": "Dapat Dipercaya"
+    },
+    "sectionSix": {
+      "titleOrganizations": "Posisi",
+      "titlePositioning": "Organisasi",
+      "desc": "Organisasi kemanusiaan global yang diprakarsai oleh umat Islam Indonesia, yang berperan sebagai katalisator perubahan dalam membangun ketahanan masyarakat yang berkelanjutan.​"
+    },
+    "sectionSeven": {
+      "titleMeet": "Kenalkan Manajemen",
+      "titleManagement": "Kami",
+      "desc": "Kami selalu bergerak bersama untuk membawa harapan dan perubahan positif. Dengan semangat kerja sama, kami yakin masa depan umat manusia bisa lebih baik dan penuh dengan peluang untuk mewujudkan dunia yang lebih peduli."
+    },
+    "sectionEight": {
+      "title": "Cerita",
+      "desc": "Bagi kami, sejarah adalah inspirasi untuk terus melakukan yang terbaik hari ini dan di masa depan."
+    },
+    "sectionNine": {
+      "title": "Penghargaan"
+    },
+    "sectionTen": {
+      "titleOur": "Legalitas",
+      "titleLegality": "Kami",
+      "tabOne": "Terdaftar sebagai NGO di",
+      "tabTwo": "Anggota dari",
+      "tabThree": "Standarisasi",
+      "tabFour": "Sistem Manajemen Mutu"
+    },
+    "sectionEleven": {
+      "titleBranch": "Cabang",
+      "tabOne": "Kantor Pusat",
+      "tabTwo": "Cabang Indonesia",
+      "tabThree": "Cabang Luar Indonesia"
+    },
+    "sectionTwelve": {
+      "title": "Hubungi Kami",
+      "desc": "Bagaimana kami dapat membantu Anda?",
+      "pdesc": "Isi formulir atau kirimkan emal"
+    }
+  },
+  "takeactionDonatePage": {
+    "sectionOne": {
+      "titletwo": "Dengan langkah kecil, Anda dapat membuat perbedaan besar. Donasi sekarang dan bantu mereka yang membutuhkan."
+    },
+    "sectionTwo": {
+      "titleOne": "Bantuan yang baik",
+      "titleTwo": "Kemanusiaan",
+      "desc": "Kami membantu para penyintas perang membangun kembali kehidupan mereka dan memilih masa depan mereka sendiri"
+    }
+  },
+  "takeactionCollaborationImpact": {
+    "sectionOne": {
+      "titleOne": "Wujudkan Kolaborasi",
+      "titleTwo": "Program Keberlanjutan",
+      "titleChildren": "Children",
+      "titleDisaster": "Disaster",
+      "titleEmpowerment": "Empowerment",
+      "titleInfrastructure": "Infrastructure",
+      "desc": "Siap memartabatkan kebaikan?",
+      "button": "Find Out More"
+    }
+  },
+  "takeactionRightholders": {
+    "sectionOne": {
+      "titleOne": "Jadilah Bagian dari Perubahan Bersama Kami",
+      "desc": "Daftarkan diri Anda sebagai Kandidat Penerima Manfaat Program untuk mendapatkan bantuan kemanusiaan dan ciptakan perubahan positif bersama kami."
+    },
+    "sectionTwo": {
+      "title": "Apa itu Pemegang Hak Program?",
+      "desc": "Calon Penerima Manfaat Program adalah Individu atau Masyarakat yang memenuhi kriteria tertentu untuk menjadi penerima manfaat dari program-program bantuan kemanusiaan yang dijalankan oleh Human Initiative. Program-program yang dapat diakses oleh masyarakat terdiri dari bidang pendidikan, kesehatan, ekonomi dan sosial kemanusiaan."
+    },
+    "sectionThree": {
+      "titleOne": "Pemegang Hak Program",
+      "titleTwo": "Kami Membantu Mereka yang Membutuhkan",
+      "desc": "Daftarkan diri Anda untuk menjadi calon pemegang hak program"
+    },
+    "sectionFour": {
+      "titleOne": "Bantuan yang Baik",
+      "titleTwo": "Kemanusiaan",
+      "desc": "Kami membantu para penyintas perang membangun kembali kehidupan mereka dan memilih masa depan mereka sendiri",
+      "apply": "Mendaftar"
+    }
+  }
+}

@@ -1,0 +1,323 @@
+{
+  "Error": {
+    "description": "<p>We've unfortunately encountered an error.</p><p>You can try to <retry>reload the page</retry> you were visiting.</p>",
+    "title": "Something went wrong!"
+  },
+  "IndexPage": {
+    "description": "This is a basic example that demonstrates the usage of <code>next-intl</code> with the Next.js App Router. Try changing the locale in the top right corner and see how the content changes.",
+    "title": "Human Initiative"
+  },
+  "LocaleLayout": {
+    "title": "Human Initiative"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, ar {🇸🇦 ar} en {🇺🇸 en} id {🇮🇩 id} other {Unknown}}"
+  },
+  "Manifest": {
+    "name": "Human Initiative"
+  },
+  "Navigation": {
+    "home": "Home",
+    "pathnames": "Pathnames"
+  },
+  "NotFoundPage": {
+    "description": "Please double-check the browser address bar or use the navigation to go to a known page.",
+    "title": "Page not found"
+  },
+  "PageLayout": {
+    "links": {
+      "docs": {
+        "description": "Learn more about next-intl in the official docs.",
+        "href": "https://next-intl.dev",
+        "title": "Docs"
+      },
+      "source": {
+        "description": "Browse the source code of this example on GitHub.",
+        "href": "https://github.com/amannn/next-intl/tree/main/examples/example-app-router",
+        "title": "Source code"
+      }
+    }
+  },
+  "PathnamesPage": {
+    "description": "<p>The pathnames are internationalized too.</p><p>If you're using the default language English, you'll see <code>/en/pathnames</code> in the browser address bar on this page.</p><p>If you change the locale to German, the URL is localized accordingly (<code>/de/pfadnamen</code>).</p>",
+    "title": "Pathnames"
+  },
+  "WhoweAreMenu": {
+    "whoWeAre": "Who We Are",
+    "visionAndMission": "Vision & Missions",
+    "meetOurManagement": "Meet Our Management",
+    "ourStory": "Our Story",
+    "ourAward": "Our Award",
+    "ourLegality": "Our Legality",
+    "seeOurImpact": "See Our Impact",
+    "branch": "Branch",
+    "contactUs": "Contact Us"
+  },
+  "Whatwedo": {
+    "whatweDo": "What We Do",
+    "initiativeforDisaster": "Initiative for Disaster",
+    "initiativeforEmpowerment": "Initiative for Empowerment",
+    "initiativeforChildreb": "Initiative for Children",
+    "infrastructureProgram": "Initiative Infrastruture",
+    "humaninitiativeInstitute": "Human Initiative Institute"
+  },
+  "JoinOurMovement": {
+    "joinourMovement": "Join Our Movement",
+    "Donate": "Donate",
+    "Project": "Partner With Us",
+    "beRightholders": "Be Rightholders"
+  },
+  "Publication": {
+    "publication": "Publication",
+    "publicReport": "Public Report",
+    "situationReport": "Situation Report",
+    "mediaRelease": "Media Release",
+    "newsStories": "News & Stories",
+    "event": "Event",
+    "library": "Library",
+    "petition": "Petition",
+    "gallery": "Gallery",
+    "document": "Document"
+  },
+  "SectionMainHomeTitle": {
+    "connect": "connect",
+    "helps": "Helps",
+    "desc": "those who care with those who need help."
+  },
+  "SectionMainHomeDesc": {
+    "text": "Lets work together to help our brothers and sisters who are being hit by a disaster. One rupee from you is definitely valuable to them."
+  },
+  "FormOneTimeDonatiom": {
+    "title": "One Time Donation",
+    "desc": "Choose Your Donation Amount",
+    "button": "Donate Now",
+    "notes": "The donations you make are used to run the programs that have been prepared by the Human Initiative. If you want to donate to a specific program please click",
+    "click": "here"
+  },
+  "SectionTwoHome": {
+    "welcome": "Welcome to",
+    "hi": "Human Initiative",
+    "title": "Together We Create Real Change for Humanity",
+    "desc": " Human Initiative is here to provide sustainable solutions for the humanitarian movement, creating real change that restores hope, empowers communities, and builds a better future for all."
+  },
+  "SectionThreeHome": {
+    "title": "Human Initiative",
+    "titlenext": "Impact",
+    "desc": "Through innovative humanitarian programs, we have become a beacon of hope for millions of lives, turning crisis into opportunity and building a better future for communities around the world.​"
+  },
+  "SectionFourHome": {
+    "title": "News and Stories",
+    "desc": "Stay informed with latest development on human initiative campaigns to keep you engaged."
+  },
+  "SectionSixHome": {
+    "title": "Explore Knowledge and Inspiration: Discover Our Publications and Collections!",
+    "desc": "Mari Wujudkannya Bersama-sama!."
+  },
+  "SectionFiveHome": {
+    "title": "Every Donation Brings New Hope",
+    "desc": "Let’s Make It Happen Together!."
+  },
+  "cardInitiativeforDisaster": {
+    "title": "Initiative For Disaster",
+    "desc": "Being an initiator in building community resilience to disasters and climate change"
+  },
+  "cardInitiativeforChildren": {
+    "title": "Initiative For Children",
+    "desc": "Fulfillment of children's rights to improve children's quality of life​​"
+  },
+  "cardInitiativeforEmpowerment": {
+    "title": "Initiative For Empowerment",
+    "desc": "Building human resources & systems for sustainable improvement of people's quality of life​​"
+  },
+  "cardInitiativeforInfrastructure": {
+    "title": "Initiative For Infrastructure",
+    "desc": "Open access to improve the quality of life of the community​"
+  },
+  "HomeMenuDashboard": {
+    "dashboard": "Dashboard"
+  },
+  "MyAccountMenuDashboard": {
+    "myaccount": "My Account"
+  },
+  "DonationMenuDashboard": {
+    "donation": "Donation",
+    "qurbanhistory": "Qurban History",
+    "donationhistory": "Donation History"
+  },
+  "ProjectMenuDashboard": {
+    "project": "Project",
+    "sponsoriprogram": "Sponsor Program"
+  },
+  "RightholdersMenuDashboard": {
+    "rightholders": "Rightholders",
+    "programlist": "Program List",
+    "applicationlist": "Application List"
+  },
+  "RegisterPage": {
+    "titleUtama": "Please Select a Donor Type First",
+    "buttonRegisterPersonal": "Register Personal",
+    "buttonRegisterCompanyorCommunity": "Register Company or Community",
+    "titlePersonal": "Personal Donor Register",
+    "titleCompanyorCommunity": "Organization/Company Donor Register",
+    "formFieldUsername": "Username",
+    "formPlaceUsername": "mkhoirul",
+    "formFieldFullname": "Fullname",
+    "formPlaceFullname": "Muhammad Khoirul",
+    "formFieldEmail": "Email",
+    "formPlaceEmail": "mkhoirul@gmail.com",
+    "formFieldPhone": "Phone Number",
+    "formPlacePhone": "82789243443",
+    "formFieldPassword": "Password",
+    "formPlacePassword": "Khoirul8739#&",
+    "formFieldCompanyorCommunity": "Company or Organization Name",
+    "formPlaceCompanyorCommunity": "Mandiri Bina Karya",
+    "formFieldLegality": "Legality Number",
+    "formPlaceLegality": "892739127491241398"
+  },
+  "bannerInitiativeDisaster": {
+    "title": "Initiative For Disaster",
+    "desc": "Being an initiator in building community resilience to disasters and climate change"
+  },
+  "bannerInitiativeChildren": {
+    "title": "Initiative For Children",
+    "desc": "Fulfillment of children's rights to improve children's quality of life​​"
+  },
+  "bannerInitiativeEmpowerment": {
+    "title": "Initiative For Empowerment",
+    "desc": "Building human resources & systems for sustainable improvement of people's quality of life​​"
+  },
+  "bannerInitiativeInfrastructure": {
+    "title": "Initiative For Infrastructure",
+    "desc": "Open access to improve the quality of life of the community​"
+  },
+  "dashboardHome": {
+    "bantuan": "Submission of Assistance",
+    "transaksi": "Transaction",
+    "donasi": "Donation",
+    "qurban": "Qurban"
+  },
+  "footerSection": {
+    "termandconditions": "Term and Condition",
+    "privacyPolicy": "Privacy Policy",
+    "faq": "FAQ",
+    "whistleBlowingHi": "Whistleblowing HI",
+    "contact": "Contact",
+    "locations": "Locations",
+    "descFooter": "Human Initiative is committed to implementing an Anti-Bribery Management System that does not allow all forms of bribery and gratuities, and will not support or provide funds/materials to individuals or organizations known to advocate, support, or engage in illegal activities, violence, money laundering or terrorism.​"
+  },
+  "whoWeArePage": {
+    "sectionOne": {
+      "titleWe": "We",
+      "titlleEnd": "humanitarian movements for sustainable",
+      "titleEndTwo": "positive impact on society"
+    },
+    "sectionTwo": {
+      "title": "About of Human Initiative",
+      "descone": "Human Initiative is a global humanitarian organization that continues to strive to provide more meaningful benefits with multi-stakeholder support.",
+      "desctwo": "Founded in Indonesia on December 10, 1999, the Human Initiative carries out the Theory of Change (TOC) strategy which focuses on the positive impact of program implementation on the community and makes the Humanitarian-Development Nexus the scope of the program.​",
+      "descthree": "This is derived in four main program pillars, namely the Initiative for Empowerment, Initiative for Children, Initiative for Disaster Risk Management, and Initiative for Infrastructure where humans are the mainstream of program interventions.​"
+    },
+    "sectionThree": {
+      "titleOur": "Our",
+      "titleVisions": "Visions",
+      "descOne": "Goodness for Dignity"
+    },
+    "sectionFour": {
+      "titleOur": "Our",
+      "titleMissions": "Missions",
+      "titleOrganization": "Organization",
+      "descOrganization": "Strengthen organizational governance that is adaptive, innovative, and has global reach.​",
+      "titleResource": "Resource",
+      "descResource": "Strengthening inclusive collaboration among stakeholders in humanitarian crisis response and community development.​",
+      "titleImpact": "Impact",
+      "descImpact": "Develop programs by optimizing community resources to encourage self-reliance"
+    },
+    "sectionFive": {
+      "titleOrganizational": "Organizational",
+      "titleCulture": "Culture",
+      "titleEmpowered": "Empowered",
+      "titleCollaboration": "Collaboration",
+      "titleTrustworthy": "Trustworthy"
+    },
+    "sectionSix": {
+      "titleOrganizations": "Organizations",
+      "titlePositioning": "Positioning",
+      "desc": "A global humanitarian organization initiated by Indonesian Muslims, which acts as a catalyst for change in building sustainable community resilience.​"
+    },
+    "sectionSeven": {
+      "titleMeet": "Meet Our",
+      "titleManagement": "Management",
+      "desc": "We always move together to bring hope and positive change. In the spirit of cooperation, we believe the future of humanity can be better and full of opportunities to realize a more caring world."
+    },
+    "sectionEight": {
+      "title": "Story",
+      "desc": "To us, history is an inspiration to continue doing our best today and in the future.​"
+    },
+    "sectionNine": {
+      "title": "Award"
+    },
+    "sectionTen": {
+      "titleOur": "Our",
+      "titleLegality": "Legality",
+      "tabOne": "Registered as an NGO at",
+      "tabTwo": "Member of",
+      "tabThree": "Standardization",
+      "tabFour": "Quality Management System"
+    },
+    "sectionEleven": {
+      "titleBranch": "Branch",
+      "tabOne": "Headquarters",
+      "tabTwo": "Indonesia Branch",
+      "tabThree": "Branch Outside Indonesia"
+    },
+    "sectionTwelve": {
+      "title": "Contact Us",
+      "desc": "How can I help you?",
+      "pdesc": "Fill out the form or send an email"
+    }
+  },
+  "takeactionDonatePage": {
+    "sectionOne": {
+      "titletwo": "With small steps, you can make a big difference. Donate now and help those in need."
+    },
+    "sectionTwo": {
+      "titleOne": "Good Helping",
+      "titleTwo": "Humanity",
+      "desc": "We help survivors of war rebuild their lives and choose their own futures"
+    }
+  },
+  "takeactionCollaborationImpact": {
+    "sectionOne": {
+      "titleOne": "Realizing Collaboration",
+      "titleTwo": " Sustainability Program",
+      "titleChildren": "Children",
+      "titleDisaster": "Disaster",
+      "titleEmpowerment": "Empowerment",
+      "titleInfrastructure": "Infrastructure",
+      "desc": "Ready to dignify kindness?",
+      "button": "Find Out More"
+    }
+  },
+  "takeactionRightholders": {
+    "sectionOne": {
+      "titleOne": "Be Part of the Change with Us",
+      "desc": "Register yourself as a Program Entitlement Candidate to get humanitarian assistance and create positive change with us."
+    },
+    "sectionTwo": {
+      "title": "What is Rights holder?",
+      "desc": "Prospective Program Rights Holder are Individuals or Communities who meet certain criteria to become recipients of the humanitarian assistance programs run by the Human Initiative. The programs that can be accessed by the community consist of the fields of education, health, economy and social humanity."
+    },
+    "sectionThree": {
+      "titleOne": "Rights holder",
+      "titleTwo": "We Help Those Who Need It",
+      "desc": "Register yourself to become a prospective program rights holder"
+    },
+    "sectionFour": {
+      "titleOne": "Good Helping",
+      "titleTwo": "Humanity",
+      "desc": "We help survivors of war rebuild their lives and choose their own futures",
+      "apply": "Apply"
+    }
+  }
+}

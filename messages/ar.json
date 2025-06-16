@@ -1,0 +1,124 @@
+{
+  "Error": {
+    "description": "<p>We've unfortunately encountered an error.</p><p>You can try to <retry>reload the page</retry> you were visiting.</p>",
+    "title": "Something went wrong!"
+  },
+  "IndexPage": {
+    "description": "This is a basic example that demonstrates the usage of <code>next-intl</code> with the Next.js App Router. Try changing the locale in the top right corner and see how the content changes.",
+    "title": "Human Initiative"
+  },
+  "LocaleLayout": {
+    "title": "Human Initiative"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, ar {🇸🇦 ar} en {🇺🇸 en} id {🇮🇩 id} other {Unknown}}"
+  },
+  "Manifest": {
+    "name": "Human Initiative"
+  },
+  "Navigation": {
+    "home": "Home",
+    "pathnames": "Pathnames"
+  },
+  "NotFoundPage": {
+    "description": "Please double-check the browser address bar or use the navigation to go to a known page.",
+    "title": "Page not found"
+  },
+  "PageLayout": {
+    "links": {
+      "docs": {
+        "description": "Learn more about next-intl in the official docs.",
+        "href": "https://next-intl.dev",
+        "title": "Docs"
+      },
+      "source": {
+        "description": "Browse the source code of this example on GitHub.",
+        "href": "https://github.com/amannn/next-intl/tree/main/examples/example-app-router",
+        "title": "Source code"
+      }
+    }
+  },
+  "PathnamesPage": {
+    "description": "<p>The pathnames are internationalized too.</p><p>If you're using the default language English, you'll see <code>/en/pathnames</code> in the browser address bar on this page.</p><p>If you change the locale to German, the URL is localized accordingly (<code>/de/pfadnamen</code>).</p>",
+    "title": "Pathnames"
+  },
+  "WhoweAreMenu": {
+    "whoWeAre": "من نحن",
+    "visionAndMission": "الرؤية والرسالة",
+    "meetOurManagement": "تعرف على إدارتنا",
+    "ourStory": "قصتنا",
+    "ourAward": "جوائزنا",
+    "ourLegality": "شرعيتنا",
+    "seeOurImpact": "اطلع على تأثيرنا",
+    "branch": "الفروع",
+    "contactUs": "اتصل بنا"
+  },
+  "Whatwedo": {
+    "whatweDo": "ماذا نفعل",
+    "initiativeforDisaster": "مبادرة للكوارث",
+    "initiativeforEmpowerment": "مبادرة للتمكين",
+    "initiativeforChildreb": "مبادرة للأطفال",
+    "infrastructureProgram": "برنامج البنية التحتية",
+    "humaninitiativeInstitute": "معهد المبادرة الإنسانية"
+  },
+  "JoinOurMovement": {
+    "joinourMovement": "انضم إلى حركتنا",
+    "Donate": "تبرع",
+    "Project": "تعاون معنا",
+    "beRightholders": "كن من أصحاب الحقوق"
+  },
+  "Publication": {
+    "publication": "المنشورات",
+    "publicReport": "تقرير عام",
+    "situationReport": "تقرير الحالة",
+    "mediaRelease": "بيان صحفي",
+    "newsStories": "الأخبار والقصص",
+    "event": "حدث",
+    "library": "المكتبة",
+    "petition": "عريضة",
+    "gallery": "معرض الصور",
+    "document": "الوثائق"
+  },
+  "SectionMainHomeTitle": {
+    "connect": "الاتصال",
+    "helps": "المساعدة",
+    "desc": "الذين يهتمون بالمحتاجين"
+  },
+  "SectionMainHomeDesc": {
+    "text": "دعونا نعمل معًا لمساعدة إخواننا وأخواتنا المنكوبين بالكارثة. روبية واحدة منكم ستكون ذات قيمة كبيرة بالنسبة لهم."
+  },
+  "FormOneTimeDonatiom": {
+    "title": "تبرع لمرة واحدة",
+    "desc": "اختر مبلغ تبرعك",
+    "button": "تبرع الآن",
+    "notes": "ستُستخدم التبرعات التي تتبرع بها في إدارة البرامج التي أعدتها مبادرة إنسان. إذا كنت ترغب في التبرع لبرنامج معين، يرجى النقر على",
+    "click": "هنا"
+  },
+  "SectionTwoHome": {
+    "welcome": "مرحباً بك في",
+    "hi": "المبادرة الإنسانية",
+    "title": "معاً نصنع معاً تغييراً حقيقياً للبشرية",
+    "desc": "إن مبادرة الإنسان هنا لتوفير حلول مستدامة للحركة الإنسانية، وإحداث تغيير حقيقي يعيد الأمل ويمكّن المجتمعات ويبني مستقبلاً أفضل للجميع."
+  },
+  "HomeMenuDashboard": {
+    "dashboard": "لوحة القيادة"
+  },
+  "MyAccountMenuDashboard": {
+    "myaccount": "حسابي"
+  },
+  "DonationMenuDashboard": {
+    "donation": "التبرع",
+    "qurbanhistory": "تاريخ قربان",
+    "donationhistory": "تاريخ التبرع"
+  },
+  "ProjectMenuDashboard": {
+    "project": "المشروع",
+    "sponsoriprogram": "برنامج الراعي"
+  },
+  "RightholdersMenuDashboard": {
+    "rightholders": "أصحاب الحقوق",
+    "programlist": "قائمة البرامج",
+    "applicationlist": "التطبيق"
+  }
+}

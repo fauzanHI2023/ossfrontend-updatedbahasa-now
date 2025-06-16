@@ -1,0 +1,344 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .title-lg-medium {
+    @apply text-slate-700 text-lg font-medium;
+  }
+
+  .title-xl-medium-600 {
+    @apply text-slate-600 text-xl font-medium;
+  }
+
+  .title-lg-semibold {
+    @apply text-slate-700 text-lg font-semibold;
+  }
+
+  .title-lg-bold {
+    @apply text-slate-700 text-lg font-bold;
+  }
+
+  .title-lg-medium-blue {
+    @apply text-sky-500 text-lg font-medium;
+  }
+
+  .title-xl-medium-blue {
+    @apply text-sky-500 text-xl font-medium;
+  }
+
+  .title-xl-medium-black {
+    @apply text-slate-700 text-xl font-medium;
+  }
+
+  .title-2xl-semibold-blue {
+    @apply text-sky-600 text-2xl font-semibold;
+  }
+
+  .title-2xl-semibold-black {
+    @apply text-slate-700 text-2xl font-semibold;
+  }
+
+  .title-2xl-semibold-600 {
+    @apply text-slate-700 text-2xl font-semibold;
+  }
+
+  .title-3xl-semibold-black {
+    @apply text-slate-700 text-3xl font-semibold;
+  }
+
+  .title-3xl-semibold-600 {
+    @apply text-slate-700 text-3xl font-semibold;
+  }
+
+  .title-4xl-extrabold-black {
+    @apply text-slate-700 text-4xl font-extrabold;
+  }
+
+  .title-4xl-extrabold-blue {
+    @apply text-sky-600 text-4xl font-extrabold;
+  }
+
+  .text-p-16 {
+    @apply text-slate-600 text-base font-normal;
+  }
+
+  .text-p-16-white {
+    @apply text-white text-base font-normal;
+  }
+
+  .text-p-14 {
+    @apply text-slate-600 text-sm font-normal;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-animate {
+  animation: slide-in 0.5s ease-in-out forwards;
+}
+
+.class {
+  font-family: var(--font-poppins);
+}
+
+.font-raleway {
+  font-family: 'Raleway', sans-serif;
+  font-optical-sizing: auto;
+}
+
+.no-visible-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-visible-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-container {
+  max-width: 100vw;
+  width: 100%;
+  overflow: hidden;
+}
+
+.slick-track {
+  display: flex !important;
+}
+
+.slide-stories {
+  width: 648px !important;
+}
+
+.slick-slide .slide-content {
+  transform: translateY(12%) scale(0.7);
+  transition-property: opacity, transform;
+  opacity: 0.3;
+  transition-duration: 0.3s;
+}
+
+.slick-active .slide-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.slick-active .slide-border-year {
+  border-top-width: 4px;
+  border-color: rgb(7 89 133);
+  animation: 0.3s ease-in-out 0s 1 normal none running animation-gu3cl0;
+}
+
+.slick-active .slide-border-year time {
+}
+
+.publikasi-card:hover span img {
+  transform: translateY(-50%) scale(1.05);
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.publikasi-card span img {
+  transition: all 0.5s;
+  float: none;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  left: 0;
+}
+
+.publikasi-card .download-situation {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.publikasi-card:hover .download-situation {
+  transition: 0.5s ease-in animation-down-to-up;
+}
+
+@keyframes animation-gu3cl0 {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes animation-down-to-up {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: 100px;
+  }
+}
+
+.react-pdf__Page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.animationhoversidebar {
+  position: relative; /* Agar teks tidak terlalu dekat dengan garis */
+  transition: color 0.3s ease;
+}
+
+.animationhoversidebar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px; /* Ketebalan garis */
+  height: 0;
+  background-color: #0284c7;
+  transition:
+    height 0.3s ease,
+    top 0.3s ease;
+}
+
+.animationhoversidebar:hover::before {
+  height: 15px;
+  top: 35%;
+}
+
+.fixedsidebarindi {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px; /* Ketebalan garis */
+  height: 15px;
+  background-color: #0284c7;
+}
+
+.card-spotlight {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(255, 255, 255, 0.05);
+}
+
+.card-spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    var(--spotlight-color),
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.card-spotlight:hover::before,
+.card-spotlight:focus-within::before {
+  opacity: 0.6;
+}
+
+.campaign-description > * {
+  padding-top: 0.75rem; /* atau sesuaikan seperti pt-3 (12px) */
+}
+
+.menu-slide::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 1px;
+  background: #268fff;
+  transition: width 0.4s ease-in;
+}
+
+.menu-slide:hover::after {
+  width: 100%;
+}

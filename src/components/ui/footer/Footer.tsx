@@ -13,6 +13,52 @@ import {usePathname} from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import {useTranslations} from 'next-intl';
+import {motion} from 'framer-motion';
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2 // jeda antar button
+    }
+  }
+};
+
+const textVariants = {
+  hidden: {opacity: 0, y: 50},
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.5,
+      ease: 'easeOut'
+    }
+  }
+};
+
+const buttonVariants = {
+  hidden: {opacity: 0, x: 50},
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 1.5,
+      ease: 'easeOut'
+    }
+  }
+};
+
+const buttonVariantsLeft = {
+  hidden: {opacity: 0, x: -50},
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut'
+    }
+  }
+};
 
 const Footer = () => {
   const pathname = usePathname();
@@ -91,41 +137,65 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex flex-col gap-y-4">
-          <div>
-            <p className="text-white dark:text-white text-sm font-normal italic">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{once: true, amount: 0.3}}
+          >
+            <motion.p
+              className="text-white dark:text-white text-sm font-normal italic"
+              variants={textVariants}
+            >
               &quot;{t('footerSection.descFooter')}​&quot;
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </div>
       </div>
       <div className="flex flex-col gap-y-10 px-6 py-4 xs:px-8 sm:px-24 sm:py-4 bg-slate-50 shadow-xl">
         <div className="flex flex-row justify-between items-center">
-          <h6 className={`text-gray-600 dark:text-white text-xs`}>
-            <span>&#64;</span> 2025 Human Initiative. All rights reserved
-          </h6>
-          <div className="flex flex-row">
-            <span className={`px-1`}>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{once: true, amount: 0.3}}
+          >
+            <motion.h6
+              className={`text-gray-600 dark:text-white text-xs`}
+              variants={buttonVariantsLeft}
+            >
+              <span>&#64;</span> 2025 Human Initiative. All rights reserved
+            </motion.h6>
+          </motion.div>
+          <motion.div
+            className="flex flex-row"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{once: true, amount: 0.3}}
+          >
+            <motion.span className={`px-1`} variants={buttonVariants}>
               <FaWhatsapp className="text-green-500 w-6 h-6" />
-            </span>
-            <span className={`px-1`}>
+            </motion.span>
+            <motion.span className={`px-1`} variants={buttonVariants}>
               <FaInstagram className="text-pink-500 w-6 h-6" />
-            </span>
-            <span className={`px-1`}>
+            </motion.span>
+            <motion.span className={`px-1`} variants={buttonVariants}>
               <AiOutlineYoutube className="text-red-500 w-6 h-6" />
-            </span>
-            <span className={`px-1`}>
+            </motion.span>
+            <motion.span className={`px-1`} variants={buttonVariants}>
               <FaTiktok className="text-black w-6 h-6" />
-            </span>
-            <span className={`px-1`}>
+            </motion.span>
+            <motion.span className={`px-1`} variants={buttonVariants}>
               <FaLinkedinIn className="text-[#0277b5] w-6 h-6" />
-            </span>
-            <span className={`px-1`}>
+            </motion.span>
+            <motion.span className={`px-1`} variants={buttonVariants}>
               <FaXTwitter className="text-black w-6 h-6" />
-            </span>
-            <span className={`px-1`}>
+            </motion.span>
+            <motion.span className={`px-1`} variants={buttonVariants}>
               <FaFacebookF className="text-[#0766ff] w-6 h-6" />
-            </span>
-          </div>
+            </motion.span>
+          </motion.div>
         </div>
       </div>
     </footer>

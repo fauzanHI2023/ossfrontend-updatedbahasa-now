@@ -16,7 +16,9 @@ const OurProgram = () => {
     AOS.init();
   }, []);
   return (
-    <section className={`relative flex flex-col w-full sm:px-32 sm:py-20 p-6`}>
+    <section
+      className={`relative bg-[#f3f7fa] flex flex-col w-full sm:px-32 sm:py-20 p-6`}
+    >
       <div
         dir={isRTL ? 'rtl' : 'ltr'}
         className={`flex flex-col sm:flex-row ${isRTL ? 'flex-col sm:flex-row' : ''} sm:pb-20 pb-12`}
@@ -57,7 +59,7 @@ const OurProgram = () => {
           data-aos-duration="1000"
         >
           <iframe
-            width="520"
+            width="100%"
             height="300"
             src="https://www.youtube.com/embed/2K6drhGq198"
             title="25 Tahun Human Initiative - Collective Kindness"
@@ -75,21 +77,29 @@ const OurProgram = () => {
               key={index}
               data-aos="fade-up"
               data-aos-duration="800"
-              className="rounded-xl bg-slate-100 dark:hover:bg-slate-800 hover:bg-slate-200 transition duration-300 ease-in dark:bg-slate-900 sm:pb-0 pb-6"
+              className="flex flex-col rounded-xl bg-white transition duration-300 ease-in dark:bg-slate-900 sm:pb-0 p-2"
             >
-              <div className="flex flex-col justify-between items-center gap-y-4 py-4 px-6 rounded-xl h-full">
-                <div className="flex flex-col justify-center items-center">
-                  <div className="pb-4 text-4xl text-sky-300">
+              <div className="bg-[#e1f3ff] flex flex-col justify-start items-start gap-y-4 py-6 px-4 rounded-xl h-full">
+                <div className="flex flex-col justify-start items-start">
+                  {/* <div className="pb-4 text-4xl text-sky-300">
                     {program.icon}
+                  </div> */}
+                  <div className="flex flex-row justify-between items-center">
+                    <h3 className="w-8/12 flex items-start sm:text-xl text-lg font-semibold sm:pb-6 pb-3 h-[70px]">
+                      {tp('title')}
+                    </h3>
+                    <span className="w-4/12 bg-white rounded-full w-8 h-8 flex justify-center items-center">
+                      <i className="text-sky-500 w-6 h-6">{program.icon}</i>
+                    </span>
                   </div>
-                  <h3 className="flex items-center sm:text-xl text-lg text-center font-semibold sm:pb-6 pb-3 h-[70px]">
-                    {tp('title')}
-                  </h3>
-                  <p className="text-sm text-center">{tp('desc')}</p>
+                  <p className="text-sm">{tp('desc')}</p>
                 </div>
+              </div>
+              <div className="w-full flex flex-row justify-between items-center pt-4 pb-2">
+                <h6 className="text-slate-700">Explore</h6>
                 <Link
                   href={program.url}
-                  className="flex flex-row items-start w-[40px] bg-slate-100 dark:bg-slate-800 rounded-lg p-2 text-2xl transition hover:w-full dark:hover:bg-slate-700 hover:bg-sky-500 hover:text-white overflow-hidden relative"
+                  className="flex flex-row items-start w-[40px] bg-slate-100 dark:bg-slate-800 rounded-lg p-2 text-2xl transition"
                 >
                   <FaArrowRightLong className="w-16 transition duration-300" />
                 </Link>

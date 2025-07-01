@@ -18,7 +18,8 @@ export default {
       backgroundImage: {
         'hero-career-details': `url('../../public/career-details.png')`,
         'hero-pattern': `url('../../public/banner.png')`,
-        'hero-white': `url('../../public/Frame 1 (2).png')`,
+        'hero-white': `url('../../public/Hero Banner Home.png')`,
+        'hero-impact': `url('../../public/IMG_8270.jpg')`,
         'hero-donate-dark': `url('../../public/Wireframe - 4 (1).png')`,
         'hero-donate-white': `url('../../public/Wireframe - 4.png')`,
         'logo-white': `url('../../public/logo-footer-white.png')`,

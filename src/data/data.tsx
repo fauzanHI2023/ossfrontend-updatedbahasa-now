@@ -9,6 +9,10 @@ import {GiDrawbridge} from 'react-icons/gi';
 import {RxDashboard} from 'react-icons/rx';
 import {BsBasket2Fill} from 'react-icons/bs';
 import type {ReactElement} from 'react';
+import {GiCow} from 'react-icons/gi';
+import {Banknote, FileChartLine, HandHelping, ListChecks} from 'lucide-react';
+import {GiTakeMyMoney} from 'react-icons/gi';
+import Image from 'next/image';
 
 export const menuItems = [
   // {
@@ -219,22 +223,22 @@ export interface programCard {
 
 export const programCard: programCard[] = [
   {
-    icon: <MdFlood />,
+    icon: <MdFlood className="w-6 h-6" />,
     namespace: 'cardInitiativeforDisaster',
     url: '/whatwedo/initiativefordisaster'
   },
   {
-    icon: <FaChildren />,
+    icon: <FaChildren className="w-6 h-6" />,
     namespace: 'cardInitiativeforChildren',
     url: '/whatwedo/initiativeforchildren'
   },
   {
-    icon: <SiPowers />,
+    icon: <SiPowers className="w-6 h-6" />,
     namespace: 'cardInitiativeforEmpowerment',
     url: '/whatwedo/initiativeforempowerment'
   },
   {
-    icon: <GiDrawbridge />,
+    icon: <GiDrawbridge className="w-6 h-6" />,
     namespace: 'cardInitiativeforInfrastructure',
     url: '/whatwedo/infrastructureprogram'
   }
@@ -249,16 +253,25 @@ interface summaryDashboard {
 export const summaryDashboard = [
   {
     icon: (
-      <MdHistory className="w-full text-sky-300 dark:text-sky-400" size={60} />
+      <Image
+        src="/social-care.png"
+        alt="Pengajuan Bantuan"
+        width={120}
+        height={120}
+        className="w-[110px] h-[110px] z-[10]"
+      />
     ),
     label: 'Pengajuan Bantuan',
     angka: '100'
   },
   {
     icon: (
-      <TbReportMoney
-        className="w-full text-sky-300 dark:text-sky-400"
-        size={60}
+      <Image
+        src="/transaction-history.png"
+        alt="Transaksi Human Initiative"
+        width={120}
+        height={120}
+        className="w-[110px] h-[110px] z-[10]"
       />
     ),
     label: 'Transaksi',
@@ -266,16 +279,25 @@ export const summaryDashboard = [
   },
   {
     icon: (
-      <FaDonate className="w-full text-sky-300 dark:text-sky-400" size={60} />
+      <Image
+        src="/donate.png"
+        alt="Donasi Human Initiative"
+        width={120}
+        height={120}
+        className="w-[110px] h-[110px] z-[10]"
+      />
     ),
     label: 'Donasi',
     angka: 'Rp 8.000.000'
   },
   {
     icon: (
-      <BsBasket2Fill
-        className="w-full text-sky-300 dark:text-sky-400"
-        size={60}
+      <Image
+        src="/head.png"
+        alt="Qurban Human Initiative"
+        width={120}
+        height={120}
+        className="w-[110px] h-[110px] z-[10]"
       />
     ),
     label: 'Qurban',

@@ -4,10 +4,12 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import {motion} from 'framer-motion';
 import {HeroHighlight} from '@/components/ui/hero-highlight';
-import WorldMap from '@/components/ui/world-map';
+// import WorldMap from '@/components/ui/world-map';
 import {useLocale, useTranslations} from 'next-intl';
 import CountUp from '@/components/ui/count-up';
 import {impactUpdated} from '@/data/data';
+import WorldMap from '../../maps/worldmapshome';
+import {HandHelping, ListTodo, Banknote, UsersRound} from 'lucide-react';
 
 const OurImpact: React.FC = () => {
   const t = useTranslations();
@@ -18,16 +20,16 @@ const OurImpact: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative flex flex-col w-full py-12 px-24 p-6">
-      <div className="flex flex-col">
+    <div className="relative flex flex-col w-full py-12 px-24 p-6 bg-hero-impact bg-center ">
+      <div className="flex flex-col backdrop-blur-sm bg-white/50 p-16 rounded-tr-3xl rounded-tl-3xl">
         <div className="flex sm:flex-row flex-col sm:pb-4 pb-4">
           <h5
-            className="text font-bold sm:text-3xl text-2xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4"
+            className="text font-semibold sm:text-3xl text-2xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4"
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="700"
           >
-            <span className="text-sky-500">{t('SectionThreeHome.title')}</span>{' '}
+            <span>{t('SectionThreeHome.title')}</span>{' '}
             {t('SectionThreeHome.titlenext')}
           </h5>
           <p
@@ -40,11 +42,11 @@ const OurImpact: React.FC = () => {
           </p>
         </div>
         <div className="flex justify-start items-center gap-x-4 py-6">
-          <h5 className="text-sky-700 text-base font-lg">Select Year</h5>
+          <h5 className="text-gray-900 text-base font-lg">Select Year</h5>
           <form action="" className="pr-2">
             <select
               defaultValue="Pilih Tahun"
-              className="bg-gray-100 text-slate-700 py-2 px-6 mr-2 rounded-xl"
+              className="bg-white text-slate-700 py-2 px-6 mr-2 rounded-xl"
             >
               <option value="2025">2025</option>
               <option value="2024">2024</option>
@@ -55,29 +57,66 @@ const OurImpact: React.FC = () => {
             </select>
           </form>
         </div>
-        <div className="flex flex-col sm:flex-row ">
-          <div className="w-1/4 flex flex-col gap-x-4">
-            <h5 className="totaldata text-sky-500 font-bold text-3xl">
-              3.783.423
+        <div className="flex flex-col sm:flex-row gap-x-8">
+          <div className="w-1/4 flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
+            <span>
+              <UsersRound className="w-14 h-14 text-sky-600" />
+            </span>
+            <h5 className="totaldata text-slate-700 font-semibold text-3xl">
+              <CountUp
+                from={0}
+                to={3783423}
+                separator=","
+                direction="up"
+                duration={0.2}
+                className="count-up-text"
+              />
             </h5>
-            <h6 className="dark:text-white text-slate-800 font-semibold text-base">
+            <h6 className="dark:text-white text-slate-800 font-medium text-base">
               Rightholders
             </h6>
           </div>
-          <div className="w-1/4 flex flex-col gap-x-4">
-            <h5 className="totaldata text-sky-500 font-bold text-3xl">3200</h5>
-            <h6 className="dark:text-white text-slate-800 font-semibold text-base">
+          <div className="w-1/4 flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
+            <span>
+              <HandHelping className="w-14 h-14 text-sky-600" />
+            </span>
+            <h5 className="totaldata text-slate-700 font-semibold text-3xl">
+              <CountUp
+                from={0}
+                to={3200}
+                separator=","
+                direction="up"
+                duration={0.2}
+                className="count-up-text"
+              />
+            </h5>
+            <h6 className="dark:text-white text-slate-800 font-medium text-base">
               Volunteer
             </h6>
           </div>
-          <div className="w-1/4 flex flex-col gap-x-4">
-            <h5 className="totaldata text-sky-500 font-bold text-3xl">100+</h5>
-            <h6 className="dark:text-white text-slate-800 font-semibold text-base">
+          <div className="w-1/4 flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
+            <span>
+              <ListTodo className="w-14 h-14 text-sky-600" />
+            </span>
+            <h5 className="totaldata text-slate-700 font-semibold text-3xl">
+              <CountUp
+                from={0}
+                to={100}
+                separator=","
+                direction="up"
+                duration={0.2}
+                className="count-up-text"
+              />
+            </h5>
+            <h6 className="dark:text-white text-slate-800 font-medium text-base">
               Programs
             </h6>
           </div>
-          <div className="w-1/4 flex flex-col gap-x-4">
-            <h5 className="totaldata text-sky-500 font-semibold text-3xl">
+          <div className="w-1/4 flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
+            <span>
+              <Banknote className="w-14 h-14 text-sky-600" />
+            </span>
+            <h5 className="totaldata text-slate-700 font-semibold text-3xl">
               <CountUp
                 from={0}
                 to={113969507912}
@@ -87,15 +126,15 @@ const OurImpact: React.FC = () => {
                 className="count-up-text"
               />
             </h5>
-            <h6 className="dark:text-white text-slate-800 font-semibold text-base">
+            <h6 className="dark:text-white text-slate-800 font-medium text-base">
               Donations Distributed
             </h6>
           </div>
         </div>
         <div className="relative flex justify-center"></div>
       </div>
-      <div className="py-10 sm:py-10 dark:bg-slate-900 bg-white w-full">
-        <WorldMap
+      <div className="py-4 sm:py-4 dark:bg-slate-900 bg-white rounded-br-3xl rounded-bl-3xl w-full">
+        {/* <WorldMap
           dots={[
             {
               start: {
@@ -136,7 +175,8 @@ const OurImpact: React.FC = () => {
               end: {lat: 38.0, lng: -75.0, label: 'Amerika Serikat'} // Amerika Serikat
             }
           ]}
-        />
+        /> */}
+        <WorldMap />
       </div>
     </div>
   );

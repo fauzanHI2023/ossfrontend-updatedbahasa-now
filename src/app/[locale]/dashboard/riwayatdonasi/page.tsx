@@ -16,6 +16,7 @@ import {
 import {useSession} from 'next-auth/react';
 import Image from 'next/image';
 import {useTranslations} from 'next-intl';
+import Link from 'next/link';
 
 interface Transaction {
   product_img: string;
@@ -100,7 +101,7 @@ const RiwayatDonasi: React.FC = () => {
 
   return (
     <DashboardLayout>
-      <main className="flex min-h-screen flex-col px-16 py-12">
+      <main className="flex min-h-screen flex-col px-16 pt-12">
         <div className="box p-6 flex flex-col gap-y-5 rounded-3xl dark:bg-slate-900 bg-white">
           <h5 className="text-xl font-bold">History Donasi</h5>
           <Tabs defaultValue="pending" className="w-full">
@@ -123,7 +124,7 @@ const RiwayatDonasi: React.FC = () => {
                   {pendingTransactions.map((transaction, index) => (
                     <div
                       key={index}
-                      className="flex flex-row w-full gap-x-8 transaction-item"
+                      className="flex flex-row w-full gap-x-6 transaction-item"
                     >
                       <div className="flex w-1/12">
                         <Image
@@ -139,27 +140,48 @@ const RiwayatDonasi: React.FC = () => {
                           <p className="w-3/5 font-semibold text-base text-gray-700 dark:text-white overflow-hidden h-auto">
                             {transaction.name}
                           </p>
-                          <p className="text-sm px-4 py-2 text-sm rounded-3xl text-center dark:bg-slate-800 text-sky-500 font-bold">
+                          <p className="text-sm px-4 py-2 rounded-3xl text-center dark:bg-slate-800 text-sky-500 font-normal">
                             pending
                           </p>
                         </div>
                         <div className="flex flex-row justify-between items-center w-full">
-                          <p className="text-blue-500 capitalize">
+                          {/* <p className="text-blue-500 capitalize">
                             {transaction.transaction_number}
-                          </p>
+                          </p> */}
                           <p className="text-stone-400">
                             {transaction.transaction_time}
                           </p>
                           <p className="text-stone-600 dark:text-slate-300">
                             {transaction.total_amount}
                           </p>
+                          <div className="flex flex-row justify-center items-center gap-x-2">
+                            <Link
+                              href="#"
+                              className="bg-slate-50 border border-slate-500 rounded-xl px-3 py-2 text-sm text-slate-500"
+                            >
+                              Lihat Semua
+                            </Link>
+                            <Link
+                              href="#"
+                              className="bg-blue-50 border border-blue-500 rounded-xl px-3 py-2 text-sm text-blue-500"
+                            >
+                              Konfirmasi Pembayaran
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p>No pending transactions</p>
+                <div className="flex flex-col justify-center items-center h-80">
+                  <span>
+                    <BookCheck className="h-24 w-24 text-slate-400" />
+                  </span>
+                  <h5 className="text-sky-600 font-semibold text-base">
+                    No Transactions
+                  </h5>
+                </div>
               )}
             </TabsContent>
             <TabsContent value="confirmed" className="mt-3">
@@ -233,9 +255,15 @@ const RiwayatDonasi: React.FC = () => {
                           <p className="w-3/5 font-semibold text-base text-gray-700 dark:text-white overflow-hidden">
                             {transaction.name}
                           </p>
-                          <p className="text-sm px-4 py-2 text-sm rounded-3xl text-center dark:bg-slate-800 text-sky-500 font-bold">
+                          {/* <p className="text-sm px-4 py-2 text-sm rounded-3xl text-center dark:bg-slate-800 text-sky-500 font-bold">
                             cancel
-                          </p>
+                          </p> */}
+                          <Link
+                            href="#"
+                            className="bg-blue-600 rounded-xl px-3 py-2 text-sm text-white"
+                          >
+                            Donasi Ulang
+                          </Link>
                         </div>
                         <div className="flex flex-row justify-between items-center w-full">
                           <p className="text-blue-500 capitalize">

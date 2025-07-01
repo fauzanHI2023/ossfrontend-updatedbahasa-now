@@ -137,12 +137,12 @@ const RegisterPage = () => {
   };
 
   return (
-    <main className="flex min-h-[800px] flex-col bg-slate-100 dark:bg-slate-800 justify-center items-center">
-      <Link
+    <main className="flex h-full flex-col bg-slate-100 dark:bg-slate-800 justify-center items-center">
+      {/* <Link
         href="/"
         className="bg-logo-blue w-32 h-12 bg-no-repeat bg-contain flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
-      ></Link>
-      <div className="sm:w-[400px] md:w-2/5 flex flex-row dark:bg-slate-900 dark:bg-slate-900 bg-white border-0 rounded-3xl sm:p-20 md:p-10 h-auto my-6">
+      ></Link> */}
+      <div className="sm:w-[400px] md:w-2/5 flex flex-row dark:bg-slate-900 dark:bg-slate-900 bg-white border-0 rounded-3xl sm:p-20 md:p-10 h-auto my-28">
         {!registrationType && (
           <div className="w-full flex flex-col mt-3 gap-y-3 justify-around items-center md:my-16 sm:my-8 p-4">
             <div className="flex flex-col justify-center items-start gap-y-3 w-full">

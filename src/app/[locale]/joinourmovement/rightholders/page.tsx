@@ -1,11 +1,8 @@
 'use client';
 import React, {useState, useEffect, CSSProperties} from 'react';
-import Banner from '@/components/ui/banner/Banner';
 import {MoveRight} from 'lucide-react';
-import {rightHolders} from '@/data/data';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import Link from 'next/link';
 import Image from 'next/image';
 import {motion} from 'framer-motion';
 import {TextGenerateEffect} from '@/components/ui/text-generate-effect';
@@ -16,8 +13,6 @@ import {GlowingEffect} from '@/components/ui/glowing-effect';
 import {CalendarDays} from 'lucide-react';
 import HashLoader from 'react-spinners/HashLoader';
 import {useTranslations} from 'next-intl';
-
-const wordFlips = `Be Part of the Change with Us`;
 
 const override: CSSProperties = {
   display: 'block',
@@ -38,7 +33,7 @@ const Rightholders = () => {
   const [step, setStep] = useState(1);
   const [showIframe, setShowIframe] = useState(false);
   const [iframeUrl, setIframeUrl] = useState('');
-  let [color, setColor] = useState('#209ce2');
+  const [color, _setColor] = useState('#209ce2');
 
   useEffect(() => {
     const interval = setInterval(() => {

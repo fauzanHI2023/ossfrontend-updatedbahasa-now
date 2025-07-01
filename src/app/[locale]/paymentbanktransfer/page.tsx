@@ -2,18 +2,16 @@
 
 import React, {useEffect, useState, CSSProperties} from 'react';
 import {useSearchParams} from 'next/navigation';
-import {FaClock, FaRegCopy} from 'react-icons/fa';
+import {FaClock as _FaClock, FaRegCopy} from 'react-icons/fa';
 import {FaClipboardCheck} from 'react-icons/fa6';
 import PopupNotif from '@/components/ui/utility/PopupNotif';
 import Countdown from 'react-countdown';
 import {fetchConfirmStatus} from '@/lib/donation/payment/auth-confirm-payment';
-import {MdConfirmationNumber} from 'react-icons/md';
 import HashLoader from 'react-spinners/HashLoader';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Link from 'next/link';
 import Image from 'next/image';
-import TransactionCountdown from '@/components/ui/utility/TransactionCountdown';
 
 const override: CSSProperties = {
   display: 'block',
@@ -28,8 +26,8 @@ const PaymentBankTransfer: React.FC = () => {
   const [notifMessage, setNotifMessage] = useState('');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [isConfirming, setIsConfirming] = useState<boolean>(false);
-  let [color, setColor] = useState('#209ce2');
+  const [_isConfirming, setIsConfirming] = useState<boolean>(false);
+  const [color, _setColor] = useState('#209ce2');
 
   const formatToRupiah = (
     amount: number
@@ -75,7 +73,9 @@ const PaymentBankTransfer: React.FC = () => {
             setError(data.message);
           }
         } catch (error) {
-          setError('Error fetching transaction details');
+          const message =
+            error instanceof Error ? error.message : 'Unknown error occurred';
+          setError(`Error fetching transaction details: ${message}`);
         } finally {
           setLoading(false);
         }
@@ -105,7 +105,11 @@ const PaymentBankTransfer: React.FC = () => {
         setNotifMessage(response.message || 'Gagal mengonfirmasi pembayaran.');
       }
     } catch (error) {
-      setNotifMessage('Terjadi kesalahan saat konfirmasi pembayaran.');
+      const message =
+        error instanceof Error ? error.message : 'Unknown error occurred';
+      setNotifMessage(
+        `Terjadi kesalahan saat konfirmasi pembayaran: ${message}`
+      );
     } finally {
       setIsConfirming(false);
     }
@@ -269,31 +273,35 @@ const PaymentBankTransfer: React.FC = () => {
                 className="flex flex-col relative justify-center items-center gap-2"
               >
                 <div className="flex flex-col relative justify-center items-center py-4">
-                  <MdConfirmationNumber
-                    size={24}
-                    className="text-sky-700 text-2xl w-20 h-20"
-                    data-aos="fade-down"
+                  <Image
+                    src="/wired-flat-37-approve-checked-simple-hover-pinch.gif" // atau .webp
+                    alt="Animate Human Initiative"
+                    width={200}
+                    height={200}
+                    unoptimized // tambahkan ini khusus untuk .gif agar animasi tidak rusak
                   />
                   <h5 className="text-sm font-medium text-slate-400">
                     Your transaction will be confirmed soon
                   </h5>
                   <div className="flex flex-row justify-center items-center mb-3">
-                    <h1 className="text-2xl font-bold dark:text-sky-600 text-sky-800">
+                    <h1 className="text-2xl font-bold dark:text-sky-600 text-slate-800">
                       Thank you {transactionDetails.full_name}
                     </h1>
                   </div>
                   <div className="flex flex-col gap-y-4 mb-6">
                     <div className="flex flex-row w-full justify-center items-center text-slate-500 dark:text-white">
-                      <span className="mr-2 text-sm font-base dark:text-white">
-                        Your Transaction ID
+                      <span className="mr-2 text-sm font-base text-gray-500 dark:text-white">
+                        Transaction ID
                       </span>
-                      <span>{transactionDetails.transaction_no}</span>
+                      <span className="text-sm font-semibold">
+                        {transactionDetails.transaction_no}
+                      </span>
                     </div>
                   </div>
                   <div className="flex flex-row w-full justify-center items-center">
-                    <span className="text-3xl text-slate-800 font-bold">
+                    <span className="text-3xl text-sky-600 font-bold">
                       {formatToRupiah(Number(transactionDetails.amount)).main}
-                      <span className="text-slate-800">
+                      <span className="text-sky-600">
                         {
                           formatToRupiah(Number(transactionDetails.amount))
                             .lastThree
@@ -308,7 +316,7 @@ const PaymentBankTransfer: React.FC = () => {
                     Go Home
                   </Link>
                 </div>
-                <div className="fixed bottom-0 text-sm text-slate-700 flex flex-row justify-center py-2 px-4 gap-x-1 w-full bg-gradient-to-l from-sky-200 to-blue-300">
+                <div className="fixed bottom-0 text-sm text-slate-700 flex flex-row justify-center py-2 px-4 gap-x-1 w-full bg-sky-200">
                   <p>If you want to see your transaction history, please</p>
                   <Link
                     href="/login"

@@ -8,7 +8,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger
-} from '@/components/ui/tabs-fe';
+} from '@/components/ui/tabs-program';
 import {
   BookCheck,
   ListChecks,
@@ -29,6 +29,7 @@ import {fetchListAppointmentbyUser} from '@/lib/project/auth-list-appointment-by
 import {postAppointment} from '@/lib/project/auth-post-appoinment';
 import HashLoader from 'react-spinners/HashLoader';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Dialog,
   DialogClose,
@@ -71,12 +72,12 @@ interface ListAppointment {
   end_date: string;
   status_id: number;
   status: string;
-  progran_name: string;
+  program_name: string;
 }
 
 const Page: React.FC = () => {
   const [errors, setError] = useState('');
-  let [color, setColor] = useState('#209ce2');
+  const [color, _setColor] = useState('#209ce2');
   const {data: session, status, update}: any = useSession();
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -91,14 +92,14 @@ const Page: React.FC = () => {
     data: appointments = [],
     isLoading: loadingAppointments,
     error: errorAppointments
-  } = useQuery<ListAppointment[]>({
+  } = useQuery<ListAppointment[], Error>({
     queryKey: ['appointments', session?.user?.phpDonorData?.[0]?.guid],
     queryFn: () =>
       fetchListAppointmentbyUser(session!.user.phpDonorData[0].guid),
     enabled: !!session?.user?.phpDonorData?.[0]?.guid
   });
 
-  const csrStatus = session?.user?.csr_status;
+  const csrStatus = session?.user?.phpDonorData?.[0]?.csr_status;
 
   const handleActivateCSR = async () => {
     setError(''); // Clear previous errors
@@ -118,7 +119,7 @@ const Page: React.FC = () => {
         }
       );
 
-      const data = await response.json();
+      const _data = await response.json();
       // console.log("Response status:", response.status);
       // console.log("Response data:", data);
 
@@ -132,7 +133,9 @@ const Page: React.FC = () => {
         csr_status: 1
       });
     } catch (error) {
-      setError('An error occurred while updating data');
+      const message =
+        error instanceof Error ? error.message : 'Unknown error occurred';
+      setError(`An error occurred while updating data: ${message}`);
     }
   };
 
@@ -203,27 +206,63 @@ const Page: React.FC = () => {
 
   return (
     <DashboardLayout>
-      <main className="flex min-h-screen flex-col px-16 py-12">
+      <main className="flex h-full flex-col px-16 py-12 pb-0">
         <div className="box flex flex-col gap-y-5 rounded-3xl dark:bg-slate-900 bg-white">
           {csrStatus === 0 || csrStatus === null ? (
-            <div className="status-denied">
-              <button onClick={handleActivateCSR}>
-                Apakah anda ingin mengaktifkan fitur CSR?
-              </button>
+            <div className="status-denied h-full p-6 flex justify-center items-center">
+              <div className="w-full rounded-3xl flex flex-row justify-center items-center bg-gradient-to-r to-sky-400 from-blue-400 px-8 py-12">
+                <div className="flex flex-col gap-y-5 w-2/3">
+                  <h3 className="text-white font-bold text-2xl">
+                    Mari wujudkan perubahan bersama.
+                  </h3>
+                  <p className="text-white font-medium text-base">
+                    Aktifkan CSR dan jadilah bagian dari solusi sosial melalui
+                    program kolaboratif antara lembaga Anda dan platform kami.
+                  </p>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="w-2/3 text-white backdrop-opacity-10 backdrop-invert bg-slate-900/30 drop-shadow-xl rounded-xl text-sm font-normal py-2 px-3 ">
+                        Apakah anda ingin mengaktifkan fitur CSR?
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>CSR Activation</DialogTitle>
+                      </DialogHeader>
+                      <h4 className="text-slate-600 py-2 px-3">
+                        Anda ingin mengaktifkan fitur CSR?
+                      </h4>
+                      <DialogFooter>
+                        <DialogClose asChild>
+                          <Button variant="outline">Cancel</Button>
+                        </DialogClose>
+                        <Button type="submit" onClick={handleActivateCSR}>
+                          Yes
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+                <div className="w-1/3">
+                  <Image
+                    src="/corporate-social-responsibility (1).png"
+                    width={280}
+                    height={270}
+                    alt="CSR Human Initiative"
+                  />
+                </div>
+              </div>
               {error && <p className="text-red-500">{errors}</p>}
             </div>
           ) : (
             <div className="status-open">
               <Tabs defaultValue="program" className="w-full">
-                <TabsList className="w-full flex flex-row justify-start p-10">
+                <TabsList className="w-full flex flex-wrap p-4 pb-8">
                   <TabsTrigger value="program" className="w-1/3">
                     <BookCheck className="mr-2 h-4 w-4" /> Program
                   </TabsTrigger>
                   <TabsTrigger value="appointment" className="w-1/3">
                     <ListChecks className="mr-2 h-4 w-4" /> Appointment
-                  </TabsTrigger>
-                  <TabsTrigger value="riwayatprogram" className="w-1/3">
-                    <ListChecks className="mr-2 h-4 w-4" /> Programs Followed
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent
@@ -438,309 +477,96 @@ const Page: React.FC = () => {
                         {appointments.map((appointment: any, index: any) => (
                           <AccordionItem value={appointment.id} key={index}>
                             <AccordionTrigger className="flex flex-row justify-between items-starts rounded-xl bg-white dark:bg-slate-700 p-6">
-                              <h5 className="text-slate-700 dark:text-white font-semibold mb-1">
-                                {appointment.program_name}
-                              </h5>
-                              <h5 className="text-slate-700 dark:text-white font-semibold mb-1">
-                                {appointment.date}
-                              </h5>
-                              <p className="text-slate-500 dark:text-slate-300 text-sm">
-                                {appointment.status.status}
-                              </p>
+                              <div className="flex flex-row gap-x-4">
+                                <span className="bg-cyan-100 p-3 rounded-3xl">
+                                  <ClipboardPlus className="text-cyan-500" />
+                                </span>
+                                <div className="flex flex-col justify-center items-start gap-x-1">
+                                  <h5 className="text-gray-600 text-sm">
+                                    {appointment.program_name}
+                                  </h5>
+                                  <p className="text-slate-400 text-xs">
+                                    {appointment.date}
+                                  </p>
+                                </div>
+                              </div>
+                              <div>
+                                <h5 className="text-slate-700 dark:text-white text-sm">
+                                  {appointment.status.status}
+                                </h5>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent className="flex flex-col items-center rounded-b-xl bg-white dark:bg-slate-700 p-6 border-t border-slate-200">
-                              <h5 className="text-slate-700 dark:text-white font-semibold mb-1">
-                                Date: {appointment.date}
-                              </h5>
-                              <p className="text-slate-500 dark:text-slate-300 text-sm">
-                                Place: {appointment.tempat}
-                              </p>
-                              <p className="text-slate-500 dark:text-slate-300 text-sm">
-                                Notes: {appointment.notes}
-                              </p>
-                              <p className="text-slate-400 dark:text-slate-400 text-xs mt-2">
-                                Created At: {appointment.created_at}
-                              </p>
+                              <div className="flex flex-row justify-between items-center w-full mb-8">
+                                <h5 className="text-slate-500 dark:text-sky-600 text-normal font-semibold">
+                                  Detail Program
+                                </h5>
+                                <button className="text-slate-500">
+                                  Selesai
+                                </button>
+                              </div>
+                              <div className="flex flex-wrap w-full">
+                                <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
+                                  <label className="text-slate-600 dark:text-white w-[150px]">
+                                    Nama Program
+                                  </label>
+                                  <h6 className="text-slate-800 dark:text-white">
+                                    {appointment.program_name}
+                                  </h6>
+                                </div>
+                                <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
+                                  <label className="text-slate-600 dark:text-white w-[150px]">
+                                    Tanggal Bertemu
+                                  </label>
+                                  <h6 className="text-slate-800 dark:text-white">
+                                    {appointment.date}
+                                  </h6>
+                                </div>
+                                <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
+                                  <label className="text-slate-600 dark:text-white w-[150px]">
+                                    Jenis Program
+                                  </label>
+                                  <h6 className="text-slate-800 dark:text-white">
+                                    Empowerment
+                                  </h6>
+                                </div>
+                                <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
+                                  <label className="text-slate-600 dark:text-white w-[150px]">
+                                    Status
+                                  </label>
+                                  <h6 className="text-slate-800 dark:text-white">
+                                    {appointment.status.status}
+                                  </h6>
+                                </div>
+                                <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
+                                  <label className="text-slate-600 dark:text-white w-[150px]">
+                                    Notes
+                                  </label>
+                                  <h6 className="text-sky-500 cursor-pointer">
+                                    {appointment.notes}
+                                  </h6>
+                                </div>
+                                <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
+                                  <label className="text-slate-600 dark:text-white w-[150px]">
+                                    File Proposal
+                                  </label>
+                                  <h6 className="text-sky-500 cursor-pointer">
+                                    Laporan.pdf
+                                  </h6>
+                                </div>
+                              </div>
+                              <div className="w-full flex justify-start items-center mt-4">
+                                <p className="text-slate-400 dark:text-white text-xs italic">
+                                  *Pengajuan tersimpan di database Human
+                                  Initiative
+                                </p>
+                              </div>
                             </AccordionContent>
                           </AccordionItem>
                         ))}
                       </Accordion>
                     )}
                   </TabsContent>
-                </TabsContent>
-                <TabsContent
-                  value="riwayatprogram"
-                  className="bg-[#f5f7fe] dark:bg-slate-800"
-                >
-                  <div className="flex flex-col gap-y-6 py-4 px-12 pb-12">
-                    <h6 className="text-slate-500 text-sm font-semibold">
-                      Program yang diikuti
-                    </h6>
-                    <div className="flex flex-col gap-y-6 ">
-                      <Accordion
-                        type="single"
-                        className="flex flex-col gap-y-6"
-                        collapsible
-                      >
-                        <AccordionItem value="item-1">
-                          <AccordionTrigger className="flex flex-row justify-between items-center rounded-xl bg-white dark:bg-slate-700 p-6">
-                            <div className="flex flex-row gap-x-4">
-                              <span className="bg-amber-100 p-3 rounded-3xl">
-                                <OctagonAlert className="text-amber-500" />
-                              </span>
-                              <div className="flex flex-col gap-x-1">
-                                <h5>Program 1</h5>
-                                <p className="text-slate-400 text-sm">
-                                  18 Juli, 2018
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <h5 className="text-slate-700 dark:text-white text-sm">
-                                Selesai
-                              </h5>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="flex flex-col items-center rounded-b-xl bg-white dark:bg-slate-700 p-6 border-t border-slate-200">
-                            <div className="flex flex-row justify-between items-center w-full mb-8">
-                              <h5 className="text-slate-500 dark:text-sky-600 text-normal font-semibold">
-                                Detail Program
-                              </h5>
-                              <button className="text-slate-500">
-                                Selesai
-                              </button>
-                            </div>
-                            <div className="flex flex-wrap w-full">
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Nama Program
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  Program 1
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Tanggal Bertemu
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  18 Juli 2018
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Jenis Program
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  Children
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Status
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  Selesai
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  File Proposal
-                                </label>
-                                <h6 className="text-sky-500 cursor-pointer">
-                                  Proposal.pdf
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Laporan
-                                </label>
-                                <h6 className="text-sky-500 cursor-pointer">
-                                  Laporan.pdf
-                                </h6>
-                              </div>
-                            </div>
-                            <div className="w-full flex justify-start items-center mt-4">
-                              <p className="text-slate-400 dark:text-white text-xs italic">
-                                *Pengajuan tersimpan di database Human
-                                Initiative
-                              </p>
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-2">
-                          <AccordionTrigger className="flex flex-row justify-between items-center rounded-xl bg-white dark:bg-slate-700 p-6">
-                            <div className="flex flex-row gap-x-4">
-                              <span className="bg-cyan-100 p-3 rounded-3xl">
-                                <ClipboardPlus className="text-cyan-500" />
-                              </span>
-                              <div className="flex flex-col gap-x-1">
-                                <h5>Program 2</h5>
-                                <p className="text-slate-400 text-sm">
-                                  18 Juli, 2018
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <h5 className="text-slate-700 dark:text-white text-sm">
-                                Belum Dihubungi
-                              </h5>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="flex flex-col items-center rounded-b-xl bg-white dark:bg-slate-700 p-6 border-t border-slate-200">
-                            <div className="flex flex-row justify-between items-center w-full mb-8">
-                              <h5 className="text-slate-500 text-normal font-semibold">
-                                Detail Program
-                              </h5>
-                              <button className="text-sky-500">
-                                Ubah Jadwal
-                              </button>
-                            </div>
-                            <div className="flex flex-wrap w-full">
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Nama Program
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  Program 2
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Tanggal Bertemu
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  18 Juli 2018
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Jenis Program
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  Infrastruktur
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Status
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  Belum Dihubungi
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  File Proposal
-                                </label>
-                                <h6 className="text-sky-500 cursor-pointer">
-                                  Proposal.pdf
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Laporan
-                                </label>
-                                <h6 className="text-slate-800">Belum Ada</h6>
-                              </div>
-                            </div>
-                            <div className="w-full flex justify-start items-center mt-4">
-                              <p className="text-slate-400 dark:text-white text-xs italic">
-                                *Donor melakukan review terhadap Proposal yang
-                                diajukan oleh Human Initiative
-                              </p>
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-3">
-                          <AccordionTrigger className="flex flex-row justify-between items-center rounded-xl bg-white dark:bg-slate-700 p-6">
-                            <div className="flex flex-row gap-x-4">
-                              <span className="bg-green-100 p-3 rounded-3xl">
-                                <BookCheck className="text-green-500" />
-                              </span>
-                              <div className="flex flex-col gap-x-1">
-                                <h5>Program 3</h5>
-                                <p className="text-slate-400 text-sm">
-                                  18 Juli, 2018
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <h5 className="text-slate-700 dark:text-white text-sm">
-                                Program Berlangsung
-                              </h5>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="flex flex-col items-center rounded-b-xl bg-white dark:bg-slate-700 p-6 border-t border-slate-200">
-                            <div className="flex flex-row justify-between items-center w-full mb-8">
-                              <h5 className="text-slate-500 text-normal font-semibold">
-                                Detail Program
-                              </h5>
-                              <button className="text-sky-500">
-                                Ubah Jadwal
-                              </button>
-                            </div>
-                            <div className="flex flex-wrap w-full">
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Nama Program
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  Program 3
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Tanggal Bertemu
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  18 Juli 2018
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Jenis Program
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  Disaster
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Status
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  Program Berlangsung
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  File Proposal
-                                </label>
-                                <h6 className="text-sky-500 cursor-pointer">
-                                  Proposal.pdf
-                                </h6>
-                              </div>
-                              <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
-                                <label className="text-slate-600 dark:text-white w-[150px]">
-                                  Laporan
-                                </label>
-                                <h6 className="text-slate-800 dark:text-white">
-                                  Tunggu sampai program selesai
-                                </h6>
-                              </div>
-                            </div>
-                            <div className="w-full flex justify-start items-center mt-4">
-                              <p className="text-slate-400 dark:text-white text-xs italic">
-                                *Human Initiative membuat pengajuan Proposal
-                                Program
-                              </p>
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
-                    </div>
-                  </div>
                 </TabsContent>
               </Tabs>
             </div>

@@ -84,7 +84,7 @@ const Page = () => {
               >
                 {qurbanDetails.map((detail: any, index: any) => (
                   <AccordionItem key={detail.id} value={`item-${index}`}>
-                    <AccordionTrigger className="flex flex-row justify-between items-starts rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 p-6">
+                    <AccordionTrigger className="flex flex-row justify-between items-starts rounded-3xl bg-blue-50 border border-blue-300 dark:bg-slate-800 p-6">
                       <div className="flex flex-row items-center gap-x-4">
                         <span className="bg-slate-100 p-1 rounded-3xl">
                           <GiCow className="text-sky-700 w-10 h-10 " />

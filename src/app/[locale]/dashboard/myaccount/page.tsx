@@ -6,8 +6,6 @@ import {useSession} from 'next-auth/react';
 import {Fragment, useState} from 'react';
 import ChangePassword from '@/components/account/ChangePassword'; // Import komponen ChangePassword
 
-type Props = {};
-
 type FieldValue = string | number | null | any[];
 
 interface Field {
@@ -25,7 +23,7 @@ const formatDate = (dateString: string): string => {
   return new Date(dateString).toLocaleDateString('id-ID', options);
 };
 
-const Page = (props: Props) => {
+const Page = () => {
   const session: any = useSession();
   const [isEditAkun, setisEditAkun] = useState(false);
   const [isEditProfil, setisEditProfil] = useState(false);
@@ -92,7 +90,7 @@ const Page = (props: Props) => {
 
   return (
     <DashboardLayout>
-      <main className="flex min-h-screen flex-col px-16 py-12 pb-0">
+      <main className="flex h-full flex-col px-16 py-12 pb-0">
         {isEditAkun ? (
           <EditAccount setisEditAkun={setisEditAkun} />
         ) : isEditProfil ? (

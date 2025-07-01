@@ -94,10 +94,10 @@ const LoginPage = () => {
   return (
     <main className="bg-gray-50">
       <div className="dark:bg-slate-900 bg-slate-100 justify-center items-center flex min-h-[800px] flex-col items-center">
-        <Link
+        {/* <Link
           href="/"
           className="bg-logo-blue w-32 h-12 bg-no-repeat bg-contain flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
-        ></Link>
+        ></Link> */}
         <div className="relative my-6 mx-auto w-1/3">
           <div className="border-0 rounded-3xl relative flex flex-col w-full bg-background outline-none focus:outline-none">
             <div className="flex flex-col items-start justify-between p-5 pt-10">

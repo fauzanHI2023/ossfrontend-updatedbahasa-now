@@ -15,6 +15,7 @@ import Cookies from 'js-cookie';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import Image from 'next/image';
+import {motion, AnimatePresence} from 'framer-motion';
 import {Variable} from 'lucide-react';
 import {TbShoppingCartOff, TbShoppingCartX} from 'react-icons/tb';
 import {CiWallet, CiBank, CiMobile3, CiViewList} from 'react-icons/ci';
@@ -25,6 +26,7 @@ import {
   AccordionTrigger
 } from '@/components/ui/accordion';
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
+import LoadingOverlay from '@/components/ui/utility/loading/LoadingOverlay';
 
 interface User {
   id: number;
@@ -68,6 +70,8 @@ const Checkout: React.FC = () => {
   const [notifMessage, setNotifMessage] = useState('');
   const [anonim, setAnonim] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
   const selectedChannel = paymentChannels.find(
     (channel) => channel.id === selectedPaymentChannel
   );
@@ -156,22 +160,6 @@ const Checkout: React.FC = () => {
     };
 
     fetchChannels();
-
-    const loadSnapScript = () => {
-      const script = document.createElement('script');
-      script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
-      script.setAttribute('data-client-key', 'SB-Mid-client-UF_dlhjGXoaigX0y');
-      script.async = true;
-      script.onload = () => {
-        console.log('Snap script loaded successfully.');
-      };
-      script.onerror = () => {
-        console.error('Failed to load Snap script.');
-      };
-      document.body.appendChild(script);
-    };
-
-    loadSnapScript();
   }, [status, session]);
 
   const handleDonateNow = async (event: React.FormEvent) => {
@@ -192,6 +180,8 @@ const Checkout: React.FC = () => {
         setNotifMessage('Pilih metode pembayaran terlebih dahulu.');
         return;
       }
+
+      setIsButtonLoading(true);
 
       // Tentukan endpoint berdasarkan metode pembayaran
       const isBankTransfer = selectedPayment.donation_payment_id === 1;
@@ -231,14 +221,22 @@ const Checkout: React.FC = () => {
           await fetchDeleteCart(cookiesId);
         }
         clearCart();
+
         // Navigasi berdasarkan metode pembayaran
-        if (isBankTransfer) {
-          router.push(
-            `/paymentbanktransfer?transaction_id=${data.transaction_id}`
-          );
-        } else {
-          router.push(data.flip_response.payment_url);
-        }
+        setTimeout(() => {
+          setShowOverlay(true);
+
+          // Setelah overlay muncul, delay sebelum redirect
+          setTimeout(() => {
+            if (isBankTransfer) {
+              router.push(
+                `/paymentbanktransfer?transaction_id=${data.transaction_id}`
+              );
+            } else {
+              router.push(data.flip_response.payment_url);
+            }
+          }, 2000);
+        }, 1500);
       } else {
         console.error('Error creating transaction:', data.message);
       }
@@ -518,7 +516,7 @@ const Checkout: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-[384px] flex flex-col h-full justify-between shadow-xl rounded-xl dark:bg-slate-800 bg-white p-6 mt-10">
+      <div className="w-[384px] flex flex-col h-full justify-between rounded-3xl dark:bg-slate-800 bg-white p-6 mt-10">
         <h1 className="text-lg font-semibold mb-6 text-sky-500">Checkout</h1>
         <div className="flex flex-col gap-y-1 mb-6">
           <p className="text-slate-800">Price Details</p>
@@ -546,12 +544,28 @@ const Checkout: React.FC = () => {
           <p>Total</p>
           <p>{formatPrice(calculateTotalPrice())}</p>
         </div>
-        <button
+        <AnimatePresence>{showOverlay && <LoadingOverlay />}</AnimatePresence>
+
+        <motion.button
           onClick={handleDonateNow}
-          className="bg-sky-950 hover:bg-sky-600 transition duration-200 text-white p-2 rounded w-full flex gap-x-2 justify-center items-center"
+          whileHover={{scale: 1.1}}
+          whileTap={{scale: 0.9}}
+          transition={{type: 'spring', stiffness: 400, damping: 10}}
+          disabled={isButtonLoading}
+          className="bg-sky-950 text-white p-2 rounded w-full flex gap-x-2 justify-center items-center"
         >
-          <FaOpencart /> Complete Donation
-        </button>
+          {isButtonLoading ? (
+            <motion.div
+              className="h-5 w-5 border-4 border-white border-t-transparent rounded-full animate-spin"
+              initial={{opacity: 0}}
+              animate={{opacity: 1}}
+            />
+          ) : (
+            <>
+              <FaOpencart /> Complete Donation
+            </>
+          )}
+        </motion.button>
       </div>
       <PopupNotif
         message={notifMessage}

@@ -155,7 +155,7 @@ const CSRServices = () => {
             className={`text-slate-800 dark:text-white font-semibold sm:text-[50px] text-2xl sm:w-1/3 w-full pr-3 sm:pb-0 pb-4 leading-tight`}
             data-aos="fade-up"
             data-aos-easing="linear"
-            data-aos-duration="750"
+            data-aos-duration="350"
           >
             Collaborative Impact{' '}
           </h4>
@@ -163,7 +163,7 @@ const CSRServices = () => {
             className="text-base text-gray-500 font-normal w-full leading-6"
             data-aos="fade-up"
             data-aos-easing="linear"
-            data-aos-duration="1750"
+            data-aos-duration="950"
           >
             Di tengah tantangan global, kolaborasi strategis penting untuk
             menciptakan perubahan nyata. Human Initiative mengajak berbagai
@@ -184,7 +184,7 @@ const CSRServices = () => {
               className="w-full text-base text-white font-normal w-full leading-6"
               data-aos="fade-up"
               data-aos-easing="linear"
-              data-aos-duration="1550"
+              data-aos-duration="1050"
             >
               Human Initiative membuka program kolaboratif yang menggalang
               berbagai sumber daya dan keahlian untuk menyelesaikan masalah
@@ -211,7 +211,7 @@ const CSRServices = () => {
             className="animation-word sm:w-1/2 w-full h-full relative"
             data-aos="fade-up"
             data-aos-easing="linear"
-            data-aos-duration="1750"
+            data-aos-duration="1550"
           >
             {showCollab ? (
               <motion.div
@@ -268,7 +268,7 @@ const CSRServices = () => {
               <h3
                 className="font-sm text-base w-full text-sky-500 text-center"
                 data-aos="fade-up"
-                data-aos-duration="750"
+                data-aos-duration="550"
               >
                 CSR Services
               </h3>
@@ -276,7 +276,7 @@ const CSRServices = () => {
             <h6
               className="font-medium sm:text-[60px] text-2xl leading-[50px] text-center dark:text-white text-gray-700"
               data-aos="fade-up"
-              data-aos-duration="1750"
+              data-aos-duration="1050"
             >
               Layanan Kami
             </h6>
@@ -285,13 +285,13 @@ const CSRServices = () => {
         <div
           className="flex flex-row gap-x-8 gap-y-8 py-4 px-6"
           data-aos="fade-up"
-          data-aos-duration="3000"
+          data-aos-duration="1550"
         >
           <Swiper
             slidesPerView={4}
             spaceBetween={30}
             autoplay={{
-              delay: 2500,
+              delay: 2000,
               disableOnInteraction: false
             }}
             pagination={{
@@ -401,15 +401,19 @@ const CSRServices = () => {
           </Swiper>
         </div>
       </section>
-      <section
+      <motion.section
         className={`transition duration-600 ease-in scroll-smooth relative flex flex-col w-full sm:px-32 sm:py-16 p-6 dark:bg-slate-950 bg-white`}
         id="section-project-browse"
+        initial={{opacity: 0, y: 50}}
+        whileInView={{opacity: 1, y: 0}}
+        transition={{duration: 0.6}}
+        viewport={{once: true}}
       >
         <div className="flex sm:flex-row flex-col pb-12">
           <h5
             className={`font-semibold sm:text-[54px] text-2xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4 leading-tight`}
             data-aos="fade-up"
-            data-aos-duration="750"
+            data-aos-duration="550"
           >
             Humanity Project <span className="text-sky-400">Browse</span>
           </h5>
@@ -426,7 +430,7 @@ const CSRServices = () => {
           <TabsList
             className="pb-6"
             data-aos="fade-up"
-            data-aos-duration="1750"
+            data-aos-duration="1550"
           >
             <TabsTrigger value="all">Lihat Semua</TabsTrigger>
             <TabsTrigger value="children">Children</TabsTrigger>
@@ -467,7 +471,7 @@ const CSRServices = () => {
             <ExpandableCardDemo />
           </TabsContent>
         </Tabs>
-      </section>
+      </motion.section>
       <PopupNotif
         message={notifMessage}
         duration={3000}

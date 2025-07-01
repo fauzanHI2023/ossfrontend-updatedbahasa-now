@@ -114,79 +114,41 @@ export const authOptions: NextAuthOptions = {
     }
   },
   callbacks: {
-    async signIn({account, profile}: any) {
-      if (account.provider === 'google') {
-        const user = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_API_URL}/login-api/get-logged-in-google`,
-          {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify({
-              email: profile.email
-            }),
-            cache: 'no-cache',
-            headers: {'Content-Type': 'application/json'}
-          }
-        );
-        const ress = await user.json();
-        if (!ress?.success) {
-          return false;
-        }
-        userDataGoogle = {
-          ...ress.user,
-          phpDonorData: ress.phpDonorData,
-          location: ress.location,
-          phones: ress.phones,
-          contactInformation: ress.contactInformation,
-          userType: ress.userType,
+    async signIn({account, profile, user}): Promise<boolean> {
+      if (!account || !profile) return false;
+      if (account.provider === 'google' || account.provider === 'azure-ad') {
+        const url =
+          account.provider === 'google'
+            ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/login-api/get-logged-in-google`
+            : `${process.env.NEXT_PUBLIC_BASE_API_URL}/login-api/get-logged-in-office`;
+
+        const res = await fetch(url, {
+          method: 'POST',
+          body: JSON.stringify({email: profile.email}),
+          headers: {'Content-Type': 'application/json'}
+        });
+
+        const data = await res.json();
+        if (!data?.success) return false;
+
+        // Simpan data ke `user` agar bisa diteruskan ke jwt()
+        user.name = data.user.full_name;
+        user.email = data.user.email;
+        user.image = null;
+        Object.assign(user, {
+          ...data.user,
+          phpDonorData: data.phpDonorData,
+          location: data.location,
+          phones: data.phones,
+          contactInformation: data.contactInformation,
+          userType: data.userType,
           signOutFromGoogle: false,
           randomKey: 'Random'
-        };
-        console.log('phpDonorData:', ress.phpDonorData);
-        return {
-          ...ress.user,
-          phpDonorData: ress.phpDonorData,
-          location: ress.location,
-          phones: ress.phones,
-          contactInformation: ress.contactInformation,
-          userType: ress.userType,
-          randomKey: 'Random'
-        };
-      } else if (account.provider === 'azure-ad') {
-        // Get logged-in user data from Azure AD
-        const user = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_API_URL}/login-api/get-logged-in-office`,
-          {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify({
-              email: profile.email
-            }),
-            cache: 'no-cache',
-            headers: {'Content-Type': 'application/json'}
-          }
-        );
-        const ress = await user.json();
-        if (!ress?.success) {
-          return false;
-        }
+        });
 
-        return {
-          ...ress.user,
-          phpDonorData: ress.phpDonorData,
-          location: ress.location,
-          phones: ress.phones,
-          contactInformation: ress.contactInformation,
-          userType: ress.userType,
-          randomKey: 'Random'
-        };
-      } else {
-        // Update userDataGoogle for non-Google sign-in
-        userDataGoogle = {
-          ...profile, // or whatever data you want to store
-          signOutFromGoogle: false
-        };
+        return true;
       }
+
       return true;
     },
     async session({session, token}: any) {
@@ -332,13 +294,36 @@ export const authOptions: NextAuthOptions = {
 
       // Regular token processing
       if (user) {
-        const u = user as unknown as any;
         return {
           ...token,
-          ...u,
-          ...userDataGoogle,
-          id: u.id,
-          randomKey: u.randomKey
+          name: user.full_name || user.name,
+          email: user.email,
+          image: user.image || null,
+          id: user.id,
+          guid: user.guid,
+          user_name: user.user_name,
+          passwd: user.passwd,
+          full_name: user.full_name,
+          user_status: user.user_status,
+          phone_id: user.phone_id,
+          register_date: user.register_date,
+          branch_id: user.branch_id,
+          is_new_task: user.is_new_task,
+          activkey: user.activkey,
+          parent_alias_id: user.parent_alias_id,
+          company_id: user.company_id,
+          auth_key: user.auth_key,
+          expired_key: user.expired_key,
+          deleted_by: user.deleted_by,
+          deleted_stamp: user.deleted_stamp,
+          _history: user._history,
+          phpDonorData: user.phpDonorData || [],
+          contactInformation: user.contactInformation || [],
+          phones: user.phones || [],
+          location: user.location || [],
+          userType: user.userType || '',
+          signOutFromGoogle: user.signOutFromGoogle || false,
+          randomKey: user.randomKey || ''
         };
       }
 

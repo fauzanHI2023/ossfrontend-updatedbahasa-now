@@ -27,8 +27,8 @@ export default function IndexPage() {
         <BannerHome />
         <OurProgram />
         <OurImpact />
-        <News />
         <FundProject />
+        <News />
         <CollectionsPublications />
       </main>
     </>

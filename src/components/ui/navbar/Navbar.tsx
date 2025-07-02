@@ -24,6 +24,8 @@ import {
 } from '@/components/ui/resizable-navbar';
 import {TfiMicrosoftAlt} from 'react-icons/tfi';
 import {FaApple} from 'react-icons/fa';
+import {motion, AnimatePresence} from 'framer-motion';
+import LoadingOverlay from '../utility/loading/LoadingOverlayLogin';
 
 const Navbar = () => {
   const router = useRouter();
@@ -38,6 +40,8 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showAccountDropdown, setShowAccountDropdown] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,6 +97,10 @@ const Navbar = () => {
 
   const handleLoginGoogle = async () => {
     try {
+      setIsButtonLoading(true);
+      setTimeout(() => {
+        setShowOverlay(true);
+      }, 1500);
       await signIn('google', {callbackUrl});
     } catch (error) {
       console.log(error);
@@ -296,6 +304,9 @@ const Navbar = () => {
         <>
           <div className="justify-center items-center flex overflow-x-hidden dark:bg-slate-800/75 bg-black/75 overflow-y-auto fixed inset-0 z-[100] outline-none focus:outline-none">
             <div className="relative my-6 mx-auto sm:w-96 w-3/4">
+              <AnimatePresence>
+                {showOverlay && <LoadingOverlay />}
+              </AnimatePresence>
               <div className="border-0 rounded-lg shadow-lg relative bg-background flex flex-col w-full outline-none focus:outline-none">
                 <div className="flex flex-col items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                   <button
@@ -361,12 +372,12 @@ const Navbar = () => {
                       Login
                     </button>
                     <div className="flex flex-row text-center my-4">
-                      <p className="text-stone-400 text-base">
+                      <p className="text-stone-400 text-sm">
                         Don&apos;t have an account yet?{' '}
                       </p>
                       <Link
                         href="/register"
-                        className="text-sky-500"
+                        className="text-sky-500 text-sm"
                         onClick={() => setShowModal(false)}
                       >
                         Register
@@ -375,11 +386,22 @@ const Navbar = () => {
                     <button
                       className="w-full border border-black px-4 py-3 flex flex-row items-center justify-center hover:bg-slate-900 hover:text-white transition duration-300 ease-in"
                       onClick={handleLoginGoogle}
+                      disabled={isButtonLoading}
                     >
-                      <span className="pr-2 text-xl">
-                        <FcGoogle />
-                      </span>
-                      Sign in with Google
+                      {isButtonLoading ? (
+                        <motion.div
+                          className="h-5 w-5 border-4 border-white border-t-transparent rounded-full animate-spin"
+                          initial={{opacity: 0}}
+                          animate={{opacity: 1}}
+                        />
+                      ) : (
+                        <>
+                          <span className="pr-2 text-xl">
+                            <FcGoogle />
+                          </span>
+                          Sign in with Google
+                        </>
+                      )}
                     </button>
                     <button
                       className="w-full border border-black px-4 py-3 flex flex-row items-center justify-center hover:bg-slate-900 hover:text-white transition duration-300 ease-in"

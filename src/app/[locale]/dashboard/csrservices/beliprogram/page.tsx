@@ -14,6 +14,7 @@ import {
   ListChecks,
   OctagonAlert,
   ClipboardPlus,
+  ClipboardCheck,
   BookmarkX,
   FileBarChart,
   Proportions
@@ -42,6 +43,7 @@ import {
 } from '@/components/ui/dialog';
 import {Button} from '@/components/ui/button';
 import Swal from 'sweetalert2';
+import {CalendarPicker} from '@/components/ui/utility/calendar/Calendar';
 
 const override: CSSProperties = {
   display: 'block',
@@ -80,6 +82,12 @@ const Page: React.FC = () => {
   const [color, _setColor] = useState('#209ce2');
   const {data: session, status, update}: any = useSession();
   const [userId, setUserId] = useState<string | null>(null);
+  const [step, setStep] = useState(1);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [place, setPlace] = useState('');
+  const [notes, setNotes] = useState('');
 
   useEffect(() => {
     if (status === 'authenticated' && session?.user?.phpDonorData?.length > 0) {
@@ -170,38 +178,59 @@ const Page: React.FC = () => {
     }
   });
 
-  const handleSubmitAppointment = (programId: string) => {
+  const handleSubmitAppointment = ({
+    programId,
+    selectedDate,
+    startTime,
+    endTime,
+    place,
+    notes
+  }: {
+    programId: string;
+    selectedDate: Date;
+    startTime: string;
+    endTime: string;
+    place: string;
+    notes: string;
+  }) => {
     if (!userId) {
       alert('User ID tidak ditemukan. Harap refresh atau login ulang.');
       return;
     }
 
-    const dateInput = document.getElementById('date') as HTMLInputElement;
-    const enddateInput = document.getElementById(
-      'end_date'
-    ) as HTMLInputElement;
-    const placeInput = document.getElementById('place') as HTMLInputElement;
-    const notesInput = document.getElementById('notes') as HTMLTextAreaElement;
-
-    if (!dateInput.value || !placeInput.value) {
-      alert('Silakan isi tanggal dan tempat terlebih dahulu.');
+    if (!selectedDate || !startTime || !endTime || !place) {
+      alert('Silakan lengkapi tanggal, jam, dan tempat terlebih dahulu.');
       return;
     }
 
-    const selectedDateTime = dateInput.value.replace('T', ' ') + ':00';
-    const selectedEndDateTime = enddateInput.value.replace('T', ' ') + ':00';
+    const dateStr = selectedDate.toISOString().split('T')[0]; // YYYY-MM-DD
+    const selectedDateTime = `${dateStr} ${startTime}:00`;
+    const selectedEndDateTime = `${dateStr} ${endTime}:00`;
 
     const appointmentData = {
-      user_id: userId, // Pakai nilai terbaru dari state
+      user_id: userId,
       proposal_id: programId,
       date: selectedDateTime,
       end_date: selectedEndDateTime,
-      tempat: placeInput.value,
-      notes: notesInput.value,
+      tempat: place,
+      notes,
       created_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
     };
 
-    mutation.mutate(appointmentData);
+    mutation.mutate(appointmentData, {
+      onSuccess: () => {
+        // Reset state dan step kembali ke awal
+        setStep(1);
+        setSelectedDate(null);
+        setStartTime('');
+        setEndTime('');
+        setPlace('');
+        setNotes('');
+      },
+      onError: () => {
+        alert('Gagal menyimpan janji temu, silakan coba lagi.');
+      }
+    });
   };
 
   return (
@@ -256,13 +285,13 @@ const Page: React.FC = () => {
             </div>
           ) : (
             <div className="status-open">
-              <Tabs defaultValue="program" className="w-full">
+              <Tabs defaultValue="appointment" className="w-full">
                 <TabsList className="w-full flex flex-wrap p-4 pb-8">
-                  <TabsTrigger value="program" className="w-1/3">
-                    <BookCheck className="mr-2 h-4 w-4" /> Program
-                  </TabsTrigger>
                   <TabsTrigger value="appointment" className="w-1/3">
                     <ListChecks className="mr-2 h-4 w-4" /> Appointment
+                  </TabsTrigger>
+                  <TabsTrigger value="program" className="w-1/3">
+                    <BookCheck className="mr-2 h-4 w-4" /> Program
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent
@@ -387,51 +416,145 @@ const Page: React.FC = () => {
                                         appointment first
                                       </DialogDescription>
                                     </DialogHeader>
+
                                     <div className="grid gap-4 py-4">
-                                      <div className="flex flex-col justify-center items-center gap-4">
-                                        <input
-                                          id="date"
-                                          type="datetime-local"
-                                          className="w-full border border-solid autofill:!bg-slate-950 border-[#919EAB52] px-2 pb-2 pt-4 rounded-lg placeholder:text-[#919EAB] dark:!bg-slate-950 bg-white dark:text-white text-slate-950 focus:border-sky-600 focus:outline-none transition duration-300 ease-in-out"
-                                          placeholder="Select Appointment Date"
-                                        />
-                                      </div>
-                                      <div className="flex flex-col justify-center items-center gap-4">
-                                        <input
-                                          id="end_date"
-                                          type="datetime-local"
-                                          className="w-full border border-solid autofill:!bg-slate-950 border-[#919EAB52] px-2 pb-2 pt-4 rounded-lg placeholder:text-[#919EAB] dark:!bg-slate-950 bg-white dark:text-white text-slate-950 focus:border-sky-600 focus:outline-none transition duration-300 ease-in-out"
-                                          placeholder="Select Appointment Date"
-                                        />
-                                      </div>
-                                      <div className="flex flex-col justify-center items-center gap-4">
-                                        <input
-                                          id="place"
-                                          type="text"
-                                          className="w-full border border-solid autofill:!bg-slate-950 border-[#919EAB52] px-2 pb-2 pt-4 rounded-lg placeholder:text-[#919EAB] dark:!bg-slate-950 bg-white dark:text-white text-slate-950 focus:border-sky-600 focus:outline-none transition duration-300 ease-in-out"
-                                          placeholder="Set an Appointment Place"
-                                        />
-                                      </div>
-                                      <div className="flex flex-col justify-center items-center gap-4">
-                                        <textarea
-                                          id="notes"
-                                          className="w-full border border-solid autofill:!bg-slate-950 border-[#919EAB52] px-2 pb-2 pt-4 rounded-lg placeholder:text-[#919EAB] dark:!bg-slate-950 bg-white dark:text-white text-slate-950 focus:border-sky-600 focus:outline-none transition duration-300 ease-in-out"
-                                          placeholder="Add a Notes"
-                                        />
-                                      </div>
+                                      {step === 1 && (
+                                        <>
+                                          {/* Pilih Tanggal */}
+                                          <CalendarPicker
+                                            selectedDate={selectedDate}
+                                            onSelectDate={setSelectedDate}
+                                          />
+
+                                          {/* Pilih Jam Mulai */}
+                                          <div className="flex flex-col gap-2">
+                                            <label className="text-sm text-slate-600">
+                                              Jam Mulai
+                                            </label>
+                                            <select
+                                              value={startTime}
+                                              onChange={(e) =>
+                                                setStartTime(e.target.value)
+                                              }
+                                              className="w-full border rounded-md px-3 py-2"
+                                            >
+                                              <option value="">
+                                                Pilih jam mulai
+                                              </option>
+                                              {Array.from(
+                                                {length: 24},
+                                                (_, i) => (
+                                                  <option
+                                                    key={i}
+                                                    value={`${String(i).padStart(2, '0')}:00`}
+                                                  >
+                                                    {`${String(i).padStart(2, '0')}:00`}
+                                                  </option>
+                                                )
+                                              )}
+                                            </select>
+                                          </div>
+
+                                          {/* Pilih Jam Selesai */}
+                                          <div className="flex flex-col gap-2">
+                                            <label className="text-sm text-slate-600">
+                                              Jam Selesai
+                                            </label>
+                                            <select
+                                              value={endTime}
+                                              onChange={(e) =>
+                                                setEndTime(e.target.value)
+                                              }
+                                              className="w-full border rounded-md px-3 py-2"
+                                            >
+                                              <option value="">
+                                                Pilih jam selesai
+                                              </option>
+                                              {Array.from(
+                                                {length: 24},
+                                                (_, i) => (
+                                                  <option
+                                                    key={i}
+                                                    value={`${String(i).padStart(2, '0')}:00`}
+                                                  >
+                                                    {`${String(i).padStart(2, '0')}:00`}
+                                                  </option>
+                                                )
+                                              )}
+                                            </select>
+                                          </div>
+
+                                          <Button
+                                            className="mt-4"
+                                            disabled={
+                                              !selectedDate ||
+                                              !startTime ||
+                                              !endTime
+                                            }
+                                            onClick={() => setStep(2)}
+                                          >
+                                            Lanjutkan
+                                          </Button>
+                                        </>
+                                      )}
+
+                                      {step === 2 && (
+                                        <>
+                                          {/* Input Tempat */}
+                                          <div className="flex flex-col">
+                                            <label className="text-sm text-slate-600">
+                                              Tempat
+                                            </label>
+                                            <input
+                                              type="text"
+                                              value={place}
+                                              onChange={(e) =>
+                                                setPlace(e.target.value)
+                                              }
+                                              className="w-full border px-3 py-2 rounded-md"
+                                              placeholder="Masukkan tempat janji temu"
+                                            />
+                                          </div>
+
+                                          {/* Input Catatan */}
+                                          <div className="flex flex-col">
+                                            <label className="text-sm text-slate-600">
+                                              Catatan
+                                            </label>
+                                            <textarea
+                                              value={notes}
+                                              onChange={(e) =>
+                                                setNotes(e.target.value)
+                                              }
+                                              className="w-full border px-3 py-2 rounded-md"
+                                              placeholder="Tulis catatan (opsional)"
+                                            />
+                                          </div>
+
+                                          <DialogFooter>
+                                            <DialogClose>
+                                              <Button
+                                                type="submit"
+                                                onClick={() => {
+                                                  if (!selectedDate) return;
+
+                                                  handleSubmitAppointment({
+                                                    programId: programs.id,
+                                                    selectedDate,
+                                                    startTime,
+                                                    endTime,
+                                                    place,
+                                                    notes
+                                                  });
+                                                }}
+                                              >
+                                                Submit Appointment
+                                              </Button>
+                                            </DialogClose>
+                                          </DialogFooter>
+                                        </>
+                                      )}
                                     </div>
-                                    <DialogFooter>
-                                      <DialogClose>
-                                        <Button
-                                          type="submit"
-                                          onClick={() =>
-                                            handleSubmitAppointment(programs.id)
-                                          }
-                                        >
-                                          Submit Appointment
-                                        </Button>
-                                      </DialogClose>
-                                    </DialogFooter>
                                   </DialogContent>
                                 </Dialog>
                               </div>
@@ -478,9 +601,16 @@ const Page: React.FC = () => {
                           <AccordionItem value={appointment.id} key={index}>
                             <AccordionTrigger className="flex flex-row justify-between items-starts rounded-xl bg-white dark:bg-slate-700 p-6">
                               <div className="flex flex-row gap-x-4">
-                                <span className="bg-cyan-100 p-3 rounded-3xl">
-                                  <ClipboardPlus className="text-cyan-500" />
-                                </span>
+                                {appointment.status.id === 12 && (
+                                  <span className="bg-green-100 p-3 rounded-3xl">
+                                    <ClipboardCheck className="text-green-500" />
+                                  </span>
+                                )}
+                                {appointment.status.id === 13 && (
+                                  <span className="bg-cyan-100 p-3 rounded-3xl">
+                                    <ClipboardPlus className="text-cyan-500" />
+                                  </span>
+                                )}
                                 <div className="flex flex-col justify-center items-start gap-x-1">
                                   <h5 className="text-gray-600 text-sm">
                                     {appointment.program_name}

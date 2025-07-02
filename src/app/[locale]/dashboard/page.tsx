@@ -6,6 +6,8 @@ import GenderChart from '@/components/chart/GenderChart';
 import OldChart from '@/components/chart/OldChart';
 import {useTranslations, useLocale} from 'next-intl';
 import {useSession} from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Page = () => {
   const session: any = useSession();
@@ -22,7 +24,7 @@ const Page = () => {
           </div>
           <div className="flex flex-col gap-y-2">
             <h5 className="text-slate-600 dark:text-white w-full font-bold text-lg">
-              Feature
+              Dashboard
             </h5>
             <div className="grid grid-cols-2 gap-6">
               {summaryDashboard.map((countSummary, index) => (
@@ -47,8 +49,28 @@ const Page = () => {
           </div>
           <div className="flex flex-col gap-y-2">
             <h5 className="text-slate-600 dark:text-white w-full font-bold text-lg">
-              Activity
+              Month Activity
             </h5>
+            <div className="w-full flex flex-row justify-center items-center rounded-2xl px-6 py-2 bg-gradient-to-r from-sky-100 via-cyan-100 to-sky-300">
+              <span className="w-1/12">
+                <Image
+                  src="/transaction (1).png"
+                  alt="Human Initiative"
+                  width={30}
+                  height={30}
+                  className="w-[60] h-[60]"
+                ></Image>
+              </span>
+              <h5 className="w-9/12 text-slate-600 text-sm font-semibold">
+                Anda mempunyai 3 transaction bulan ini
+              </h5>
+              <Link
+                href="#"
+                className="w-2/12 bg-white rounded-lg py-1 px-1 text-sky-800 flex justify-center items-center text-sm"
+              >
+                Lihat Transaksi
+              </Link>
+            </div>
           </div>
         </div>
       </div>

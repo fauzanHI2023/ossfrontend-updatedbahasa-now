@@ -50,6 +50,7 @@
     "react-calendar": "^6.0.0",
     "react-chartjs-2": "^5.3.0",
     "react-countdown": "^2.3.6",
+    "react-day-picker": "^9.7.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "react-icon": "^1.0.0",

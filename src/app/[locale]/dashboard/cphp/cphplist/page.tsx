@@ -47,7 +47,7 @@ const CPHPList: React.FC = () => {
   const [step, setStep] = useState(1);
   const [showIframe, setShowIframe] = useState(false);
   const [iframeUrl, setIframeUrl] = useState('');
-  let [color, setColor] = useState('#209ce2');
+  const [color, setColor] = useState('#209ce2');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -74,7 +74,7 @@ const CPHPList: React.FC = () => {
       <main className="flex min-h-screen flex-col px-16 py-12">
         <div className="box p-6 flex flex-col gap-y-5 rounded-3xl dark:bg-slate-900 bg-white">
           <h5 className="text-xl font-bold">CPHP List</h5>
-          <div className="flex flex-col jsutify-center items-center w-full">
+          <div className="flex flex-col justify-center items-center gap-y-4 w-full">
             {isLoading ? (
               <HashLoader
                 color={color}

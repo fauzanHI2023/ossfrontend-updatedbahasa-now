@@ -41,7 +41,9 @@ const Navbar = () => {
   const [showAccountDropdown, setShowAccountDropdown] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isButtonLoading, setIsButtonLoading] = useState(false);
+  const [isButtonLoadingOffice, setIsButtonLoadingOffice] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
+  const [showOverlayOffice, setShowOverlayOffice] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,6 +111,10 @@ const Navbar = () => {
 
   const handleLoginOffice = async () => {
     try {
+      setIsButtonLoadingOffice(true);
+      setTimeout(() => {
+        setShowOverlayOffice(true);
+      }, 1500);
       await signIn('azure-ad', {callbackUrl});
     } catch (error) {
       console.log(error);
@@ -307,6 +313,9 @@ const Navbar = () => {
               <AnimatePresence>
                 {showOverlay && <LoadingOverlay />}
               </AnimatePresence>
+              <AnimatePresence>
+                {showOverlayOffice && <LoadingOverlay />}
+              </AnimatePresence>
               <div className="border-0 rounded-lg shadow-lg relative bg-background flex flex-col w-full outline-none focus:outline-none">
                 <div className="flex flex-col items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
                   <button
@@ -406,11 +415,22 @@ const Navbar = () => {
                     <button
                       className="w-full border border-black px-4 py-3 flex flex-row items-center justify-center hover:bg-slate-900 hover:text-white transition duration-300 ease-in"
                       onClick={handleLoginOffice}
+                      disabled={isButtonLoadingOffice}
                     >
-                      <span className="pr-2 text-xl">
-                        <TfiMicrosoftAlt />
-                      </span>
-                      Sign in with Office
+                      {isButtonLoadingOffice ? (
+                        <motion.div
+                          className="h-5 w-5 border-4 border-white border-t-transparent rounded-full animate-spin"
+                          initial={{opacity: 0}}
+                          animate={{opacity: 1}}
+                        />
+                      ) : (
+                        <>
+                          <span className="pr-2 text-xl">
+                            <TfiMicrosoftAlt />
+                          </span>
+                          Sign in with Office
+                        </>
+                      )}
                     </button>
                     <button
                       className="w-full border border-black px-4 py-3 flex flex-row items-center justify-center hover:bg-slate-900 hover:text-white transition duration-300 ease-in"

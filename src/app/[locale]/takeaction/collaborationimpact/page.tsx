@@ -1,5 +1,5 @@
 'use client';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, CSSProperties} from 'react';
 import {
   HandCoins,
   SmilePlus,
@@ -10,8 +10,11 @@ import {
   MoveRight
 } from 'lucide-react';
 import Image from 'next/image';
+import {useSession} from 'next-auth/react';
 import PopupNotif from '@/components/ui/utility/PopupNotif';
 import {motion, AnimatePresence} from 'framer-motion';
+import {CalendarPicker} from '@/components/ui/utility/calendar/Calendar';
+import {Button} from '@/components/ui/button';
 import {
   Tabs,
   TabsContent,
@@ -20,7 +23,7 @@ import {
 } from '@/components/ui/tabs-fe';
 import {ExpandableCardDemo} from '@/components/ui/cardback';
 import BannerCarousel from '@/components/ui/banner/BannerWithUs';
-import {useQuery} from '@tanstack/react-query';
+import {useQuery, useMutation} from '@tanstack/react-query';
 import {fetchListProject} from '@/lib/project/auth-list-program';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Autoplay, Pagination} from 'swiper/modules';
@@ -28,6 +31,25 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import HashLoader from 'react-spinners/HashLoader';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog';
+import {postAppointment} from '@/lib/project/auth-post-appoinment';
+import Swal from 'sweetalert2';
+
+const override: CSSProperties = {
+  display: 'block',
+  margin: '0 auto',
+  borderColor: 'red'
+};
 
 interface ProjectList {
   id: string;
@@ -44,6 +66,22 @@ interface ProjectList {
 const CSRServices = () => {
   const [notifMessage, setNotifMessage] = useState('');
   const [showCollab, setShowCollab] = useState(true);
+  const [color, _setColor] = useState('#209ce2');
+  const [step, setStep] = useState(1);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [place, setPlace] = useState('');
+  const [notes, setNotes] = useState('');
+  const [userId, setUserId] = useState<string | null>(null);
+  const {data: session, status}: any = useSession();
+
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user?.phpDonorData?.length > 0) {
+      setUserId(session.user.phpDonorData[0].guid);
+      console.log('User ID diperbarui:', session.user.phpDonorData[0].guid);
+    }
+  }, [status, session]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -57,27 +95,6 @@ const CSRServices = () => {
     AOS.init();
   }, []);
 
-  const typingAnimation = {
-    hidden: {opacity: 0},
-    visible: (i: any) => ({
-      opacity: 1,
-      transition: {
-        delay: i * 0.02
-      }
-    })
-  };
-
-  const collabText =
-    'Di tengah tantangan global yang semakin kompleks, kolaborasi menjadi kunci utama untuk menciptakan perubahan nyata.';
-
-  const humanText = 'Human Initiative Collaboration Impact';
-
-  const learnMore = () => {
-    setNotifMessage(
-      'Silahkan Login terlebih dahulu untuk melihat lebih lanjut.'
-    );
-  };
-
   const {
     data: proposalprograms = [],
     isLoading,
@@ -86,6 +103,87 @@ const CSRServices = () => {
     queryKey: ['proposalprograms'],
     queryFn: fetchListProject
   });
+
+  const formatPrice = (amount: number) => {
+    return `Rp ${Number(amount)
+      .toFixed(0)
+      .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+  };
+
+  const mutation = useMutation({
+    mutationFn: postAppointment,
+    onSuccess: () => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Add Appointment Successfuly!',
+        timer: 2000,
+        showConfirmButton: false
+      });
+    },
+    onError: (error) => {
+      console.error('Error creating appointment:', error);
+      setNotifMessage('Gagal membuat appointment');
+    }
+  });
+
+  const handleSubmitAppointment = ({
+    programId,
+    selectedDate,
+    startTime,
+    endTime,
+    place,
+    notes
+  }: {
+    programId: string;
+    selectedDate: Date;
+    startTime: string;
+    endTime: string;
+    place: string;
+    notes: string;
+  }) => {
+    if (!userId) {
+      setNotifMessage(
+        'User ID tidak ditemukan. Harap refresh atau login ulang.'
+      );
+      return;
+    }
+
+    if (!selectedDate || !startTime || !endTime || !place) {
+      setNotifMessage(
+        'Silakan lengkapi tanggal, jam, dan tempat terlebih dahulu.'
+      );
+      return;
+    }
+
+    const dateStr = selectedDate.toISOString().split('T')[0]; // YYYY-MM-DD
+    const selectedDateTime = `${dateStr} ${startTime}:00`;
+    const selectedEndDateTime = `${dateStr} ${endTime}:00`;
+
+    const appointmentData = {
+      user_id: userId,
+      proposal_id: programId,
+      date: selectedDateTime,
+      end_date: selectedEndDateTime,
+      tempat: place,
+      notes,
+      created_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
+    };
+
+    mutation.mutate(appointmentData, {
+      onSuccess: () => {
+        // Reset state dan step kembali ke awal
+        setStep(1);
+        setSelectedDate(null);
+        setStartTime('');
+        setEndTime('');
+        setPlace('');
+        setNotes('');
+      },
+      onError: () => {
+        setNotifMessage('Gagal menyimpan janji temu, silakan coba lagi.');
+      }
+    });
+  };
 
   return (
     <main className="flex flex-col items-center justify-center scroll-smooth">
@@ -438,37 +536,255 @@ const CSRServices = () => {
             <TabsTrigger value="empowerment">Empowerment</TabsTrigger>
             <TabsTrigger value="infrastruktur">Infrastruktur</TabsTrigger>
           </TabsList>
-          <TabsContent value="all" data-aos="fade-up" data-aos-duration="3000">
-            <ExpandableCardDemo />
-          </TabsContent>
           <TabsContent
-            value="children"
+            value="all"
             className="flex flex-row gap-x-4"
             data-aos="fade-up"
             data-aos-duration="3000"
           >
-            <ExpandableCardDemo />
-          </TabsContent>
-          <TabsContent
-            value="disaster"
-            data-aos="fade-up"
-            data-aos-duration="3000"
-          >
-            <ExpandableCardDemo />
-          </TabsContent>
-          <TabsContent
-            value="empowerment"
-            data-aos="fade-up"
-            data-aos-duration="3000"
-          >
-            <ExpandableCardDemo />
-          </TabsContent>
-          <TabsContent
-            value="infrastruktur"
-            data-aos="fade-up"
-            data-aos-duration="3000"
-          >
-            <ExpandableCardDemo />
+            {isLoading ? (
+              <HashLoader
+                color={color}
+                loading={isLoading}
+                cssOverride={override}
+                size={50}
+              />
+            ) : error || proposalprograms.length === 0 ? (
+              <p className="text-lg font-semibold text-gray-600 dark:text-gray-300">
+                No data available
+              </p>
+            ) : (
+              proposalprograms.map((programs, index) => (
+                <div key={index} className="flex flex-col gap-y-4">
+                  <Image
+                    src="/IMG_1975.jpg"
+                    alt="Human Initiative"
+                    width={300}
+                    height={180}
+                  />
+                  <div className="flex flex-col justify-start items-start gap-x-1">
+                    <h5>{programs.title}</h5>
+                    <p className="text-slate-400 text-sm">
+                      {programs.program_name}
+                    </p>
+                  </div>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button className="bg-sky-500 text-white dark:bg-sky-800 transition ease-in duration-300 hover:bg-sky-600">
+                        Detail
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[825px]">
+                      <DialogHeader>
+                        <DialogTitle>
+                          Project - {programs.program_name}
+                        </DialogTitle>
+                        <DialogDescription>{programs.id}</DialogDescription>
+                      </DialogHeader>
+                      <div className="flex flex-wrap w-full">
+                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                            Program Name
+                          </label>
+                          <h6 className="text-slate-800 dark:text-white">
+                            {programs.program_name}
+                          </h6>
+                        </div>
+                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                            Project Description
+                          </label>
+                          <h6 className="text-slate-800 dark:text-white">
+                            {programs.project_description}
+                          </h6>
+                        </div>
+                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                            Project Goals
+                          </label>
+                          <h6 className="text-slate-800 dark:text-white">
+                            {programs.project_goal}
+                          </h6>
+                        </div>
+                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                            Project Scope
+                          </label>
+                          <h6 className="text-slate-800 dark:text-white">
+                            {programs.project_scope}
+                          </h6>
+                        </div>
+                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                            Amount
+                          </label>
+                          <h6 className="text-sky-500 cursor-pointer">
+                            {formatPrice(programs.amount)}
+                          </h6>
+                        </div>
+                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                            Quantity
+                          </label>
+                          <h6 className="text-sky-500 cursor-pointer">
+                            {programs.quantity}
+                          </h6>
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <DialogClose asChild>
+                          <Button variant="outline">Cancel</Button>
+                        </DialogClose>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button className="bg-sky-500 text-white dark:bg-sky-800 transition ease-in duration-300 hover:bg-sky-600">
+                              Book an Appointment
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-[825px]">
+                            <DialogHeader>
+                              <DialogTitle>
+                                Make an Appointment - {programs.program_name}{' '}
+                                {programs.id}
+                              </DialogTitle>
+                              <DialogDescription>
+                                To join the program please make an appointment
+                                first
+                              </DialogDescription>
+                            </DialogHeader>
+
+                            <div className="grid gap-4 py-4">
+                              {step === 1 && (
+                                <>
+                                  {/* Pilih Tanggal */}
+                                  <CalendarPicker
+                                    selectedDate={selectedDate}
+                                    onSelectDate={setSelectedDate}
+                                  />
+
+                                  {/* Pilih Jam Mulai */}
+                                  <div className="flex flex-col gap-2">
+                                    <label className="text-sm text-slate-600">
+                                      Jam Mulai
+                                    </label>
+                                    <select
+                                      value={startTime}
+                                      onChange={(e) =>
+                                        setStartTime(e.target.value)
+                                      }
+                                      className="w-full border rounded-md px-3 py-2"
+                                    >
+                                      <option value="">Pilih jam mulai</option>
+                                      {Array.from({length: 24}, (_, i) => (
+                                        <option
+                                          key={i}
+                                          value={`${String(i).padStart(2, '0')}:00`}
+                                        >
+                                          {`${String(i).padStart(2, '0')}:00`}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  </div>
+
+                                  {/* Pilih Jam Selesai */}
+                                  <div className="flex flex-col gap-2">
+                                    <label className="text-sm text-slate-600">
+                                      Jam Selesai
+                                    </label>
+                                    <select
+                                      value={endTime}
+                                      onChange={(e) =>
+                                        setEndTime(e.target.value)
+                                      }
+                                      className="w-full border rounded-md px-3 py-2"
+                                    >
+                                      <option value="">
+                                        Pilih jam selesai
+                                      </option>
+                                      {Array.from({length: 24}, (_, i) => (
+                                        <option
+                                          key={i}
+                                          value={`${String(i).padStart(2, '0')}:00`}
+                                        >
+                                          {`${String(i).padStart(2, '0')}:00`}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  </div>
+
+                                  <Button
+                                    className="mt-4"
+                                    disabled={
+                                      !selectedDate || !startTime || !endTime
+                                    }
+                                    onClick={() => setStep(2)}
+                                  >
+                                    Lanjutkan
+                                  </Button>
+                                </>
+                              )}
+
+                              {step === 2 && (
+                                <>
+                                  {/* Input Tempat */}
+                                  <div className="flex flex-col">
+                                    <label className="text-sm text-slate-600">
+                                      Tempat
+                                    </label>
+                                    <input
+                                      type="text"
+                                      value={place}
+                                      onChange={(e) => setPlace(e.target.value)}
+                                      className="w-full border px-3 py-2 rounded-md"
+                                      placeholder="Masukkan tempat janji temu"
+                                    />
+                                  </div>
+
+                                  {/* Input Catatan */}
+                                  <div className="flex flex-col">
+                                    <label className="text-sm text-slate-600">
+                                      Catatan
+                                    </label>
+                                    <textarea
+                                      value={notes}
+                                      onChange={(e) => setNotes(e.target.value)}
+                                      className="w-full border px-3 py-2 rounded-md"
+                                      placeholder="Tulis catatan (opsional)"
+                                    />
+                                  </div>
+
+                                  <DialogFooter>
+                                    <DialogClose>
+                                      <Button
+                                        type="submit"
+                                        onClick={() => {
+                                          if (!selectedDate) return;
+
+                                          handleSubmitAppointment({
+                                            programId: programs.id,
+                                            selectedDate,
+                                            startTime,
+                                            endTime,
+                                            place,
+                                            notes
+                                          });
+                                        }}
+                                      >
+                                        Submit Appointment
+                                      </Button>
+                                    </DialogClose>
+                                  </DialogFooter>
+                                </>
+                              )}
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              ))
+            )}
           </TabsContent>
         </Tabs>
       </motion.section>

@@ -135,7 +135,9 @@
     "desc": "Akses terbuka untuk meningkatkan kualitas hidup masyarakat"
   },
   "HomeMenuDashboard": {
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "halo": "Halo",
+    "sayHi": "Terima kasih sudah masuk. Siap berbagi kebaikan hari ini?"
   },
   "MyAccountMenuDashboard": {
     "myaccount": "Akun Saya"

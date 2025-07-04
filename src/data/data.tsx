@@ -248,6 +248,7 @@ interface summaryDashboard {
   icon: string;
   label: string;
   angka: string;
+  url: string;
 }
 
 export const summaryDashboard = [
@@ -262,7 +263,8 @@ export const summaryDashboard = [
       />
     ),
     label: 'Pengajuan Bantuan',
-    angka: '100'
+    angka: '100',
+    url: '/dashboard/cphp/historycphp'
   },
   {
     icon: (
@@ -275,7 +277,8 @@ export const summaryDashboard = [
       />
     ),
     label: 'Transaksi',
-    angka: '100'
+    angka: '100',
+    url: '/dashboard/riwayatdonasi'
   },
   {
     icon: (
@@ -288,7 +291,8 @@ export const summaryDashboard = [
       />
     ),
     label: 'Donasi',
-    angka: 'Rp 8.000.000'
+    angka: 'Rp 8.000.000',
+    url: '/dashboard/riwayatdonasi'
   },
   {
     icon: (
@@ -301,7 +305,8 @@ export const summaryDashboard = [
       />
     ),
     label: 'Qurban',
-    angka: 'Rp 6.200.000'
+    angka: 'Rp 6.200.000',
+    url: '/dashboard/donasi/qurbanhistory'
   }
   // {
   //   icon: <FaPeopleCarryBox className="w-full text-sky-300 dark:text-sky-400" size={60} />,

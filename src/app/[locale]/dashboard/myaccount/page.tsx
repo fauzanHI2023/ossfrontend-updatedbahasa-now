@@ -157,14 +157,14 @@ const Page = () => {
                   <h5 className="text-xl font-bold text-slate-900 dark:text-white">
                     Data Profil
                   </h5>
-                  <div
-                    className="cursor-pointer text-sky-500"
+                  <button
+                    className="cursor-pointer text-sky-500 text-sm "
                     onClick={() => {
                       setisEditProfil(true);
                     }}
                   >
                     Edit Data
-                  </div>
+                  </button>
                 </div>
                 <div className="flex flex-col gap-y-4 text-sm">
                   {Array.isArray(donorData) &&

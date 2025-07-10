@@ -319,5 +319,27 @@
       "desc": "We help survivors of war rebuild their lives and choose their own futures",
       "apply": "Apply"
     }
+  },
+  "collaborationImpact": {
+    "sectionTwo": {
+      "title": "Collaborative Impact",
+      "desc": "In the midst of global challenges, strategic collaboration is important to create real change. The Human Initiative invites various parties together to realise positive impact and sustainable community development."
+    },
+    "sectionThree": {
+      "desc": "Human Initiative opens a collaborative programme that brings together various resources and expertise to solve social problems such as poverty, education, health, and natural disasters. By working with partners from various sectors, the programme will create sustainable solutions that provide tangible benefits to people in need. Its success is measured by the significant changes it makes in their lives."
+    },
+    "sectionFour": {
+      "cardCommunityService": {},
+      "cardCSI": {},
+      "cardCreatingSharedValue": {},
+      "cardSocialMapping": {},
+      "cardSroi": {},
+      "cardProper": {}
+    },
+    "sectionFive": {
+      "titleOne": "Humanity Project",
+      "titleTwo": "Browse",
+      "desc": "We help survivors of war rebuild their lives and choose their own futures"
+    }
   }
 }

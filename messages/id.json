@@ -319,5 +319,27 @@
       "desc": "Kami membantu para penyintas perang membangun kembali kehidupan mereka dan memilih masa depan mereka sendiri",
       "apply": "Mendaftar"
     }
+  },
+  "collaborationImpact": {
+    "sectionTwo": {
+      "title": "Dampak Kolaboratif",
+      "desc": "Di tengah tantangan global, kolaborasi strategis penting untuk menciptakan perubahan nyata. Human Initiative mengajak berbagai pihak bersama wujudkan dampak positif dan pembangunan masyarakat yang berkelanjutan."
+    },
+    "sectionThree": {
+      "desc": "Human Initiative membuka program kolaboratif yang menggalang berbagai sumber daya dan keahlian untuk menyelesaikan masalah sosial seperti kemiskinan, pendidikan, kesehatan, dan bencana alam. Melalui kerja sama dengan mitra dari berbagai sektor, program ini akan menciptakan solusi berkelanjutan yang memberikan manfaat nyata bagi masyarakat yang membutuhkan. Keberhasilannya diukur dari perubahan signifikan yang dihasilkan dalam kehidupan mereka."
+    },
+    "sectionFour": {
+      "cardCommunityService": {},
+      "cardCSI": {},
+      "cardCreatingSharedValue": {},
+      "cardSocialMapping": {},
+      "cardSroi": {},
+      "cardProper": {}
+    },
+    "sectionFive": {
+      "titleOne": "Telusuri Proyek",
+      "titleTwo": "Kemanusiaan",
+      "desc": "Kami membantu para penyintas perang membangun kembali kehidupan mereka dan memilih masa depan mereka sendiri"
+    }
   }
 }

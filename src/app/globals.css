@@ -148,6 +148,21 @@
   }
 }
 
+p,
+button {
+  @apply font-paragraph;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span {
+  @apply font-title;
+}
+
 .form-animate {
   animation: slide-in 0.5s ease-in-out forwards;
 }

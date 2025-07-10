@@ -1,87 +1,97 @@
-"use client";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import React, { Fragment, useEffect, useState } from "react";
-import { MdArrowBack } from "react-icons/md";
-import LocationAutocomplete from "./EditLocation";
+'use client';
+import {signIn, useSession} from 'next-auth/react';
+import {useRouter} from 'next/navigation';
+import React, {Fragment, useEffect, useState} from 'react';
+import {MdArrowBack} from 'react-icons/md';
+import LocationAutocomplete from './EditLocation';
+import {AnimatePresence} from 'framer-motion';
+import LoadingOverlay from '../ui/utility/loading/LoadingOverlayLogin';
 
 type Props = {
   setisEditProfil: (e: boolean) => void;
   userType: string;
 };
 
-const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
-  const [newName, setNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const [newAddress, setNewAddress] = useState("");
-  const [newBirthPlace, setNewBirthPlace] = useState("");
-  const [newBirthDate, setNewBirthDate] = useState("");
-  const [newReligi, setNewReligi] = useState("");
-  const [newBloodType, setNewBloodType] = useState("");
-  const [newGender, setNewGender] = useState("");
-  const [newIdentity, setNewIdentity] = useState("");
-  const [newPhone, setNewPhone] = useState("");
-  const [newInstagram, setNewInstagram] = useState("");
-  const [newLinkedin, setNewLinkedin] = useState("");
-  const [newFacebook, setNewFacebook] = useState("");
-  const [newYoutube, setNewYoutube] = useState("");
-  const [newWebsite, setNewWebsite] = useState("");
+const EditProfil: React.FC<Props> = ({setisEditProfil, userType}) => {
+  const [newName, setNewName] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newAddress, setNewAddress] = useState('');
+  const [newBirthPlace, setNewBirthPlace] = useState('');
+  const [newBirthDate, setNewBirthDate] = useState('');
+  const [newReligi, setNewReligi] = useState('');
+  const [newBloodType, setNewBloodType] = useState('');
+  const [newGender, setNewGender] = useState('');
+  const [newIdentity, setNewIdentity] = useState('');
+  const [newPhone, setNewPhone] = useState('');
+  const [newInstagram, setNewInstagram] = useState('');
+  const [newLinkedin, setNewLinkedin] = useState('');
+  const [newFacebook, setNewFacebook] = useState('');
+  const [newYoutube, setNewYoutube] = useState('');
+  const [newWebsite, setNewWebsite] = useState('');
   const [lastSelectedId, setLastSelectedId] = useState<number | null>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const router = useRouter();
-  const { data: session, status, update }: any = useSession();
+  const {data: session, status, update}: any = useSession();
+  const [showOverlay, setShowOverlay] = useState(false);
 
   useEffect(() => {
     // console.log("Data session:", session);
     if (session?.user) {
-      setNewName(session.user.full_name || "");
-      setNewEmail(session.user.email || "");
+      setNewName(session.user.full_name || '');
+      setNewEmail(session.user.email || '');
 
       // Check if phpDonorData exists and update address and birth_place accordingly
       if (session.user.phpDonorData && session.user.phpDonorData.length > 0) {
-        setNewAddress(session.user.phpDonorData[0].address || "");
-        setNewBirthPlace(session.user.phpDonorData[0].birth_place || "");
-        setNewBirthDate(session.user.phpDonorData[0].birth_date || "");
-        setNewReligi(session.user.phpDonorData[0].religion || "");
-        setNewBloodType(session.user.phpDonorData[0].blood_type || "");
-        setNewGender(session.user.phpDonorData[0].sex || "");
-        setNewIdentity(session.user.phpDonorData[0].identity_no || "");
-        setNewWebsite(session.user.phpDonorData[0].website || "");
+        setNewAddress(session.user.phpDonorData[0].address || '');
+        setNewBirthPlace(session.user.phpDonorData[0].birth_place || '');
+        setNewBirthDate(session.user.phpDonorData[0].birth_date || '');
+        setNewReligi(session.user.phpDonorData[0].religion || '');
+        setNewBloodType(session.user.phpDonorData[0].blood_type || '');
+        setNewGender(session.user.phpDonorData[0].sex || '');
+        setNewIdentity(session.user.phpDonorData[0].identity_no || '');
+        setNewWebsite(session.user.phpDonorData[0].website || '');
       }
 
-      if (session.user.contactInformation && session.user.contactInformation.length > 0) {
+      if (
+        session.user.contactInformation &&
+        session.user.contactInformation.length > 0
+      ) {
         const contactInfo = session.user.contactInformation[0];
-        setNewInstagram(contactInfo.instagram || "");
-        setNewFacebook(contactInfo.facebook || "");
-        setNewLinkedin(contactInfo.linkedin || "");
-        setNewYoutube(contactInfo.youtube || "");
-        setNewWebsite(contactInfo.website || "");
+        setNewInstagram(contactInfo.instagram || '');
+        setNewFacebook(contactInfo.facebook || '');
+        setNewLinkedin(contactInfo.linkedin || '');
+        setNewYoutube(contactInfo.youtube || '');
+        setNewWebsite(contactInfo.website || '');
       }
 
       if (session.user.phones && session.user.phones.length > 0) {
         const phoneInfo = session.user.phones[0];
-        setNewPhone(phoneInfo.phone_no || "");
+        setNewPhone(phoneInfo.phone_no || '');
       }
       // console.log(session.user.phones);
     }
   }, [session]);
 
   const handleSubmit = async () => {
-    setError(""); // Clear previous errors
+    setError(''); // Clear previous errors
 
     if (!/^\S+@\S+\.\S+$/.test(newEmail)) {
-      setError("Invalid email format");
+      setError('Invalid email format');
       return;
     }
+
+    setTimeout(() => {
+      setShowOverlay(true);
+    }, 1500);
 
     try {
       // Update backend
       const response = await fetch(
         `https://adminx.human-initiative.org/account-api/update/${session?.user?.phpDonorData[0].id}`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             full_name: newName,
@@ -99,8 +109,8 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
             linkedin: newLinkedin,
             youtube: newYoutube,
             facebook: newFacebook,
-            phone_no: newPhone,
-          }),
+            phone_no: newPhone
+          })
         }
       );
 
@@ -109,7 +119,7 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
       // console.log("Response data:", data);
 
       if (!response.ok) {
-        setError("Failed to update user data");
+        setError('Failed to update user data');
         return;
       }
 
@@ -130,7 +140,7 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
         linkedin: newLinkedin,
         facebook: newFacebook,
         youtube: newYoutube,
-        phone_no: newPhone,
+        phone_no: newPhone
       });
 
       // Fetch updated data after update
@@ -141,16 +151,16 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
       // console.log("Updated data:", updatedData);
 
       // Update local state with the updated data
-      setNewName(updatedData.full_name || "");
-      setNewEmail(updatedData.email || "");
-      setNewAddress(updatedData.address || "");
-      setNewBirthPlace(updatedData.birth_place || "");
-      setNewBirthDate(updatedData.birth_date || "");
-      setNewReligi(updatedData.religion || "");
-      setNewBloodType(updatedData.blood_type || "");
-      setNewGender(updatedData.sex || "");
-      setNewIdentity(updatedData.identity_no || "");
-      setNewWebsite(updatedData.website || "");
+      setNewName(updatedData.full_name || '');
+      setNewEmail(updatedData.email || '');
+      setNewAddress(updatedData.address || '');
+      setNewBirthPlace(updatedData.birth_place || '');
+      setNewBirthDate(updatedData.birth_date || '');
+      setNewReligi(updatedData.religion || '');
+      setNewBloodType(updatedData.blood_type || '');
+      setNewGender(updatedData.sex || '');
+      setNewIdentity(updatedData.identity_no || '');
+      setNewWebsite(updatedData.website || '');
 
       // Update session with the updated data
       const updateResult = await update({
@@ -164,13 +174,14 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
         sex: updatedData.sex,
         identity_no: updatedData.identity_no,
         website: updatedData.website,
-        location_id: updatedData.location_id,
+        location_id: updatedData.location_id
       });
       // console.log("Update result:", updateResult);
       // console.log("Successfully updated user data");
+
       setisEditProfil(false);
     } catch (error) {
-      setError("An error occurred while updating data");
+      setError('An error occurred while updating data');
     }
   };
 
@@ -181,8 +192,8 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
 
   return (
     <Fragment>
-      <div className="box mb-4 p-6 dark:bg-slate-900 bg-white rounded-xl">
-        {userType === "personal" && (
+      <div className="box mb-4 p-6 dark:bg-slate-900 bg-white rounded-3xl">
+        {userType === 'personal' && (
           <>
             <div className="flex flex-row justify-between mb-4">
               <div
@@ -199,7 +210,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
               </div>
             </div>
             <div className="mb-4">
-              <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="text"
+                className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+              >
                 Tempat Lahir
               </label>
               <input
@@ -210,7 +224,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="text"
+                className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+              >
                 Tanggal Lahir
               </label>
               <input
@@ -239,7 +256,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
               </select>
             </div>
             <div className="mb-4">
-              <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="text"
+                className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+              >
                 Golongan Darah
               </label>
               <input
@@ -250,7 +270,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="text"
+                className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+              >
                 Agama
               </label>
               <select
@@ -270,7 +293,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
               </select>
             </div>
             <div className="mb-4">
-              <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="text"
+                className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+              >
                 Alamat
               </label>
               <input
@@ -281,7 +307,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="text"
+                className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+              >
                 Provinsi
               </label>
               <LocationAutocomplete
@@ -289,7 +318,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="text"
+                className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+              >
                 No Hp
               </label>
               <input
@@ -301,7 +333,7 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
             </div>
           </>
         )}
-        {userType === "company" && (
+        {userType === 'company' && (
           <>
             <div className="flex flex-row justify-between mb-4">
               <div
@@ -318,7 +350,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
               </div>
             </div>
             <div className="mb-4">
-              <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="text"
+                className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+              >
                 Alamat
               </label>
               <input
@@ -329,7 +364,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="text"
+                className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+              >
                 Provinsi
               </label>
               <LocationAutocomplete
@@ -339,7 +377,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
           </>
         )}
         <div className="mb-4">
-          <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+          <label
+            htmlFor="text"
+            className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+          >
             Instagram
           </label>
           <input
@@ -350,7 +391,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+          <label
+            htmlFor="text"
+            className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+          >
             Linkedin
           </label>
           <input
@@ -361,7 +405,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+          <label
+            htmlFor="text"
+            className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+          >
             Facebook
           </label>
           <input
@@ -372,7 +419,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+          <label
+            htmlFor="text"
+            className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+          >
             Youtube
           </label>
           <input
@@ -383,7 +433,10 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="text" className="block dark:text-slate-200 text-gray-700 font-bold mb-2">
+          <label
+            htmlFor="text"
+            className="block dark:text-slate-200 text-gray-700 font-bold mb-2"
+          >
             Website
           </label>
           <input
@@ -393,6 +446,7 @@ const EditProfil: React.FC<Props> = ({ setisEditProfil, userType }) => {
             className="w-full border border-gray-300 dark:border-slate-600 rounded-md py-2 px-3 focus:outline-none focus:border-indigo-500 dark:focus:border-sky-500 bg-background"
           />
         </div>
+        <AnimatePresence>{showOverlay && <LoadingOverlay />}</AnimatePresence>
         <div className="flex flex-row justify-end">
           <button
             type="submit"

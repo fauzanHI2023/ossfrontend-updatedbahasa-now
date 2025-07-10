@@ -538,7 +538,7 @@ const CSRServices = () => {
           </TabsList>
           <TabsContent
             value="all"
-            className="flex flex-row gap-x-4"
+            className="grid grid-cols-4 gap-x-4"
             data-aos="fade-up"
             data-aos-duration="3000"
           >
@@ -561,6 +561,7 @@ const CSRServices = () => {
                     alt="Human Initiative"
                     width={300}
                     height={180}
+                    className="rounded-lg"
                   />
                   <div className="flex flex-col justify-start items-start gap-x-1">
                     <h5>{programs.title}</h5>
@@ -568,220 +569,215 @@ const CSRServices = () => {
                       {programs.program_name}
                     </p>
                   </div>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button className="bg-sky-500 text-white dark:bg-sky-800 transition ease-in duration-300 hover:bg-sky-600">
-                        Detail
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[825px]">
-                      <DialogHeader>
-                        <DialogTitle>
-                          Project - {programs.program_name}
-                        </DialogTitle>
-                        <DialogDescription>{programs.id}</DialogDescription>
-                      </DialogHeader>
-                      <div className="flex flex-wrap w-full">
-                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                            Program Name
-                          </label>
-                          <h6 className="text-slate-800 dark:text-white">
-                            {programs.program_name}
-                          </h6>
+                  <div className="flex flex-row gap-6">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className="w-1/3 bg-slate-100 text-slate-600 rounded-2xl dark:bg-sky-800 transition ease-in duration-300 hover:bg-slate-200">
+                          Detail
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[825px]">
+                        <DialogHeader>
+                          <DialogTitle>
+                            Project - {programs.program_name}
+                          </DialogTitle>
+                          <DialogDescription>{programs.id}</DialogDescription>
+                        </DialogHeader>
+                        <div className="flex flex-wrap w-full">
+                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                              Program Name
+                            </label>
+                            <h6 className="text-slate-800 dark:text-white">
+                              {programs.program_name}
+                            </h6>
+                          </div>
+                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                              Project Description
+                            </label>
+                            <h6 className="text-slate-800 dark:text-white">
+                              {programs.project_description}
+                            </h6>
+                          </div>
+                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                              Project Goals
+                            </label>
+                            <h6 className="text-slate-800 dark:text-white">
+                              {programs.project_goal}
+                            </h6>
+                          </div>
+                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                              Project Scope
+                            </label>
+                            <h6 className="text-slate-800 dark:text-white">
+                              {programs.project_scope}
+                            </h6>
+                          </div>
+                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                              Amount
+                            </label>
+                            <h6 className="text-sky-500 cursor-pointer">
+                              {formatPrice(programs.amount)}
+                            </h6>
+                          </div>
+                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                              Quantity
+                            </label>
+                            <h6 className="text-sky-500 cursor-pointer">
+                              {programs.quantity}
+                            </h6>
+                          </div>
                         </div>
-                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                            Project Description
-                          </label>
-                          <h6 className="text-slate-800 dark:text-white">
-                            {programs.project_description}
-                          </h6>
-                        </div>
-                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                            Project Goals
-                          </label>
-                          <h6 className="text-slate-800 dark:text-white">
-                            {programs.project_goal}
-                          </h6>
-                        </div>
-                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                            Project Scope
-                          </label>
-                          <h6 className="text-slate-800 dark:text-white">
-                            {programs.project_scope}
-                          </h6>
-                        </div>
-                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                            Amount
-                          </label>
-                          <h6 className="text-sky-500 cursor-pointer">
-                            {formatPrice(programs.amount)}
-                          </h6>
-                        </div>
-                        <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                          <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                            Quantity
-                          </label>
-                          <h6 className="text-sky-500 cursor-pointer">
-                            {programs.quantity}
-                          </h6>
-                        </div>
-                      </div>
-                      <DialogFooter>
-                        <DialogClose asChild>
-                          <Button variant="outline">Cancel</Button>
-                        </DialogClose>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button className="bg-sky-500 text-white dark:bg-sky-800 transition ease-in duration-300 hover:bg-sky-600">
-                              Book an Appointment
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="sm:max-w-[825px]">
-                            <DialogHeader>
-                              <DialogTitle>
-                                Make an Appointment - {programs.program_name}{' '}
-                                {programs.id}
-                              </DialogTitle>
-                              <DialogDescription>
-                                To join the program please make an appointment
-                                first
-                              </DialogDescription>
-                            </DialogHeader>
+                        <DialogFooter>
+                          <DialogClose asChild>
+                            <Button variant="outline">Cancel</Button>
+                          </DialogClose>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className="bg-slate-700 rounded-2xl text-white dark:bg-sky-800 transition ease-in duration-300 hover:bg-sky-600">
+                          Book an Appointment
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[825px]">
+                        <DialogHeader>
+                          <DialogTitle>
+                            Make an Appointment - {programs.program_name}{' '}
+                            {programs.id}
+                          </DialogTitle>
+                          <DialogDescription>
+                            To join the program please make an appointment first
+                          </DialogDescription>
+                        </DialogHeader>
 
-                            <div className="grid gap-4 py-4">
-                              {step === 1 && (
-                                <>
-                                  {/* Pilih Tanggal */}
-                                  <CalendarPicker
-                                    selectedDate={selectedDate}
-                                    onSelectDate={setSelectedDate}
-                                  />
+                        <div className="grid gap-4 py-4">
+                          {step === 1 && (
+                            <>
+                              {/* Pilih Tanggal */}
+                              <CalendarPicker
+                                selectedDate={selectedDate}
+                                onSelectDate={setSelectedDate}
+                              />
 
-                                  {/* Pilih Jam Mulai */}
-                                  <div className="flex flex-col gap-2">
-                                    <label className="text-sm text-slate-600">
-                                      Jam Mulai
-                                    </label>
-                                    <select
-                                      value={startTime}
-                                      onChange={(e) =>
-                                        setStartTime(e.target.value)
-                                      }
-                                      className="w-full border rounded-md px-3 py-2"
+                              {/* Pilih Jam Mulai */}
+                              <div className="flex flex-col gap-2">
+                                <label className="text-sm text-slate-600">
+                                  Jam Mulai
+                                </label>
+                                <select
+                                  value={startTime}
+                                  onChange={(e) => setStartTime(e.target.value)}
+                                  className="w-full border rounded-md px-3 py-2"
+                                >
+                                  <option value="">Pilih jam mulai</option>
+                                  {Array.from({length: 24}, (_, i) => (
+                                    <option
+                                      key={i}
+                                      value={`${String(i).padStart(2, '0')}:00`}
                                     >
-                                      <option value="">Pilih jam mulai</option>
-                                      {Array.from({length: 24}, (_, i) => (
-                                        <option
-                                          key={i}
-                                          value={`${String(i).padStart(2, '0')}:00`}
-                                        >
-                                          {`${String(i).padStart(2, '0')}:00`}
-                                        </option>
-                                      ))}
-                                    </select>
-                                  </div>
+                                      {`${String(i).padStart(2, '0')}:00`}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
 
-                                  {/* Pilih Jam Selesai */}
-                                  <div className="flex flex-col gap-2">
-                                    <label className="text-sm text-slate-600">
-                                      Jam Selesai
-                                    </label>
-                                    <select
-                                      value={endTime}
-                                      onChange={(e) =>
-                                        setEndTime(e.target.value)
-                                      }
-                                      className="w-full border rounded-md px-3 py-2"
+                              {/* Pilih Jam Selesai */}
+                              <div className="flex flex-col gap-2">
+                                <label className="text-sm text-slate-600">
+                                  Jam Selesai
+                                </label>
+                                <select
+                                  value={endTime}
+                                  onChange={(e) => setEndTime(e.target.value)}
+                                  className="w-full border rounded-md px-3 py-2"
+                                >
+                                  <option value="">Pilih jam selesai</option>
+                                  {Array.from({length: 24}, (_, i) => (
+                                    <option
+                                      key={i}
+                                      value={`${String(i).padStart(2, '0')}:00`}
                                     >
-                                      <option value="">
-                                        Pilih jam selesai
-                                      </option>
-                                      {Array.from({length: 24}, (_, i) => (
-                                        <option
-                                          key={i}
-                                          value={`${String(i).padStart(2, '0')}:00`}
-                                        >
-                                          {`${String(i).padStart(2, '0')}:00`}
-                                        </option>
-                                      ))}
-                                    </select>
-                                  </div>
+                                      {`${String(i).padStart(2, '0')}:00`}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
 
+                              <Button
+                                className="mt-4"
+                                disabled={
+                                  !selectedDate || !startTime || !endTime
+                                }
+                                onClick={() => setStep(2)}
+                              >
+                                Lanjutkan
+                              </Button>
+                            </>
+                          )}
+
+                          {step === 2 && (
+                            <>
+                              {/* Input Tempat */}
+                              <div className="flex flex-col">
+                                <label className="text-sm text-slate-600">
+                                  Tempat
+                                </label>
+                                <input
+                                  type="text"
+                                  value={place}
+                                  onChange={(e) => setPlace(e.target.value)}
+                                  className="w-full border px-3 py-2 rounded-md"
+                                  placeholder="Masukkan tempat janji temu"
+                                />
+                              </div>
+
+                              {/* Input Catatan */}
+                              <div className="flex flex-col">
+                                <label className="text-sm text-slate-600">
+                                  Catatan
+                                </label>
+                                <textarea
+                                  value={notes}
+                                  onChange={(e) => setNotes(e.target.value)}
+                                  className="w-full border px-3 py-2 rounded-md"
+                                  placeholder="Tulis catatan (opsional)"
+                                />
+                              </div>
+
+                              <DialogFooter>
+                                <DialogClose>
                                   <Button
-                                    className="mt-4"
-                                    disabled={
-                                      !selectedDate || !startTime || !endTime
-                                    }
-                                    onClick={() => setStep(2)}
+                                    type="submit"
+                                    onClick={() => {
+                                      if (!selectedDate) return;
+
+                                      handleSubmitAppointment({
+                                        programId: programs.id,
+                                        selectedDate,
+                                        startTime,
+                                        endTime,
+                                        place,
+                                        notes
+                                      });
+                                    }}
                                   >
-                                    Lanjutkan
+                                    Submit Appointment
                                   </Button>
-                                </>
-                              )}
-
-                              {step === 2 && (
-                                <>
-                                  {/* Input Tempat */}
-                                  <div className="flex flex-col">
-                                    <label className="text-sm text-slate-600">
-                                      Tempat
-                                    </label>
-                                    <input
-                                      type="text"
-                                      value={place}
-                                      onChange={(e) => setPlace(e.target.value)}
-                                      className="w-full border px-3 py-2 rounded-md"
-                                      placeholder="Masukkan tempat janji temu"
-                                    />
-                                  </div>
-
-                                  {/* Input Catatan */}
-                                  <div className="flex flex-col">
-                                    <label className="text-sm text-slate-600">
-                                      Catatan
-                                    </label>
-                                    <textarea
-                                      value={notes}
-                                      onChange={(e) => setNotes(e.target.value)}
-                                      className="w-full border px-3 py-2 rounded-md"
-                                      placeholder="Tulis catatan (opsional)"
-                                    />
-                                  </div>
-
-                                  <DialogFooter>
-                                    <DialogClose>
-                                      <Button
-                                        type="submit"
-                                        onClick={() => {
-                                          if (!selectedDate) return;
-
-                                          handleSubmitAppointment({
-                                            programId: programs.id,
-                                            selectedDate,
-                                            startTime,
-                                            endTime,
-                                            place,
-                                            notes
-                                          });
-                                        }}
-                                      >
-                                        Submit Appointment
-                                      </Button>
-                                    </DialogClose>
-                                  </DialogFooter>
-                                </>
-                              )}
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
+                                </DialogClose>
+                              </DialogFooter>
+                            </>
+                          )}
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
                 </div>
               ))
             )}

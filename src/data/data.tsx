@@ -216,29 +216,29 @@ type ProgramNamespace =
   | 'cardInitiativeforInfrastructure';
 
 export interface programCard {
-  icon: ReactElement;
+  icon: string;
   namespace: ProgramNamespace;
   url: string;
 }
 
 export const programCard: programCard[] = [
   {
-    icon: <MdFlood className="w-6 h-6" />,
+    icon: '/flooded-house.png',
     namespace: 'cardInitiativeforDisaster',
     url: '/whatwedo/initiativefordisaster'
   },
   {
-    icon: <FaChildren className="w-6 h-6" />,
+    icon: '/playtime.png',
     namespace: 'cardInitiativeforChildren',
     url: '/whatwedo/initiativeforchildren'
   },
   {
-    icon: <SiPowers className="w-6 h-6" />,
+    icon: '/gardening.png',
     namespace: 'cardInitiativeforEmpowerment',
     url: '/whatwedo/initiativeforempowerment'
   },
   {
-    icon: <GiDrawbridge className="w-6 h-6" />,
+    icon: '/bridge.png',
     namespace: 'cardInitiativeforInfrastructure',
     url: '/whatwedo/infrastructureprogram'
   }

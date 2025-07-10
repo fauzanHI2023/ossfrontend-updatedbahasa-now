@@ -148,9 +148,9 @@ const BannerHome: React.FC = () => {
           className="flex flex-col sm:w-1/2 w-full justify-around items-center sm:pb-0 pb-8 h-[260px]"
           data-aos="fade-left"
         >
-          <h3 className="font-bold text-white sm:text-5xl text-3xl sm:pb-10 pb-3 leading-[1.5]">
+          <h3 className="font-title font-bold text-white text-5xl text-3xl sm:pb-10 pb-3 leading-[1.1]">
             {t('SectionMainHomeTitle.helps')}{' '}
-            <span className="font-bold text-sky-600">
+            <span className="font-semi text-sky-400">
               {t('SectionMainHomeTitle.connect')}
             </span>{' '}
             {t('SectionMainHomeTitle.desc')}

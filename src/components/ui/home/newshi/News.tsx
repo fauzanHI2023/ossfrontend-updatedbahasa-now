@@ -143,8 +143,8 @@ const News = () => {
             href="/publication/news&stories"
             className="text-sky-700 font-bold dark:text-sky-700 hover:dark:text-sky-500 py-3 px-3 rounded-lg relative transition duration-700 ease-in"
           >
-            See other{' '}
-            <span className="transition duration-600 ease-in">News</span>
+            See more
+            <span className="hidden transition duration-600 ease-in">News</span>
           </Link>
         </TabsList>
         <TabsContent

@@ -1,34 +1,34 @@
-"use client";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import React, { Fragment, useEffect, useState } from "react";
-import { MdArrowBack } from "react-icons/md";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import {signIn, useSession} from 'next-auth/react';
+import {useRouter} from 'next/navigation';
+import React, {Fragment, useEffect, useState} from 'react';
+import {MdArrowBack} from 'react-icons/md';
+import {useToast} from '@/components/ui/use-toast';
 
 type Props = {
   setisEditAkun: (e: boolean) => void;
 };
 
-const EditAccount: React.FC<Props> = ({ setisEditAkun }) => {
-  const [newName, setNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const [error, setError] = useState("");
+const EditAccount: React.FC<Props> = ({setisEditAkun}) => {
+  const [newName, setNewName] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
-  const { data: session, status, update }: any = useSession();
+  const {data: session, status, update}: any = useSession();
 
   useEffect(() => {
     // console.log("Data session:", session);
     if (session?.user) {
-      setNewName(session.user.full_name || "");
-      setNewEmail(session.user.email || "");
+      setNewName(session.user.full_name || '');
+      setNewEmail(session.user.email || '');
     }
   }, [session]);
 
   const handleSubmit = async () => {
-    setError(""); // Clear previous errors
+    setError(''); // Clear previous errors
 
     if (!/^\S+@\S+\.\S+$/.test(newEmail)) {
-      setError("Invalid email format");
+      setError('Invalid email format');
       return;
     }
 
@@ -37,14 +37,14 @@ const EditAccount: React.FC<Props> = ({ setisEditAkun }) => {
       const response = await fetch(
         `https://adminx.human-initiative.org/account-api/update/${session?.user?.phpDonorData[0].id}`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             full_name: newName,
-            email: newEmail,
-          }),
+            email: newEmail
+          })
         }
       );
 
@@ -53,14 +53,14 @@ const EditAccount: React.FC<Props> = ({ setisEditAkun }) => {
       // console.log("Response data:", data);
 
       if (!response.ok) {
-        setError("Failed to update user data");
+        setError('Failed to update user data');
         return;
       }
 
       // Update session
       await update({
         full_name: newName,
-        email: newEmail,
+        email: newEmail
       });
 
       // Fetch updated data after update
@@ -71,19 +71,19 @@ const EditAccount: React.FC<Props> = ({ setisEditAkun }) => {
       // console.log("Updated data:", updatedData);
 
       // Update local state with the updated data
-      setNewName(updatedData.full_name || "");
-      setNewEmail(updatedData.email || "");
+      setNewName(updatedData.full_name || '');
+      setNewEmail(updatedData.email || '');
 
       // Update session with the updated data
       const updateResult = await update({
         full_name: updatedData.full_name,
-        email: updatedData.email,
+        email: updatedData.email
       });
       // console.log("Update result:", updateResult);
       // console.log("Successfully updated user data");
       setisEditAkun(false);
     } catch (error) {
-      setError("An error occurred while updating data");
+      setError('An error occurred while updating data');
     }
   };
 
@@ -94,7 +94,7 @@ const EditAccount: React.FC<Props> = ({ setisEditAkun }) => {
 
   return (
     <Fragment>
-      <div className="box mb-4 p-6 dark:bg-slate-900 bg-white rounded-xl">
+      <div className="box mb-4 p-6 dark:bg-slate-900 bg-white rounded-3xl">
         <div className="flex flex-row justify-between mb-4">
           <div
             className="flex flex-row justify-center items-center cursor-pointer"
@@ -110,7 +110,10 @@ const EditAccount: React.FC<Props> = ({ setisEditAkun }) => {
           </div>
         </div>
         <div className="mb-4">
-          <label htmlFor="text" className="block text-gray-700 dark:text-slate-200 font-bold mb-2">
+          <label
+            htmlFor="text"
+            className="block text-gray-700 dark:text-slate-200 font-bold mb-2"
+          >
             Name
           </label>
           <input
@@ -121,7 +124,10 @@ const EditAccount: React.FC<Props> = ({ setisEditAkun }) => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="text" className="block text-gray-700 dark:text-slate-200 font-bold mb-2">
+          <label
+            htmlFor="text"
+            className="block text-gray-700 dark:text-slate-200 font-bold mb-2"
+          >
             Email
           </label>
           <input

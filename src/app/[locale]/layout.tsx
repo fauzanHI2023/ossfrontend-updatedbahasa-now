@@ -3,7 +3,14 @@ import {Locale, hasLocale, NextIntlClientProvider} from 'next-intl';
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {ReactNode} from 'react';
 import {routing} from '@/i18n/routing';
-import {Poppins} from 'next/font/google';
+import {
+  Poppins,
+  Quattrocento,
+  Fanwood_Text,
+  Space_Mono,
+  Ubuntu,
+  Raleway
+} from 'next/font/google';
 import '../globals.css';
 import {ThemeProvider} from '@/components/theme-provider';
 import AuthProvider from '@/context/SessionProvider';
@@ -17,9 +24,19 @@ type Props = {
   children: ReactNode;
   params: Promise<{locale: Locale}>;
 };
-const poppins = Poppins({
+
+const quattrocento = Ubuntu({
+  weight: ['300', '400', '700'], // tergantung kebutuhan
   subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+  variable: '--font-title',
+  display: 'swap'
+});
+
+const fanwood_text = Raleway({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  variable: '--font-paragraph',
+  display: 'swap'
 });
 
 export function generateStaticParams() {
@@ -48,7 +65,9 @@ export default async function LocaleLayout({children, params}: Props) {
 
   return (
     <html className="h-full" lang={locale}>
-      <body className={`${poppins.className} antialiased`}>
+      <body
+        className={`${fanwood_text.variable} ${quattrocento.variable} antialiased`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

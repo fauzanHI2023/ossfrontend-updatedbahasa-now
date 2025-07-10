@@ -856,7 +856,7 @@ const WhoWeAre = () => {
         <div className="flex flex-col justify-start items-center gap-y-12">
           <div className="flex w-[1000px] flex-col gap-y-8">
             <h5 className="text-slate-700 dark:text-white font-semibold sm:text-4xl text-xl">
-              {t('whoWeArePage.sectionTen.titleOur')}{' '}
+              {/* {t('whoWeArePage.sectionTen.titleOur')}{' '} */}
               <span className="text-sky-600">
                 {t('whoWeArePage.sectionTen.titleLegality')}
               </span>

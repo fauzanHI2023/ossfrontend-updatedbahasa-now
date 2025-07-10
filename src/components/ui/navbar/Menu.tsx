@@ -34,7 +34,7 @@ const Menu = () => {
   const isHome = /^\/[a-z]{2}\/?$/.test(pathname);
 
   const textClass = isScrolled
-    ? 'text-slate-500'
+    ? 'text-slate-700'
     : isHome
       ? 'text-white'
       : 'text-slate-500';
@@ -45,7 +45,7 @@ const Menu = () => {
         <li key={item.id} className="relative group text-base font-normal pb-2">
           <Link
             href={item.url}
-            className={`${textClass} inline-block dark:hover:text-slate-200 dark:text-slate-300 hover:text-slate-700 menu-slide transition duration-200 ease-in text-base font-normal`}
+            className={`${textClass} inline-block dark:hover:text-slate-200 dark:text-slate-300 hover:text-slate-700 menu-slide transition duration-200 ease-in text-sm font-medium`}
           >
             <span className="flex flex-row">
               {translate(item.label)} <ChevronDown className="text-sm w-4" />

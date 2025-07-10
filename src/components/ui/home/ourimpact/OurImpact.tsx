@@ -21,10 +21,10 @@ const OurImpact: React.FC = () => {
 
   return (
     <div className="relative flex flex-col w-full py-12 px-24 p-6 bg-hero-impact bg-center ">
-      <div className="flex flex-col backdrop-blur-sm bg-white/50 p-16 rounded-tr-3xl rounded-tl-3xl">
-        <div className="flex sm:flex-row flex-col sm:pb-4 pb-4">
+      <div className="flex flex-col gap-y-6 backdrop-blur-sm bg-white/50 p-16 rounded-tr-3xl rounded-tl-3xl">
+        <div className="flex justify-center items-center sm:pb-4 pb-4">
           <h5
-            className="text font-semibold sm:text-3xl text-2xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4"
+            className="text-center text-white font-semibold text-4xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4"
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="700"
@@ -32,16 +32,16 @@ const OurImpact: React.FC = () => {
             <span>{t('SectionThreeHome.title')}</span>{' '}
             {t('SectionThreeHome.titlenext')}
           </h5>
-          <p
+          {/* <p
             className="text-slate-600 dark:text-slate-300 font-base text-sm sm:w-1/2 w-full pr-6"
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="1000"
           >
             {t('SectionThreeHome.desc')}
-          </p>
+          </p> */}
         </div>
-        <div className="flex justify-start items-center gap-x-4 py-6">
+        <div className="flex justify-start items-center gap-x-4 py-6 hidden">
           <h5 className="text-gray-900 text-base font-lg">Select Year</h5>
           <form action="" className="pr-2">
             <select

@@ -92,7 +92,7 @@ const FundProject = () => {
             {t('SectionFiveHome.title')}
           </h5>
           <p
-            className="text-slate-500 dark:text-slate-500 font-medium text-sm"
+            className="hidden text-slate-500 dark:text-slate-500 font-medium text-sm"
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="700"

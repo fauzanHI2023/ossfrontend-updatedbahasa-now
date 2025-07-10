@@ -81,12 +81,12 @@
     "document": "Document"
   },
   "SectionMainHomeTitle": {
-    "connect": "connect",
-    "helps": "Helps",
-    "desc": "those who care with those who need help."
+    "connect": "Human Initiative",
+    "helps": "Support",
+    "desc": "uplift rights holders and restore dignity today!"
   },
   "SectionMainHomeDesc": {
-    "text": "Lets work together to help our brothers and sisters who are being hit by a disaster. One rupee from you is definitely valuable to them."
+    "text": "Your donation can spark real change! Help protect vulnerable children, empower struggling communities, respond swiftly to disasters, and build safe, dignified spaces for rights holders. Be the reason hope rises. Support Human Initiative today!"
   },
   "FormOneTimeDonatiom": {
     "title": "One Time Donation",
@@ -96,14 +96,12 @@
     "click": "here"
   },
   "SectionTwoHome": {
-    "welcome": "Welcome to",
     "hi": "Human Initiative",
-    "title": "Together We Create Real Change for Humanity",
-    "desc": " Human Initiative is here to provide sustainable solutions for the humanitarian movement, creating real change that restores hope, empowers communities, and builds a better future for all."
+    "desc": "is a nonprofit organization from Indonesia with a global heart. Since 1999, we’ve been working alongside communities to empower lives, protect children, respond to disasters, and build safe infrastructure. With UN recognition, our mission is rooted in restoring dignity and resilience for those who need it most. Together, we can turn compassion into real change Join us today!"
   },
   "SectionThreeHome": {
-    "title": "Human Initiative",
-    "titlenext": "Impact",
+    "title": "Our",
+    "titlenext": "Work",
     "desc": "Through innovative humanitarian programs, we have become a beacon of hope for millions of lives, turning crisis into opportunity and building a better future for communities around the world.​"
   },
   "SectionFourHome": {
@@ -115,24 +113,24 @@
     "desc": "Mari Wujudkannya Bersama-sama!."
   },
   "SectionFiveHome": {
-    "title": "Every Donation Brings New Hope",
+    "title": "Fundraising Now",
     "desc": "Let’s Make It Happen Together!."
   },
   "cardInitiativeforDisaster": {
     "title": "Initiative For Disaster",
-    "desc": "Being an initiator in building community resilience to disasters and climate change"
+    "desc": "Providing emergency aid, recovery support, and disaster risk reduction for affected rights holders in times of crisis and beyond."
   },
   "cardInitiativeforChildren": {
     "title": "Initiative For Children",
-    "desc": "Fulfillment of children's rights to improve children's quality of life​​"
+    "desc": "Advocate children’s rights by meeting their basic needs—quality education, proper nutrition, and a safe space to grow and thrive.​​"
   },
   "cardInitiativeforEmpowerment": {
     "title": "Initiative For Empowerment",
-    "desc": "Building human resources & systems for sustainable improvement of people's quality of life​​"
+    "desc": "Empowering rights holders through capacity building, community programs, and village-based initiatives for lasting self-reliance.​​"
   },
   "cardInitiativeforInfrastructure": {
     "title": "Initiative For Infrastructure",
-    "desc": "Open access to improve the quality of life of the community​"
+    "desc": "Where there’s no access, we create it. Help us bring safe, lasting infrastructure to vulnerable communities.​"
   },
   "HomeMenuDashboard": {
     "dashboard": "Dashboard",
@@ -261,7 +259,7 @@
     },
     "sectionTen": {
       "titleOur": "Our",
-      "titleLegality": "Legality",
+      "titleLegality": "Legal",
       "tabOne": "Registered as an NGO at",
       "tabTwo": "Member of",
       "tabThree": "Standardization",

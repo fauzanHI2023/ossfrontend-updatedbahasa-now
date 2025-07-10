@@ -8,6 +8,7 @@ import {fetchDeleteCart} from '@/lib/donation/transaction/auth-delete-cart';
 import Link from 'next/link';
 import Swal from 'sweetalert2';
 import PopupNotif from '@/components/ui/utility/PopupNotif';
+import {PopUpNotification} from '@/components/ui/utility/PopupNotifNew';
 import {useSession} from 'next-auth/react';
 import {useCart} from '@/context/CartContext';
 import {FaCartPlus, FaOpencart} from 'react-icons/fa';
@@ -68,6 +69,10 @@ const Checkout: React.FC = () => {
   const [phone, setPhone] = useState<string | undefined>('');
   const {cartItems, setCartItems, removeItemFromCart, clearCart} = useCart();
   const [notifMessage, setNotifMessage] = useState('');
+  const [notifType, setNotifType] = useState<'success' | 'error' | 'warning'>(
+    'warning'
+  );
+  const [showNotif, setShowNotif] = useState(false);
   const [anonim, setAnonim] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const [isButtonLoading, setIsButtonLoading] = useState(false);
@@ -167,6 +172,8 @@ const Checkout: React.FC = () => {
 
     if (!userId && (!fullName || !email)) {
       setNotifMessage('Enter Your Information');
+      setNotifType('warning');
+      setShowNotif(true);
       return;
     }
 
@@ -567,10 +574,11 @@ const Checkout: React.FC = () => {
           )}
         </motion.button>
       </div>
-      <PopupNotif
+      <PopUpNotification
         message={notifMessage}
-        duration={3000}
-        onClose={() => setNotifMessage('')}
+        type={notifType}
+        show={showNotif}
+        onClose={() => setShowNotif(false)}
       />
     </main>
   );

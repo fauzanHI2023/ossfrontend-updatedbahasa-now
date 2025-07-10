@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 interface PopupNotifProps {
   message: string;
@@ -7,7 +7,12 @@ interface PopupNotifProps {
   onClose?: () => void;
 }
 
-const PopupNotif: React.FC<PopupNotifProps> = ({ message, duration = 3000, background = 'bg-sky-500', onClose }) => {
+const PopupNotif: React.FC<PopupNotifProps> = ({
+  message,
+  duration = 3000,
+  background = 'bg-sky-400',
+  onClose
+}) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -25,7 +30,7 @@ const PopupNotif: React.FC<PopupNotifProps> = ({ message, duration = 3000, backg
 
   return (
     <div
-      className={`fixed top-16 z-[9999999] left-1/2 transform -translate-x-1/2 ${background} text-white py-2 px-4 rounded transition-all duration-500 ease-in-out z-50 ${
+      className={`fixed top-24 z-[9999999] left-1/2 transform -translate-x-1/2 ${background} text-white py-2 px-4 rounded transition-all duration-500 ease-in-out z-50 ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
       }`}
     >

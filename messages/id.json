@@ -81,12 +81,12 @@
     "document": "Dokumen"
   },
   "SectionMainHomeTitle": {
-    "connect": "hubungkan",
-    "helps": "Bantu",
-    "desc": "yang peduli dengan membutuhkan."
+    "connect": "Human Initiative",
+    "helps": "Dukung",
+    "desc": "wujudkan kemartabatan untuk pemegang hak program sekarang!"
   },
   "SectionMainHomeDesc": {
-    "text": "Mari bekerja sama untuk membantu saudara-saudara kita yang sedang dilanda bencana. Satu rupee dari Anda pasti sangat berharga bagi mereka."
+    "text": "Donasimu bisa membawa perubahan nyata! Bantu lindungi anak-anak, berdayakan komunitas, tanggap bencana, dan bangun infrastruktur yang aman dan bermartabat untuk para pemegang hak. Dukung Human Initiative sekarang!"
   },
   "FormOneTimeDonatiom": {
     "title": "Donasi Satu Kali",
@@ -96,10 +96,8 @@
     "click": "disini"
   },
   "SectionTwoHome": {
-    "welcome": "Selamat datang di",
     "hi": "Human Initiative",
-    "title": "Bersama Kita Ciptakan Perubahan Nyata untuk Kemanusiaan",
-    "desc": "Human Initiative hadir untuk memberikan solusi berkelanjutan bagi gerakan kemanusiaan, menciptakan perubahan nyata yang memulihkan harapan, memberdayakan masyarakat, dan membangun masa depan yang lebih baik bagi semua."
+    "desc": "adalah organisasi kemanusiaan dari Indonesia dengan semangat kemanusiaan global. Sejak tahun 1999, kami telah bekerja bersama masyarakat untuk memberdayakan komunitas, melindungi hak-hak anak, merespons bencana, dan membangun infrastruktur yang aman. Diakui oleh PBB, misi kami berakar pada upaya memulihkan martabat bagi pemegang hak program. Bersama, kita bisa mengubah kepedulian menjadi aksi nyata. Dukung Program kami sekarang!"
   },
   "SectionThreeHome": {
     "title": "Human Initiative",
@@ -107,11 +105,11 @@
     "desc": "Melalui program-program kemanusiaan yang inovatif, kami telah menjadi mercusuar harapan bagi jutaan nyawa, mengubah krisis menjadi peluang dan membangun masa depan yang lebih baik bagi masyarakat di seluruh dunia.​"
   },
   "SectionFourHome": {
-    "title": "Berita dan Cerita",
+    "title": "Artikel dan Berita",
     "desc": "Terus ikuti perkembangan terbaru tentang kampanye inisiatif manusia untuk membuat Anda tetap terlibat."
   },
   "SectionFiveHome": {
-    "title": "Setiap Donasi Membawa Harapan Baru",
+    "title": "Program Pilihan",
     "desc": "Mari Wujudkannya Bersama-sama!."
   },
   "SectionSixHome": {
@@ -119,20 +117,20 @@
     "desc": "Mari Wujudkannya Bersama-sama!."
   },
   "cardInitiativeforDisaster": {
-    "title": "Inisiatif Untuk Disaster",
-    "desc": "Menjadi inisiator dalam membangun ketangguhan masyarakat terhadap bencana dan perubahan iklim"
+    "title": "Initiative For Disaster",
+    "desc": "Menghadirkan bantuan darurat, dukungan pemulihan, dan pengurangan risiko bencana bagi ppemegang hak program terdampak di masa krisis dan pascakrisis."
   },
   "cardInitiativeforChildren": {
-    "title": "Inisiatif Untuk Anak",
-    "desc": "Pemenuhan hak-hak anak untuk meningkatkan kualitas hidup anak"
+    "title": "Initiative For Children",
+    "desc": "Mengadvokasi hak-hak anak dengan memenuhi kebutuhan dasar mereka—pendidikan berkualitas, gizi yang baik, dan ruang aman untuk tumbuh dan berkembang."
   },
   "cardInitiativeforEmpowerment": {
-    "title": "Inisiatif Untuk Pemberdayaan",
-    "desc": "Membangun sumber daya manusia & sistem untuk peningkatan kualitas hidup masyarakat yang berkelanjutan"
+    "title": "Initiative For Empowerment",
+    "desc": "Memberdayakan penerima hak program melalui pembekalan kapasitas, program berbasis komunitas, dan desa untuk kemandirian yang berkelanjutan."
   },
   "cardInitiativeforInfrastructure": {
-    "title": "Prakarsa Untuk Infrastruktur",
-    "desc": "Akses terbuka untuk meningkatkan kualitas hidup masyarakat"
+    "title": "Initiative For Infrastructure",
+    "desc": "Saat akses belum tersedia, kami hadir membangun. Bersama, mari wujudkan infrastruktur aman dan berkelanjutan untuk komunitas yang rentan."
   },
   "HomeMenuDashboard": {
     "dashboard": "Dashboard",

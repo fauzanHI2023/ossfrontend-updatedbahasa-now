@@ -5,7 +5,7 @@ import {motion} from 'framer-motion';
 export default function LoadingOverlay() {
   return (
     <motion.div
-      className="fixed inset-0 bg-white z-50 flex items-center justify-center"
+      className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center"
       initial={{opacity: 0}}
       animate={{opacity: 1}}
       exit={{opacity: 0}}
@@ -16,7 +16,7 @@ export default function LoadingOverlay() {
         animate={{scale: 1}}
         transition={{duration: 0.5}}
       >
-        Loading...
+        Loading
       </motion.div>
     </motion.div>
   );

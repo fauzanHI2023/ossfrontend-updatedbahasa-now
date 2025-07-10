@@ -13,7 +13,9 @@ export default {
       fontFamily: {
         poppins: ['Poppins'],
         raleway: ['Raleway'],
-        nunito: ['Nunito']
+        nunito: ['Nunito'],
+        title: ['var(--font-title)'],
+        paragraph: ['var(--font-paragraph)']
       },
       backgroundImage: {
         'hero-career-details': `url('../../public/career-details.png')`,

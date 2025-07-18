@@ -69,7 +69,7 @@ export default function WorldMap() {
       center={position}
       zoom={2}
       style={{
-        height: '700px',
+        height: '500px',
         width: '100%',
         background: '#ffffff',
         borderRadius: '30px'

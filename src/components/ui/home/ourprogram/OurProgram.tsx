@@ -63,7 +63,7 @@ const OurProgram = () => {
           ></iframe>
         </div>
       </div>
-      <div className="grid sm:grid-cols-2 grid-cols-1 sm:gap-x-4 gap-y-8">
+      <div className="grid sm:grid-cols-4 grid-cols-1 sm:gap-x-4 gap-y-8">
         {programCard.map((program, index) => {
           const tp = useTranslations(program.namespace); // dynamic namespace per card
 
@@ -74,7 +74,7 @@ const OurProgram = () => {
               data-aos-duration="800"
               className="flex flex-col rounded-xl bg-sky-100 transition duration-300 ease-in dark:bg-slate-900 sm:pb-0 p-2"
             >
-              <div className="bg-sky-100 flex flex-col justify-start items-start gap-y-4 py-6 px-4 rounded-xl h-full">
+              <div className="bg-sky-100 flex flex-col justify-start items-start gap-y-4 py-0 px-4 rounded-xl h-full">
                 <div className="flex flex-col justify-start items-start">
                   {/* <div className="pb-4 text-4xl text-sky-300">
                     {program.icon}
@@ -83,17 +83,17 @@ const OurProgram = () => {
                     <p className="w-8/12 flex items-start sm:text-xl text-lg font-semibold sm:pb-6 pb-3 h-[70px]">
                       {tp('title')}
                     </p>
-                    <span className="absolute top-4 left-[25rem] right-0 w-40 h-40 flex justify-center items-center">
+                    <span className="relative w-4/12 h-40 flex justify-center items-center">
                       <Image
                         src={program.icon}
                         alt="Human Initiative"
                         width={100}
                         height={100}
-                        className="text-sky-500 w-40 h-40"
+                        className="text-sky-500 w-16 h-16"
                       />
                     </span>
                   </div>
-                  <p className="text-sm text-gray-500 relative overflow-hidden w-[220px] h-[20px]">
+                  <p className="text-sm text-gray-500 relative overflow-hidden w-[220px] h-[40px]">
                     {tp('desc')}
                   </p>
                 </div>

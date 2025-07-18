@@ -14,6 +14,45 @@ import {Banknote, FileChartLine, HandHelping, ListChecks} from 'lucide-react';
 import {GiTakeMyMoney} from 'react-icons/gi';
 import Image from 'next/image';
 
+interface layananKami {
+  icon: string;
+  label: string;
+  desc: string;
+}
+
+export const layananKami = [
+  {
+    icon: '',
+    label: 'Community Services',
+    desc: 'Implementasi Program CSR berupa aktifitas charity pada lokasi yang ditunjuk oleh korporasi/institusi'
+  },
+  {
+    icon: '',
+    label: 'CSI',
+    desc: 'Menilai sejauh mana kepuasan masyarakat atau tingkat kepuasan terhadap program sosial yang diinisiasi korporasi/institusi, baik secara kualitatif maupun kuantitatif.'
+  },
+  {
+    icon: '',
+    label: 'Creating Shared Value',
+    desc: 'Tingkatkan nilai-nilai kompetitif korporasi/intitusi dan secara bersamaan memajukan kondisi sosial dan ekonomi'
+  },
+  {
+    icon: '',
+    label: 'Social Mapping',
+    desc: 'Identifikasi program sosial apa yang benar-benar dibutuhkan oleh masyarakat dan sesuai dengan visi korporasi/institusi'
+  },
+  {
+    icon: '',
+    label: 'SROI (Social Return On Investment)',
+    desc: 'Membantu korporasi/institusi memahami dan mengelola nilai sosial, lingkungan, dan ekonomi yang dihasilkan'
+  },
+  {
+    icon: '',
+    label: 'Proper',
+    desc: 'Parameter penilaian dari korporasi/institusi terkait dengan aktivitasnya dalam mengelola sektor lingkungan hidup.'
+  }
+];
+
 export const menuItems = [
   // {
   //     id: 1,

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 interface ProjectList {
   id: string;
@@ -13,12 +13,12 @@ interface ProjectList {
 }
 
 export const fetchListProject = async (): Promise<ProjectList[]> => {
-  const apiUrl = `${process.env.NEXT_PUBLIC_API_BACKEND_TWO}/oss/proposal/list`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_BACKEND_TWO}/api/proposal/list`;
   try {
     const response = await axios.get(apiUrl);
     return response.data.data;
   } catch (error) {
-    console.log("Error data Project", error);
+    console.log('Error data Project', error);
     return [];
   }
 };

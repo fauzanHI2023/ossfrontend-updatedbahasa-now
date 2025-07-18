@@ -20,11 +20,11 @@ const OurImpact: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative flex flex-col w-full py-12 px-24 p-6 bg-hero-impact bg-center ">
-      <div className="flex flex-col gap-y-6 backdrop-blur-sm bg-white/50 p-16 rounded-tr-3xl rounded-tl-3xl">
+    <div className="relative flex flex-col w-full py-12 px-24 p-6 bg-white bg-center ">
+      <div className="flex flex-col gap-y-6 backdrop-blur-sm bg-white/50 p-16 pt-0 rounded-tr-3xl rounded-tl-3xl">
         <div className="flex justify-center items-center sm:pb-4 pb-4">
           <h5
-            className="text-center text-white font-semibold text-4xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4"
+            className="text-center text-slate-600 font-semibold text-4xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4"
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="700"

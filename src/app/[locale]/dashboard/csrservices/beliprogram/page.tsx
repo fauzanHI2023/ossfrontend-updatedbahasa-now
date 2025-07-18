@@ -44,6 +44,9 @@ import {
 import {Button} from '@/components/ui/button';
 import Swal from 'sweetalert2';
 import {CalendarPicker} from '@/components/ui/utility/calendar/Calendar';
+import MapWithSearch, {
+  PlaceResult
+} from '@/components/ui/utility/maps/MapsWithSearchBar';
 
 const override: CSSProperties = {
   display: 'block',
@@ -88,6 +91,7 @@ const Page: React.FC = () => {
   const [endTime, setEndTime] = useState('');
   const [place, setPlace] = useState('');
   const [notes, setNotes] = useState('');
+  const [selectedPlace, setSelectedPlace] = useState<PlaceResult | null>(null);
 
   useEffect(() => {
     if (status === 'authenticated' && session?.user?.phpDonorData?.length > 0) {
@@ -505,16 +509,23 @@ const Page: React.FC = () => {
                                             <label className="text-sm text-slate-600">
                                               Tempat
                                             </label>
-                                            <input
-                                              type="text"
-                                              value={place}
-                                              onChange={(e) =>
-                                                setPlace(e.target.value)
-                                              }
-                                              className="w-full border px-3 py-2 rounded-md"
-                                              placeholder="Masukkan tempat janji temu"
-                                            />
+                                            {selectedPlace && (
+                                              <input
+                                                type="hidden"
+                                                value={selectedPlace.address}
+                                                onChange={(e) =>
+                                                  setPlace(e.target.value)
+                                                }
+                                                className="w-full border px-3 py-2 rounded-md"
+                                                placeholder="Masukkan tempat janji temu"
+                                              />
+                                            )}
                                           </div>
+                                          <MapWithSearch
+                                            onSelect={(place) =>
+                                              setSelectedPlace(place)
+                                            }
+                                          />
 
                                           {/* Input Catatan */}
                                           <div className="flex flex-col">

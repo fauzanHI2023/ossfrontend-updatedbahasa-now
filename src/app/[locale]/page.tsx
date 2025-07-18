@@ -7,7 +7,9 @@ import OurProgram from '@/components/ui/home/ourprogram/OurProgram';
 import OurImpact from '@/components/ui/home/ourimpact/OurImpact';
 import FundProject from '@/components/ui/home/fundaproject/FundProject';
 import CollectionsPublications from '@/components/ui/home/collectionandpublications/CollectionsPublications';
+import CollectionPublicationNew from '@/components/ui/home/collectionandpublicationNew/CollectionPublicationNew';
 import News from '@/components/ui/home/newshi/News';
+import BannerHomeNew from '@/components/ui/home/BannerHomeNew/BannerHomeNew';
 
 export default function IndexPage() {
   const {data: session, status} = useSession();
@@ -24,12 +26,12 @@ export default function IndexPage() {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-between z-auto">
-        <BannerHome />
+        <BannerHomeNew />
         <OurProgram />
-        <OurImpact />
         <FundProject />
         <News />
-        <CollectionsPublications />
+        <OurImpact />
+        <CollectionPublicationNew />
       </main>
     </>
   );

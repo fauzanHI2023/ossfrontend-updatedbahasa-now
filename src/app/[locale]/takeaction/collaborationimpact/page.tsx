@@ -44,6 +44,9 @@ import {
 } from '@/components/ui/dialog';
 import {postAppointment} from '@/lib/project/auth-post-appoinment';
 import Swal from 'sweetalert2';
+import MapWithSearch, {
+  PlaceResult
+} from '@/components/ui/utility/maps/MapsWithSearchBar';
 
 const override: CSSProperties = {
   display: 'block',
@@ -71,7 +74,8 @@ const CSRServices = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  const [place, setPlace] = useState('');
+  const [place, setPlace] = useState<PlaceResult | null>(null);
+  const [placeText, setPlaceText] = useState<string>('');
   const [notes, setNotes] = useState('');
   const [userId, setUserId] = useState<string | null>(null);
   const {data: session, status}: any = useSession();
@@ -131,52 +135,41 @@ const CSRServices = () => {
     selectedDate,
     startTime,
     endTime,
-    place,
+    placeText,
     notes
   }: {
     programId: string;
     selectedDate: Date;
     startTime: string;
     endTime: string;
-    place: string;
+    placeText: string;
     notes: string;
   }) => {
-    if (!userId) {
-      setNotifMessage(
-        'User ID tidak ditemukan. Harap refresh atau login ulang.'
-      );
-      return;
-    }
-
-    if (!selectedDate || !startTime || !endTime || !place) {
+    if (!userId || !selectedDate || !startTime || !endTime || !placeText) {
       setNotifMessage(
         'Silakan lengkapi tanggal, jam, dan tempat terlebih dahulu.'
       );
       return;
     }
 
-    const dateStr = selectedDate.toISOString().split('T')[0]; // YYYY-MM-DD
-    const selectedDateTime = `${dateStr} ${startTime}:00`;
-    const selectedEndDateTime = `${dateStr} ${endTime}:00`;
-
     const appointmentData = {
       user_id: userId,
       proposal_id: programId,
-      date: selectedDateTime,
-      end_date: selectedEndDateTime,
-      tempat: place,
+      date: `${selectedDate.toISOString().split('T')[0]} ${startTime}:00`,
+      end_date: `${selectedDate.toISOString().split('T')[0]} ${endTime}:00`,
+      tempat: placeText,
       notes,
       created_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
     };
 
     mutation.mutate(appointmentData, {
       onSuccess: () => {
-        // Reset state dan step kembali ke awal
         setStep(1);
         setSelectedDate(null);
         setStartTime('');
         setEndTime('');
-        setPlace('');
+        setPlace(null); // Reset object
+        setPlaceText(''); // Reset text
         setNotes('');
       },
       onError: () => {
@@ -730,13 +723,17 @@ const CSRServices = () => {
                                   Tempat
                                 </label>
                                 <input
-                                  type="text"
-                                  value={place}
-                                  onChange={(e) => setPlace(e.target.value)}
-                                  className="w-full border px-3 py-2 rounded-md"
-                                  placeholder="Masukkan tempat janji temu"
+                                  type="hidden"
+                                  value={placeText}
+                                  name="tempat"
                                 />
                               </div>
+                              <MapWithSearch
+                                onSelect={(placeResult) => {
+                                  setPlace(placeResult);
+                                  setPlaceText(placeResult.address ?? '');
+                                }}
+                              />
 
                               {/* Input Catatan */}
                               <div className="flex flex-col">
@@ -763,7 +760,7 @@ const CSRServices = () => {
                                         selectedDate,
                                         startTime,
                                         endTime,
-                                        place,
+                                        placeText,
                                         notes
                                       });
                                     }}

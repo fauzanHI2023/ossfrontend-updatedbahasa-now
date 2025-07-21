@@ -30,7 +30,7 @@ const CollectionPublicationNew = () => {
           </p>
         </div>
       </div>
-      <div className="w-full flex flex-row gap-x-3 px-12 pl-24 pt-3">
+      <div className="w-full flex flex-row gap-x-3 px-24 pt-3">
         <Swiper
           slidesPerView={5}
           spaceBetween={30}
@@ -43,12 +43,12 @@ const CollectionPublicationNew = () => {
           }}
           loop={true}
           modules={[Autoplay, Pagination]}
-          style={{paddingRight: '80px'}}
+          //   style={{paddingRight: '80px'}}
           className="mySwiper h-[300px]"
         >
           <SwiperSlide>
             <Link
-              href="#"
+              href="/publication/situationreport"
               className="flex flex-col justify-center items-center w-full gap-y-2"
             >
               <div className="bg-gradient-to-r to-sky-100 from-sky-200 rounded-xl h-[200px] w-full flex justify-center items-center">
@@ -66,7 +66,7 @@ const CollectionPublicationNew = () => {
           </SwiperSlide>
           <SwiperSlide>
             <Link
-              href="#"
+              href="/publication/publicreport"
               className="flex flex-col justify-center items-center w-full gap-y-2"
             >
               <div className="bg-gradient-to-r to-sky-100 from-sky-200 rounded-xl h-[200px] w-full flex justify-center items-center">
@@ -84,7 +84,7 @@ const CollectionPublicationNew = () => {
           </SwiperSlide>
           <SwiperSlide>
             <Link
-              href="#"
+              href="/publication/event"
               className="flex flex-col justify-center items-center w-full gap-y-2"
             >
               <div className="bg-gradient-to-r to-sky-100 from-sky-200 rounded-xl h-[200px] w-full flex justify-center items-center">
@@ -100,7 +100,7 @@ const CollectionPublicationNew = () => {
           </SwiperSlide>
           <SwiperSlide>
             <Link
-              href="#"
+              href="/publication/mediarelease"
               className="flex flex-col justify-center items-center w-full gap-y-2"
             >
               <div className="bg-gradient-to-r to-sky-100 from-sky-200 rounded-xl h-[200px] w-full flex justify-center items-center">
@@ -118,7 +118,7 @@ const CollectionPublicationNew = () => {
           </SwiperSlide>
           <SwiperSlide>
             <Link
-              href="#"
+              href="/publication/document"
               className="flex flex-col justify-center items-center w-full gap-y-2"
             >
               <div className="bg-gradient-to-r to-sky-100 from-sky-200 rounded-xl h-[200px] w-full flex justify-center items-center">
@@ -134,7 +134,7 @@ const CollectionPublicationNew = () => {
           </SwiperSlide>
           <SwiperSlide>
             <Link
-              href="#"
+              href="/publication/library"
               className="flex flex-col justify-center items-center w-full gap-y-2"
             >
               <div className="bg-gradient-to-r to-sky-100 from-sky-200 rounded-xl h-[200px] w-full flex justify-center items-center">

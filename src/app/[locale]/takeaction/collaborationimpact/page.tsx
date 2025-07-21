@@ -47,6 +47,7 @@ import Swal from 'sweetalert2';
 import MapWithSearch, {
   PlaceResult
 } from '@/components/ui/utility/maps/MapsWithSearchBar';
+import ScrollingCards from '@/components/ui/utility/ScrollingCard';
 
 const override: CSSProperties = {
   display: 'block',
@@ -491,6 +492,12 @@ const CSRServices = () => {
             </SwiperSlide>
           </Swiper>
         </div>
+      </section>
+      <section className="flex flex-col justify-center items-center bg-slate-50 py-24">
+        <h5 className="text-sky-600 text-4xl font-semibold">
+          Collaborative Sponsor
+        </h5>
+        <ScrollingCards />
       </section>
       <motion.section
         className={`transition duration-600 ease-in scroll-smooth relative flex flex-col w-full sm:px-32 sm:py-16 p-6 dark:bg-slate-950 bg-white`}

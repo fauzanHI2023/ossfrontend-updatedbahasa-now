@@ -15,6 +15,9 @@ import {
   OctagonAlert,
   ClipboardPlus,
   ClipboardCheck,
+  ClipboardList,
+  ClipboardPaste,
+  BadgeInfo,
   BookmarkX,
   FileBarChart,
   Proportions
@@ -25,6 +28,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/ui/accordion';
+import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
 import {fetchListProject} from '@/lib/project/auth-list-program';
 import {fetchListAppointmentbyUser} from '@/lib/project/auth-list-appointment-by-user';
 import {postAppointment} from '@/lib/project/auth-post-appoinment';
@@ -44,9 +48,8 @@ import {
 import {Button} from '@/components/ui/button';
 import Swal from 'sweetalert2';
 import {CalendarPicker} from '@/components/ui/utility/calendar/Calendar';
-import MapWithSearch, {
-  PlaceResult
-} from '@/components/ui/utility/maps/MapsWithSearchBar';
+import {fetchProgramFollowedByGuid} from '@/lib/project/auth-list-program-followed';
+import clsx from 'clsx';
 
 const override: CSSProperties = {
   display: 'block',
@@ -80,6 +83,15 @@ interface ListAppointment {
   program_name: string;
 }
 
+interface ProgramFollowed {
+  project_no: string;
+  project_name: string;
+  program_name: string;
+  status: string;
+  execution_date_start: string;
+  execution_date_finish: string;
+}
+
 const Page: React.FC = () => {
   const [errors, setError] = useState('');
   const [color, _setColor] = useState('#209ce2');
@@ -91,7 +103,21 @@ const Page: React.FC = () => {
   const [endTime, setEndTime] = useState('');
   const [place, setPlace] = useState('');
   const [notes, setNotes] = useState('');
-  const [selectedPlace, setSelectedPlace] = useState<PlaceResult | null>(null);
+
+  const stepsUI = ['Review', 'On Progress', 'Finish', 'Complete'];
+
+  const mapStatusToStep = (status: string): string => {
+    const reviewStatuses = ['Draft', 'New', 'Need Revision', 'Verified'];
+    if (reviewStatuses.includes(status)) return 'Review';
+    if (status === 'Running') return 'On Progress';
+    if (status === 'Finishing') return 'Finish';
+    if (status === 'Closed') return 'Complete';
+    return 'Unknown';
+  };
+
+  const getStepIndex = (step: string) => {
+    return stepsUI.findIndex((s) => s === step);
+  };
 
   useEffect(() => {
     if (status === 'authenticated' && session?.user?.phpDonorData?.length > 0) {
@@ -108,6 +134,17 @@ const Page: React.FC = () => {
     queryKey: ['appointments', session?.user?.phpDonorData?.[0]?.guid],
     queryFn: () =>
       fetchListAppointmentbyUser(session!.user.phpDonorData[0].guid),
+    enabled: !!session?.user?.phpDonorData?.[0]?.guid
+  });
+
+  const {
+    data: programfolloweds = [],
+    isLoading: loadingProgramFollowed,
+    error: errorProgramFollowed
+  } = useQuery<ProgramFollowed[], Error>({
+    queryKey: ['programfolloweds', session?.user?.phpDonorData?.[0]?.guid],
+    queryFn: () =>
+      fetchProgramFollowedByGuid(session!.user.phpDonorData[0].guid),
     enabled: !!session?.user?.phpDonorData?.[0]?.guid
   });
 
@@ -237,6 +274,30 @@ const Page: React.FC = () => {
     });
   };
 
+  // mapping status ke label dan warna badge
+  const statusBadges: Record<string, {label: string}> = {
+    New: {
+      label: 'Project sudah dikirim dan perlu verifikasi oleh admin'
+    },
+    Draft: {
+      label: 'Project baru dibuat dan perlu melengkapi data projectnya'
+    },
+    Verified: {
+      label: 'Project telah diverifikasi oleh tim kami dan siap untuk running'
+    },
+    'Need Revision': {
+      label: 'Project Perlu Revisi'
+    },
+    Running: {
+      label: 'Project Sudah Berjalan'
+    },
+    Finishing: {
+      label:
+        'Project sudah diupload laporan akhir dan memastikan semua administrasi telah selesai'
+    },
+    Closed: {label: 'Project telah selesai'}
+  };
+
   return (
     <DashboardLayout>
       <main className="flex h-full flex-col px-16 py-12 pb-0">
@@ -294,286 +355,252 @@ const Page: React.FC = () => {
                   <TabsTrigger value="appointment" className="w-1/3">
                     <ListChecks className="mr-2 h-4 w-4" /> Appointment
                   </TabsTrigger>
-                  <TabsTrigger value="program" className="w-1/3">
-                    <BookCheck className="mr-2 h-4 w-4" /> Program
+                  <TabsTrigger value="programhistory" className="w-1/3">
+                    <BookCheck className="mr-2 h-4 w-4" /> Program Yang Diikuti
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent
-                  value="program"
-                  className="bg-[#f5f7fe] dark:bg-slate-800"
+                  value="programhistory"
+                  className="bg-[#f5f7fe] dark:bg-slate-800 rounded-bl-3xl rounded-br-3xl"
                 >
                   <div className="flex flex-col gap-y-6 py-4 px-12 pb-12">
                     <h6 className="text-slate-500 text-sm font-semibold">
-                      Program
+                      Program Yang Anda Ikuti
                     </h6>
-                    <Accordion
-                      type="single"
-                      className="flex flex-col gap-y-6"
-                      collapsible
-                    >
-                      {isLoading ? (
-                        <HashLoader
-                          color={color}
-                          loading={isLoading}
-                          cssOverride={override}
-                          size={50}
-                        />
-                      ) : error || proposalprograms.length === 0 ? (
-                        <p className="text-lg font-semibold text-gray-600 dark:text-gray-300">
-                          No data available
-                        </p>
-                      ) : (
-                        proposalprograms.map((programs, index) => (
-                          <AccordionItem value={programs.id} key={index}>
-                            <AccordionTrigger className="flex flex-row justify-between items-starts rounded-xl bg-white dark:bg-slate-700 p-6">
-                              <div className="flex flex-row gap-x-4">
-                                <span className="bg-sky-100 p-3 rounded-3xl">
-                                  <Proportions className="text-sky-500" />
-                                </span>
-                                <div className="flex flex-col justify-start items-start gap-x-1">
-                                  <h5>{programs.title}</h5>
-                                  <p className="text-slate-400 text-sm">
-                                    {programs.program_name}
-                                  </p>
+                    {loadingProgramFollowed ? (
+                      <HashLoader
+                        color={color}
+                        loading={loadingProgramFollowed}
+                        cssOverride={override}
+                        size={50}
+                      />
+                    ) : errorProgramFollowed ? (
+                      <p className="text-lg font-semibold text-red-600">
+                        Failed to load appointments
+                      </p>
+                    ) : programfolloweds.length === 0 ? (
+                      <p className="text-lg font-semibold text-gray-600 dark:text-gray-300">
+                        No appointments found
+                      </p>
+                    ) : (
+                      <Accordion
+                        type="single"
+                        className="flex flex-col gap-4"
+                        collapsible
+                      >
+                        {programfolloweds.map(
+                          (programfollowed: any, index: any) => (
+                            <AccordionItem
+                              value={programfollowed.project_no}
+                              key={index}
+                            >
+                              <AccordionTrigger className="flex flex-row justify-between items-starts rounded-xl bg-white dark:bg-slate-700 p-6">
+                                <div className="flex flex-row gap-x-4">
+                                  {programfollowed.status === 'Verified' && (
+                                    <span className="bg-blue-100 p-3 rounded-3xl">
+                                      <ClipboardList className="text-blue-500" />
+                                    </span>
+                                  )}
+                                  {programfollowed.status === 'Finishing' && (
+                                    <span className="bg-green-100 p-3 rounded-3xl">
+                                      <ClipboardCheck className="text-green-500" />
+                                    </span>
+                                  )}
+                                  {programfollowed.status === 'Closed' && (
+                                    <span className="bg-green-100 p-3 rounded-3xl">
+                                      <ClipboardCheck className="text-green-500" />
+                                    </span>
+                                  )}
+                                  {programfollowed.status ===
+                                    'Need Revision' && (
+                                    <span className="bg-blue-100 p-3 rounded-3xl">
+                                      <ClipboardList className="text-blue-500" />
+                                    </span>
+                                  )}
+                                  {programfollowed.status === 'Running' && (
+                                    <span className="bg-teal-100 p-3 rounded-3xl">
+                                      <ClipboardPaste className="text-teal-500" />
+                                    </span>
+                                  )}
+                                  {programfollowed.status === 'New' && (
+                                    <span className="bg-blue-100 p-3 rounded-3xl">
+                                      <ClipboardList className="text-blue-500" />
+                                    </span>
+                                  )}
+                                  {programfollowed.status === 'Draft' && (
+                                    <span className="bg-blue-100 p-3 rounded-3xl">
+                                      <ClipboardList className="text-blue-500" />
+                                    </span>
+                                  )}
+                                  <div className="flex flex-col justify-center items-start gap-x-1">
+                                    <h5 className="text-gray-600 text-sm">
+                                      {programfollowed.project_name}
+                                    </h5>
+                                    <p className="text-slate-400 text-xs">
+                                      {programfollowed.program_name}
+                                    </p>
+                                  </div>
                                 </div>
-                              </div>
-                              <div>
-                                <h5 className="text-slate-700 dark:text-white text-sm">
-                                  {programs.project_goal}
-                                </h5>
-                              </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="flex flex-col items-center rounded-b-xl bg-white dark:bg-slate-700 p-6 border-t border-slate-200">
-                              <div className="flex flex-row justify-between items-center w-full mb-8">
-                                <h5 className="text-slate-500 dark:text-sky-600 text-normal font-semibold">
-                                  Detail Program
-                                </h5>
-                                <button className="text-slate-500 dark:text-sky-600">
-                                  {programs.title}
-                                </button>
-                              </div>
-                              <div className="flex flex-wrap w-full">
-                                <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                                  <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                                    Program Name
-                                  </label>
-                                  <h6 className="text-slate-800 dark:text-white">
-                                    {programs.program_name}
-                                  </h6>
+                                <div>
+                                  <h5 className="text-slate-700 dark:text-white text-sm">
+                                    {programfollowed.status}
+                                  </h5>
                                 </div>
-                                <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                                  <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                                    Project Description
-                                  </label>
-                                  <h6 className="text-slate-800 dark:text-white">
-                                    {programs.project_description}
-                                  </h6>
+                              </AccordionTrigger>
+                              <AccordionContent className="flex flex-col items-center rounded-b-xl bg-white dark:bg-slate-700 p-6 border-t border-slate-200">
+                                <div className="flex flex-row justify-between items-center w-full mb-8">
+                                  <h5 className="text-slate-500 dark:text-sky-600 text-normal font-semibold">
+                                    Detail Program
+                                  </h5>
+                                  {programfollowed.status === 'Finishing' && (
+                                    <button className="text-blue-500 font-semibold">
+                                      Download Report
+                                    </button>
+                                  )}
+                                  {[
+                                    'Verified',
+                                    'New',
+                                    'Draft',
+                                    'Running',
+                                    'Need Revision'
+                                  ].includes(programfollowed.status) && (
+                                    <button className="text-slate-600 font-semibold">
+                                      Not Available
+                                    </button>
+                                  )}
                                 </div>
-                                <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                                  <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                                    Project Goals
-                                  </label>
-                                  <h6 className="text-slate-800 dark:text-white">
-                                    {programs.project_goal}
-                                  </h6>
-                                </div>
-                                <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                                  <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                                    Project Scope
-                                  </label>
-                                  <h6 className="text-slate-800 dark:text-white">
-                                    {programs.project_scope}
-                                  </h6>
-                                </div>
-                                <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                                  <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                                    Amount
-                                  </label>
-                                  <h6 className="text-sky-500 cursor-pointer">
-                                    {formatPrice(programs.amount)}
-                                  </h6>
-                                </div>
-                                <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                                  <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                                    Quantity
-                                  </label>
-                                  <h6 className="text-sky-500 cursor-pointer">
-                                    {programs.quantity}
-                                  </h6>
-                                </div>
-                              </div>
-                              <div className="w-full flex justify-start items-center mt-4">
-                                <Dialog>
-                                  <DialogTrigger asChild>
-                                    <Button className="bg-sky-500 text-white dark:bg-sky-800 transition ease-in duration-300 hover:bg-sky-600">
-                                      Book an Appointment
-                                    </Button>
-                                  </DialogTrigger>
-                                  <DialogContent className="sm:max-w-[825px]">
-                                    <DialogHeader>
-                                      <DialogTitle>
-                                        Make an Appointment -{' '}
-                                        {programs.program_name} {programs.id}
-                                      </DialogTitle>
-                                      <DialogDescription>
-                                        To join the program please make an
-                                        appointment first
-                                      </DialogDescription>
-                                    </DialogHeader>
+                                <div className="flex flex-wrap w-full">
+                                  <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
+                                    <label className="text-slate-600 dark:text-white w-[150px]">
+                                      Nama Program
+                                    </label>
+                                    <h6 className="text-slate-800 dark:text-white">
+                                      {programfollowed.program_name}
+                                    </h6>
+                                  </div>
+                                  <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
+                                    <label className="text-slate-600 dark:text-white w-[150px]">
+                                      Nama Project
+                                    </label>
+                                    <h6 className="text-slate-800 dark:text-white">
+                                      {programfollowed.project_name}
+                                    </h6>
+                                  </div>
+                                  <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
+                                    <label className="text-slate-600 dark:text-white w-[150px]">
+                                      Mulai Dieksekusi
+                                    </label>
+                                    <h6 className="text-sky-500">
+                                      {programfollowed.execution_date_start}
+                                    </h6>
+                                  </div>
+                                  <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
+                                    <label className="text-slate-600 dark:text-white w-[150px]">
+                                      Target Rencana Selesai
+                                    </label>
+                                    <h6 className="text-sky-500">
+                                      {programfollowed.execution_date_finish}
+                                    </h6>
+                                  </div>
+                                  <div className="w-1/2 flex flex-row gap-x-4 items-center pb-4">
+                                    <label className="text-slate-600 dark:text-white w-[150px]">
+                                      Status
+                                    </label>
+                                    <h6 className="text-slate-800 dark:text-white">
+                                      {programfollowed.status}
+                                    </h6>
+                                  </div>
+                                  <div className="w-full flex flex-col justify-center items-start gap-y-2">
+                                    <div className="flex flex-col justify-center items-start gap-y-2">
+                                      <div className="flex items-center gap-1">
+                                        {stepsUI.map((step, idx) => {
+                                          const currentStep = mapStatusToStep(
+                                            programfollowed.status
+                                          );
+                                          const currentIdx =
+                                            getStepIndex(currentStep);
+                                          const isActive = idx === currentIdx;
+                                          const isCompleted = idx < currentIdx;
 
-                                    <div className="grid gap-4 py-4">
-                                      {step === 1 && (
-                                        <>
-                                          {/* Pilih Tanggal */}
-                                          <CalendarPicker
-                                            selectedDate={selectedDate}
-                                            onSelectDate={setSelectedDate}
-                                          />
-
-                                          {/* Pilih Jam Mulai */}
-                                          <div className="flex flex-col gap-2">
-                                            <label className="text-sm text-slate-600">
-                                              Jam Mulai
-                                            </label>
-                                            <select
-                                              value={startTime}
-                                              onChange={(e) =>
-                                                setStartTime(e.target.value)
-                                              }
-                                              className="w-full border rounded-md px-3 py-2"
+                                          return (
+                                            <div
+                                              key={step}
+                                              className="flex items-center"
                                             >
-                                              <option value="">
-                                                Pilih jam mulai
-                                              </option>
-                                              {Array.from(
-                                                {length: 24},
-                                                (_, i) => (
-                                                  <option
-                                                    key={i}
-                                                    value={`${String(i).padStart(2, '0')}:00`}
-                                                  >
-                                                    {`${String(i).padStart(2, '0')}:00`}
-                                                  </option>
-                                                )
-                                              )}
-                                            </select>
-                                          </div>
-
-                                          {/* Pilih Jam Selesai */}
-                                          <div className="flex flex-col gap-2">
-                                            <label className="text-sm text-slate-600">
-                                              Jam Selesai
-                                            </label>
-                                            <select
-                                              value={endTime}
-                                              onChange={(e) =>
-                                                setEndTime(e.target.value)
-                                              }
-                                              className="w-full border rounded-md px-3 py-2"
-                                            >
-                                              <option value="">
-                                                Pilih jam selesai
-                                              </option>
-                                              {Array.from(
-                                                {length: 24},
-                                                (_, i) => (
-                                                  <option
-                                                    key={i}
-                                                    value={`${String(i).padStart(2, '0')}:00`}
-                                                  >
-                                                    {`${String(i).padStart(2, '0')}:00`}
-                                                  </option>
-                                                )
-                                              )}
-                                            </select>
-                                          </div>
-
-                                          <Button
-                                            className="mt-4"
-                                            disabled={
-                                              !selectedDate ||
-                                              !startTime ||
-                                              !endTime
-                                            }
-                                            onClick={() => setStep(2)}
-                                          >
-                                            Lanjutkan
-                                          </Button>
-                                        </>
-                                      )}
-
-                                      {step === 2 && (
-                                        <>
-                                          {/* Input Tempat */}
-                                          <div className="flex flex-col">
-                                            <label className="text-sm text-slate-600">
-                                              Tempat
-                                            </label>
-                                            {selectedPlace && (
-                                              <input
-                                                type="hidden"
-                                                value={selectedPlace.address}
-                                                onChange={(e) =>
-                                                  setPlace(e.target.value)
-                                                }
-                                                className="w-full border px-3 py-2 rounded-md"
-                                                placeholder="Masukkan tempat janji temu"
-                                              />
-                                            )}
-                                          </div>
-                                          <MapWithSearch
-                                            onSelect={(place) =>
-                                              setSelectedPlace(place)
-                                            }
-                                          />
-
-                                          {/* Input Catatan */}
-                                          <div className="flex flex-col">
-                                            <label className="text-sm text-slate-600">
-                                              Catatan
-                                            </label>
-                                            <textarea
-                                              value={notes}
-                                              onChange={(e) =>
-                                                setNotes(e.target.value)
-                                              }
-                                              className="w-full border px-3 py-2 rounded-md"
-                                              placeholder="Tulis catatan (opsional)"
-                                            />
-                                          </div>
-
-                                          <DialogFooter>
-                                            <DialogClose>
-                                              <Button
-                                                type="submit"
-                                                onClick={() => {
-                                                  if (!selectedDate) return;
-
-                                                  handleSubmitAppointment({
-                                                    programId: programs.id,
-                                                    selectedDate,
-                                                    startTime,
-                                                    endTime,
-                                                    place,
-                                                    notes
-                                                  });
-                                                }}
+                                              <div
+                                                className={clsx(
+                                                  'text-xs font-semibold px-2 py-1 rounded-full',
+                                                  isActive
+                                                    ? 'bg-blue-600 text-white'
+                                                    : isCompleted
+                                                      ? 'bg-blue-200 text-blue-600'
+                                                      : 'bg-slate-200 text-slate-500'
+                                                )}
                                               >
-                                                Submit Appointment
-                                              </Button>
-                                            </DialogClose>
-                                          </DialogFooter>
-                                        </>
-                                      )}
+                                                {step}
+                                              </div>
+                                              {idx < stepsUI.length - 1 && (
+                                                <span className="mx-1 text-slate-400">
+                                                  →
+                                                </span>
+                                              )}
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
                                     </div>
-                                  </DialogContent>
-                                </Dialog>
-                              </div>
-                            </AccordionContent>
-                          </AccordionItem>
-                        ))
-                      )}
-                    </Accordion>
+                                  </div>
+                                </div>
+                                <div className="w-full flex flex-row justify-start items-center gap-x-4 py-4">
+                                  <label className="text-slate-600 dark:text-white w-[150px]">
+                                    Report
+                                  </label>
+                                  {programfollowed.status === 'Finishing' && (
+                                    <p className="text-slate-800 dark:text-white flex flex-row justify-center items-center gap-x-2">
+                                      Available To Download
+                                      <Popover>
+                                        <PopoverTrigger asChild>
+                                          <BadgeInfo className="text-sm w-4 h-4 text-slate-400" />
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-54">
+                                          <p className="text-xs text-slate-500">
+                                            Download bisa dilakukan diatas kanan
+                                          </p>
+                                        </PopoverContent>
+                                      </Popover>
+                                    </p>
+                                  )}
+                                  {[
+                                    'Verified',
+                                    'New',
+                                    'Draft',
+                                    'Running',
+                                    'Need Revision'
+                                  ].includes(programfollowed.status) && (
+                                    <p className="text-slate-800 dark:text-white">
+                                      Not Available
+                                    </p>
+                                  )}
+                                </div>
+                                <div className="w-full flex justify-start items-center mt-4">
+                                  {statusBadges[programfollowed.status] && (
+                                    <p
+                                      className={`text-xs font-medium px-2 py-1 rounded-full text-gray-400 italic`}
+                                    >
+                                      *
+                                      {
+                                        statusBadges[programfollowed.status]
+                                          .label
+                                      }
+                                    </p>
+                                  )}
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          )
+                        )}
+                      </Accordion>
+                    )}
                   </div>
                 </TabsContent>
                 <TabsContent

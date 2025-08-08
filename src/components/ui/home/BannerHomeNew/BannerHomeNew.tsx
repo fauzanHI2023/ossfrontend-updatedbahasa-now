@@ -17,6 +17,9 @@ import * as motion from 'motion/react-client';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {Button} from '../../button';
+import {heroBanner} from '@/data/data';
+import SplitText from '../../SplitText';
+import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,6 +32,7 @@ const BannerHomeNew = () => {
   const router = useRouter();
   const t = useTranslations();
   const locale = useLocale();
+  const safeT = (key: string) => t(key as any);
   const isRTL = locale === 'ar';
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -179,32 +183,79 @@ const BannerHomeNew = () => {
           delay: 10000,
           disableOnInteraction: false
         }}
-        className="w-full h-[700px]"
+        className="w-full h-[650px]"
       >
+        {heroBanner.map((hero) => (
+          <SwiperSlide key={hero.id}>
+            <section
+              dir={isRTL ? 'rtl' : 'ltr'}
+              className={`flex flex-row ${
+                isRTL ? 'flex-row-reverse' : ''
+              } w-full h-full ${hero.img} bg-cover bg-left bg-no-repeat`}
+            >
+              <div className="absolute inset-0 bg-black/30"></div>
+              <div className="flex sm:flex-row flex-col gap-y-4 w-full justify-end items-end px-12">
+                <div
+                  className="flex flex-col gap-y-7 sm:w-5/12 w-full h-full px-10 px-16 justify-center items-start sm:pb-0 pb-8 h-[260px] mt-10"
+                  data-aos="fade-left"
+                >
+                  <SplitText
+                    text={t(hero.desc as any, {})}
+                    delay={100}
+                    duration={0.6}
+                    ease="power3.out"
+                    splitType="words"
+                    from={{opacity: 0, y: 40}}
+                    to={{opacity: 1, y: 0}}
+                    threshold={0.1}
+                    rootMargin="-100px"
+                    textAlign="left"
+                    className="font-raleway font-bold text-white text-4xl px-2 py-3"
+                  />
+                  <Link
+                    href={hero.link}
+                    className="py-2 px-6 w-auto bg-sky-500 text-white dark:text-white rounded-lg text-xl font-semibold"
+                  >
+                    {hero.namelink}
+                  </Link>
+                </div>
+              </div>
+              <PopupNotif
+                message={notifMessage}
+                duration={3000}
+                onClose={() => setNotifMessage('')}
+              />
+            </section>
+          </SwiperSlide>
+        ))}
         <SwiperSlide>
           <section
             dir={isRTL ? 'rtl' : 'ltr'}
             className={`flex flex-row ${
               isRTL ? 'flex-row-reverse' : ''
-            } w-full h-full sm:p-24 p-6 sm:pt-28 pt-24 dark:bg-hero-pattern bg-hero-white sm:bg-cover bg-cover bg-center bg-no-repeat`}
+            } w-full h-full bg-hero-white bg-cover bg-left bg-no-repeat`}
           >
-            <div className="flex sm:flex-row flex-col gap-y-4 w-full justify-end items-center">
+            <div className="absolute inset-0 bg-black/30"></div>
+            <div className="flex sm:flex-row flex-col gap-y-4 w-full justify-end items-end px-12">
               <div
-                className="flex flex-col sm:w-1/3 w-full justify-around items-center sm:pb-0 pb-8 h-[260px]"
+                className="flex flex-col gap-y-7 sm:w-5/12 w-full h-full px-10 px-16 justify-center items-start sm:pb-0 pb-8 h-[260px] mt-10"
                 data-aos="fade-left"
               >
-                <h3 className="font-title font-bold text-white text-[2.5rem] sm:pb-10 pb-3 leading-[1.1]">
-                  {t('SectionMainHomeTitle.helps')}{' '}
-                  <span className="font-semi text-sky-400">
-                    {t('SectionMainHomeTitle.connect')}
-                  </span>{' '}
-                  {t('SectionMainHomeTitle.desc')}
-                </h3>
-                <h6 className="hidden font-normal text-white text-lg">
-                  {t('SectionMainHomeDesc.text')}
-                </h6>
-                <Button className="w-full bg-sky-500 text-white dark:text-white rounded-2xl text-center">
-                  Donate One Time
+                <SplitText
+                  text="Kadang yang dibutuhkan dunia bukan bantuan besar, tapi hati yang tak berpaling diam"
+                  delay={100}
+                  duration={0.6}
+                  ease="power3.out"
+                  splitType="words"
+                  from={{opacity: 0, y: 40}}
+                  to={{opacity: 1, y: 0}}
+                  threshold={0.1}
+                  rootMargin="-100px"
+                  textAlign="left"
+                  className="font-raleway font-bold text-white text-4xl px-2 py-3"
+                />
+                <Button className="py-2 px-6 w-auto bg-sky-500 text-white dark:text-white rounded-lg text-xl font-semibold">
+                  One Time Donation
                 </Button>
               </div>
             </div>

@@ -35,24 +35,14 @@ const OurProgram = () => {
           >
             {t('SectionTwoHome.title')}
           </h5> */}
-          <p
-            className={`text-gray-500 font-base text-normal pr-6 pt-6`}
-            data-aos="fade-up"
-            data-aos-easing="linear"
-            data-aos-duration="1000"
-          >
+          <p className={`text-gray-500 font-base text-normal pr-6 pt-6`}>
             <span className="text-sky-600 text-lg font-semibold pr-1">
               {t('SectionTwoHome.hi')}
             </span>
             {t('SectionTwoHome.desc')}
           </p>
         </div>
-        <div
-          className={`font-base text-normal sm:w-1/2 w-full pr-6`}
-          data-aos="fade-up"
-          data-aos-easing="linear"
-          data-aos-duration="1000"
-        >
+        <div className={`font-base text-normal sm:w-1/2 w-full pr-6`}>
           <iframe
             width="100%"
             height="300"

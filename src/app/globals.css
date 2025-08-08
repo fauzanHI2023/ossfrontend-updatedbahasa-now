@@ -357,3 +357,26 @@ span {
 .menu-slide:hover::after {
   width: 100%;
 }
+
+.curved-top-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2rem;
+  height: 2rem;
+  border-top-right-radius: 100%;
+  box-shadow: -1rem 1rem 0 0 white; /* Warna luar di sini (misalnya white) */
+  z-index: 1;
+}
+
+.curved-top-right {
+  position: absolute;
+  top: -25px;
+  right: 0;
+}
+
+.before-gradations::before {
+  position: absolute;
+  background-color: #0000004d;
+}

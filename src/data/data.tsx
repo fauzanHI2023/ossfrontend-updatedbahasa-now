@@ -14,6 +14,154 @@ import {Banknote, FileChartLine, HandHelping, ListChecks} from 'lucide-react';
 import {GiTakeMyMoney} from 'react-icons/gi';
 import Image from 'next/image';
 
+interface collaborateSponsor {
+  id: number;
+  img: string;
+  title: string;
+}
+
+export const collaborateSponsor = [
+  {
+    id: 1,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan.jpg',
+    title: 'PLN'
+  },
+  {
+    id: 2,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (1).png',
+    title: 'BWS'
+  },
+  {
+    id: 3,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (2).png',
+    title: 'Shopee'
+  },
+  {
+    id: 4,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (3).png',
+    title: 'Level Infinite'
+  },
+  {
+    id: 5,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (4).jpg',
+    title: 'Human Appeal'
+  },
+  {
+    id: 6,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (5).png',
+    title: 'Guardian'
+  },
+  {
+    id: 7,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (6).png',
+    title: 'Helping Hand'
+  },
+  {
+    id: 8,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (7).jpg',
+    title: 'International Charity'
+  },
+  {
+    id: 9,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (8).png',
+    title: 'IOM'
+  },
+  {
+    id: 10,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (9).jpg',
+    title: 'Riot Games'
+  },
+  {
+    id: 11,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (10).png',
+    title: 'CRS'
+  },
+  {
+    id: 12,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (11).png',
+    title: 'SKKMIGAS'
+  },
+  {
+    id: 13,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (12).jpg',
+    title: 'Tokopedia'
+  },
+  {
+    id: 14,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (13).jpg',
+    title: 'KTB'
+  },
+  {
+    id: 15,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (14).png',
+    title: 'Nama Foundation'
+  },
+  {
+    id: 16,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (15).png',
+    title: 'Namaa Charity'
+  },
+  {
+    id: 17,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (16).jpg',
+    title: 'Paragon Corp'
+  },
+  {
+    id: 18,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (17).svg',
+    title: 'Pertamina'
+  },
+  {
+    id: 19,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (18).jpg',
+    title: 'Bank Indonesia'
+  },
+  {
+    id: 20,
+    img: '/logo_mitra_perusahaan/mitra_perusahaan (19).jpg',
+    title: 'Unicef'
+  }
+];
+
+interface heroBanner {
+  id: number;
+  desc: string;
+  img: string;
+  link: string;
+  namelink: string;
+}
+
+export const heroBanner = [
+  {
+    id: 1,
+    desc: 'HeroBannerHome.SlideOne.desc',
+    img: 'bg-herosatu',
+    link: '#section-fundraisinghome',
+    namelink: 'Fundraising Now'
+  },
+  {
+    id: 2,
+    desc: 'HeroBannerHome.SlideTwo.desc',
+    img: 'bg-herodua',
+    link: '#section-valuestreamhome',
+    namelink: 'Value Stream'
+  },
+  {
+    id: 3,
+    desc: 'HeroBannerHome.SlideThree.desc',
+    img: 'bg-herotiga',
+    link: '#section-newshome',
+    namelink: 'Read Story'
+  },
+  {
+    id: 4,
+    desc: 'HeroBannerHome.SlideFour.desc',
+    img: 'bg-heroempat',
+    link: '#section-publicationhome',
+    namelink: 'Publication'
+  }
+];
+
 interface layananKami {
   icon: string;
   label: string;

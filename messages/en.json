@@ -341,5 +341,19 @@
       "titleTwo": "Browse",
       "desc": "We help survivors of war rebuild their lives and choose their own futures"
     }
+  },
+  "HeroBannerHome": {
+    "SlideOne": {
+      "desc": "Menyelesaikan persoalan kemanusiaan bukan sekadar kerja baik, tapi tentang menemukan makna sejati dari kolaborasi antarhati dan aksi"
+    },
+    "SlideTwo": {
+      "desc": "Dunia berubah bukan karena mereka yang paling kuat, tapi karena mereka yang memilih untuk saling memberdayakan"
+    },
+    "SlideThree": {
+      "desc": "Kita mungkin tak bisa menyelesaikan semua hal sendiri, tapi dengan saling menguatkan, kita bisa menghadapi apa pun bersama"
+    },
+    "SlideFour": {
+      "desc": "Mari bergerak bersama, karena kebaikan tak akan pernah cukup jika berjalan sendiri"
+    }
   }
 }

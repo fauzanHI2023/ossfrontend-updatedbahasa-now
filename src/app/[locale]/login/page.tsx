@@ -9,6 +9,8 @@ import {PiEye, PiEyeClosed} from 'react-icons/pi';
 import {FaApple} from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import {Button} from '@/components/ui/button';
+import LoadingOverlay from '@/components/ui/utility/loading/LoadingOverlayLogin';
+import {AnimatePresence, motion} from 'framer-motion';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -17,6 +19,10 @@ const LoginPage = () => {
   const [showPwlogin, setShowPwLogin] = useState(false);
   const [formData, setFormData] = useState({username: '', password: ''});
   const [formFilled, setFormFilled] = useState(false);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
+  const [isButtonLoadingOffice, setIsButtonLoadingOffice] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [showOverlayOffice, setShowOverlayOffice] = useState(false);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -56,6 +62,10 @@ const LoginPage = () => {
 
   const handleLoginGoogle = async () => {
     try {
+      setIsButtonLoading(true);
+      setTimeout(() => {
+        setShowOverlay(true);
+      }, 1500);
       await signIn('google', {callbackUrl});
     } catch (error) {
       console.log(error);
@@ -64,6 +74,10 @@ const LoginPage = () => {
 
   const handleLoginOffice = async () => {
     try {
+      setIsButtonLoadingOffice(true);
+      setTimeout(() => {
+        setShowOverlayOffice(true);
+      }, 1500);
       await signIn('azure-ad', {callbackUrl});
     } catch (error) {
       console.log(error);
@@ -98,6 +112,10 @@ const LoginPage = () => {
           href="/"
           className="bg-logo-blue w-32 h-12 bg-no-repeat bg-contain flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
         ></Link> */}
+        <AnimatePresence>{showOverlay && <LoadingOverlay />}</AnimatePresence>
+        <AnimatePresence>
+          {showOverlayOffice && <LoadingOverlay />}
+        </AnimatePresence>
         <div className="relative my-6 mx-auto w-1/3">
           <div className="border-0 rounded-3xl relative flex flex-col w-full bg-background outline-none focus:outline-none">
             <div className="flex flex-col items-start justify-between p-5 pt-10">
@@ -170,24 +188,46 @@ const LoginPage = () => {
                 <Button
                   className="w-full border-gray-100 rounded px-4 py-3 flex flex-row items-center justify-center"
                   onClick={handleLoginGoogle}
+                  disabled={isButtonLoading}
                   variant="outline"
                   size="icon"
                 >
-                  <span className="pr-2 text-xl">
-                    <FcGoogle />
-                  </span>
-                  Sign in with Google
+                  {isButtonLoading ? (
+                    <motion.div
+                      className="h-5 w-5 border-4 border-sky-600 border-t-transparent rounded-full animate-spin"
+                      initial={{opacity: 0}}
+                      animate={{opacity: 1}}
+                    />
+                  ) : (
+                    <>
+                      <span className="pr-2 text-xl">
+                        <FcGoogle />
+                      </span>
+                      Sign in with Google
+                    </>
+                  )}
                 </Button>
                 <Button
                   className="w-full border-gray-100 rounded px-4 py-3 flex flex-row items-center justify-center"
                   onClick={handleLoginOffice}
+                  disabled={isButtonLoadingOffice}
                   variant="outline"
                   size="icon"
                 >
-                  <span className="pr-2 text-xl">
-                    <TfiMicrosoftAlt />
-                  </span>
-                  Sign in with Office
+                  {isButtonLoadingOffice ? (
+                    <motion.div
+                      className="h-5 w-5 border-4 border-sky-600 border-t-transparent rounded-full animate-spin"
+                      initial={{opacity: 0}}
+                      animate={{opacity: 1}}
+                    />
+                  ) : (
+                    <>
+                      <span className="pr-2 text-xl">
+                        <TfiMicrosoftAlt />
+                      </span>
+                      Sign in with Office
+                    </>
+                  )}
                 </Button>
                 <Button
                   className="w-full border-gray-100 rounded px-4 py-3 flex flex-row items-center justify-center"

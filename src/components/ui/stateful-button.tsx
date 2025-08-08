@@ -8,7 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-export const Button = ({className, children, ...props}: ButtonProps) => {
+export const ButtonState = ({className, children, ...props}: ButtonProps) => {
   const [scope, animate] = useAnimate();
 
   const animateLoading = async () => {
@@ -84,14 +84,11 @@ export const Button = ({className, children, ...props}: ButtonProps) => {
       layout
       layoutId="button"
       ref={scope}
-      className={cn(
-        'flex min-w-[120px] cursor-pointer items-center justify-center gap-2 rounded-full bg-green-500 px-4 py-2 font-medium text-white ring-offset-2 transition duration-200 hover:ring-2 hover:ring-green-500 dark:ring-offset-black',
-        className
-      )}
+      className={cn('cursor-pointer gap-2 rounded-full', className)}
       {...buttonProps}
       onClick={handleClick}
     >
-      <motion.div layout className="flex items-center gap-2">
+      <motion.div layout className="flex flex-row justify-center items-center">
         <Loader />
         <CheckIcon />
         <motion.span layout>{children}</motion.span>

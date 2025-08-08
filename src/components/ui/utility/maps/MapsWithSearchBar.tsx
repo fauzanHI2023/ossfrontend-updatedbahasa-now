@@ -43,10 +43,10 @@ export default function MapWithSearch({
       if (place.geometry && place.geometry.location) {
         const lat = place.geometry.location.lat();
         const lng = place.geometry.location.lng();
-        const name = place.name || '';
-        const address = place.formatted_address || '';
+        const address = place.name || place.formatted_address;
+        // const address = place.formatted_address || '';
 
-        const placeData: PlaceResult = {lat, lng, name, address};
+        const placeData: PlaceResult = {lat, lng, address};
 
         setSelected(placeData);
         map.panTo({lat, lng});

@@ -80,6 +80,8 @@ const CSRServices = () => {
   const [notes, setNotes] = useState('');
   const [userId, setUserId] = useState<string | null>(null);
   const {data: session, status}: any = useSession();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     if (status === 'authenticated' && session?.user?.phpDonorData?.length > 0) {
@@ -137,7 +139,9 @@ const CSRServices = () => {
     startTime,
     endTime,
     placeText,
-    notes
+    notes,
+    name,
+    email
   }: {
     programId: string;
     selectedDate: Date;
@@ -145,8 +149,10 @@ const CSRServices = () => {
     endTime: string;
     placeText: string;
     notes: string;
+    name?: string;
+    email?: string;
   }) => {
-    if (!userId || !selectedDate || !startTime || !endTime || !placeText) {
+    if (!selectedDate || !startTime || !endTime || !placeText) {
       setNotifMessage(
         'Silakan lengkapi tanggal, jam, dan tempat terlebih dahulu.'
       );
@@ -154,12 +160,14 @@ const CSRServices = () => {
     }
 
     const appointmentData = {
-      user_id: userId,
+      user_id: userId ?? null,
       proposal_id: programId,
       date: `${selectedDate.toISOString().split('T')[0]} ${startTime}:00`,
       end_date: `${selectedDate.toISOString().split('T')[0]} ${endTime}:00`,
       tempat: placeText,
       notes,
+      name: name ?? null,
+      email: email ?? null,
       created_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
     };
 
@@ -493,7 +501,7 @@ const CSRServices = () => {
           </Swiper>
         </div>
       </section>
-      <section className="flex flex-col justify-center items-center bg-slate-50 py-24">
+      <section className="w-full relative flex flex-col justify-center items-center bg-slate-50 py-24">
         <h5 className="text-sky-600 text-4xl font-semibold">
           Collaborative Sponsor
         </h5>
@@ -658,7 +666,48 @@ const CSRServices = () => {
                         </DialogHeader>
 
                         <div className="grid gap-4 py-4">
-                          {step === 1 && (
+                          {/* STEP 1: Jika belum login, minta Nama & Email */}
+                          {step === 1 && status !== 'authenticated' && (
+                            <>
+                              <div className="flex flex-col gap-2">
+                                <label className="text-sm text-slate-600">
+                                  Nama
+                                </label>
+                                <input
+                                  type="text"
+                                  value={name}
+                                  onChange={(e) => setName(e.target.value)}
+                                  className="w-full border rounded-md px-3 py-2"
+                                  placeholder="Nama lengkap"
+                                />
+                              </div>
+
+                              <div className="flex flex-col gap-2">
+                                <label className="text-sm text-slate-600">
+                                  Email
+                                </label>
+                                <input
+                                  type="email"
+                                  value={email}
+                                  onChange={(e) => setEmail(e.target.value)}
+                                  className="w-full border rounded-md px-3 py-2"
+                                  placeholder="Email aktif"
+                                />
+                              </div>
+
+                              <Button
+                                className="mt-4"
+                                disabled={!name || !email}
+                                onClick={() => setStep(2)}
+                              >
+                                Lanjutkan
+                              </Button>
+                            </>
+                          )}
+
+                          {/* STEP 1 jika SUDAH login langsung skip ke pilih tanggal */}
+                          {(step === 1 && status === 'authenticated') ||
+                          (step === 2 && status !== 'authenticated') ? (
                             <>
                               {/* Pilih Tanggal */}
                               <CalendarPicker
@@ -715,14 +764,15 @@ const CSRServices = () => {
                                 disabled={
                                   !selectedDate || !startTime || !endTime
                                 }
-                                onClick={() => setStep(2)}
+                                onClick={() => setStep(3)}
                               >
                                 Lanjutkan
                               </Button>
                             </>
-                          )}
+                          ) : null}
 
-                          {step === 2 && (
+                          {/* STEP 3 */}
+                          {step === 3 && (
                             <>
                               {/* Input Tempat */}
                               <div className="flex flex-col">
@@ -768,7 +818,9 @@ const CSRServices = () => {
                                         startTime,
                                         endTime,
                                         placeText,
-                                        notes
+                                        notes,
+                                        name,
+                                        email
                                       });
                                     }}
                                   >

@@ -116,9 +116,7 @@ const Footer = () => {
             </ul>
             <ul className="flex sm:flex-row flex-col gap-x-4 sm:gap-y-0 gap-y-3 sm:mt-0 mt-3">
               <li className="text-white hover:font-medium transition duration-200 ease-in text-sm font-normal ">
-                <Link href="/termandconditions">
-                  {t('footerSection.contact')}
-                </Link>
+                <Link href="/contactus">{t('footerSection.contact')}</Link>
               </li>
               <li className="sm:flex hidden text-white hover:font-medium transition duration-200 ease-in text-sm font-normal ">
                 |

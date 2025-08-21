@@ -102,7 +102,7 @@ export default function BannerCarousel() {
               {t('takeactionCollaborationImpact.sectionOne.desc')}
             </p>
             <div className="flex flex-row gap-x-4">
-              <AnimatePresence mode="wait">
+              {/* <AnimatePresence mode="wait">
                 <button
                   onClick={() => scrollToSection('section-project-browse')}
                 >
@@ -118,7 +118,7 @@ export default function BannerCarousel() {
                     {slides[index].buttonlabel}
                   </motion.span>
                 </button>
-              </AnimatePresence>
+              </AnimatePresence> */}
               <Link href="/contactus">
                 <motion.span
                   variants={buttonContactVariants}

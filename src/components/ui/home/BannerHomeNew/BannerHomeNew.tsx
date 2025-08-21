@@ -15,15 +15,14 @@ import {useCart} from '@/context/CartContext';
 import {useTranslations, useLocale} from 'next-intl';
 import * as motion from 'motion/react-client';
 import gsap from 'gsap';
-import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {Button} from '../../button';
 import {heroBanner} from '@/data/data';
 import SplitText from '../../SplitText';
 import Link from 'next/link';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const BannerHomeNew = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>('');
   const [rawAmount, setRawAmount] = useState<number | null>(null);
@@ -37,6 +36,24 @@ const BannerHomeNew = () => {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const section2Ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      gsap.to(panelRef.current, {
+        x: 0,
+        width: 360,
+        duration: 0.5,
+        ease: 'power3.out'
+      });
+    } else {
+      gsap.to(panelRef.current, {
+        x: 360,
+        width: 0,
+        duration: 0.4,
+        ease: 'power3.in'
+      });
+    }
+  }, [isOpen]);
 
   const nominalOptions = [
     {label: 'Rp 50.000', value: 50000.0},
@@ -236,7 +253,7 @@ const BannerHomeNew = () => {
             } w-full h-full bg-hero-white bg-cover bg-left bg-no-repeat`}
           >
             <div className="absolute inset-0 bg-black/30"></div>
-            <div className="flex sm:flex-row flex-col gap-y-4 w-full justify-end items-end px-12">
+            <div className="flex sm:flex-row flex-col gap-y-4 w-full justify-start items-end px-12">
               <div
                 className="flex flex-col gap-y-7 sm:w-5/12 w-full h-full px-10 px-16 justify-center items-start sm:pb-0 pb-8 h-[260px] mt-10"
                 data-aos="fade-left"
@@ -254,7 +271,10 @@ const BannerHomeNew = () => {
                   textAlign="left"
                   className="font-raleway font-bold text-white text-4xl px-2 py-3"
                 />
-                <Button className="py-2 px-6 w-auto bg-sky-500 text-white dark:text-white rounded-lg text-xl font-semibold">
+                <Button
+                  className="one-time py-2 px-6 w-auto bg-sky-500 text-white dark:text-white rounded-lg text-xl font-semibold"
+                  onClick={() => setIsOpen(true)}
+                >
                   One Time Donation
                 </Button>
               </div>
@@ -266,201 +286,118 @@ const BannerHomeNew = () => {
             />
           </section>
         </SwiperSlide>
-        <SwiperSlide>
-          <section
-            dir={isRTL ? 'rtl' : 'ltr'}
-            className={`flex flex-row ${
-              isRTL ? 'flex-row-reverse' : ''
-            } w-full h-full sm:p-24 p-6 sm:pt-28 pt-24 dark:bg-hero-pattern bg-hero-white sm:bg-cover bg-cover bg-center bg-no-repeat`}
-          >
-            <motion.div
-              initial={{opacity: 0}}
-              animate={{opacity: 1}}
-              transition={{
-                duration: 1,
-                scale: {type: 'spring', visualDuration: 0.4}
-              }}
-              className="flex sm:flex-row flex-col gap-y-4 w-full items-center"
-            >
-              <div className="flex flex-col sm:w-1/2 w-full justify-around items-center sm:pb-0 pb-8 h-[260px]"></div>
-              <div
-                className="flex sm:w-1/2 w-full items-center justify-center"
-                data-aos="fade-right"
-              >
-                <TabGroup className="sm:w-3/4 w-full">
-                  <TabList className="w-full">
-                    <Tab className="cursor-default transition duration-150 ease-in w-full py-3 text-center text-sky-700 font-bold text-lg">
-                      {t('FormOneTimeDonatiom.title')}
-                    </Tab>
-                  </TabList>
-                  <TabPanels>
-                    <TabPanel
-                      className="flex flex-col text-sm transition duration-300 ease-in"
-                      data-aos="fade-left"
-                      data-aos-duration="500"
-                    >
-                      <div className="dark:bg-sky-950 bg-sky-600 dark:text-white text-white p-4 text-center rounded-tl-[23px] rounded-tr-[23px]">
-                        <h4>{t('FormOneTimeDonatiom.desc')}</h4>
-                      </div>
-                      <form className="p-4 bg-white dark:bg-slate-100">
-                        <div className="grid grid-cols-3 gap-4 mb-4">
-                          {nominalOptions.map((option) => (
-                            <button
-                              key={option.value}
-                              type="button"
-                              onClick={() => handleAmountClick(option.value)}
-                              className={`p-3 text-center rounded-3xl transition ${
-                                selectedAmount === option.value
-                                  ? 'bg-sky-600 text-white'
-                                  : 'bg-gray-200 text-gray-600 hover:bg-gray-300 transition duration-200 ease-in-out'
-                              }`}
-                            >
-                              {option.label}
-                            </button>
-                          ))}
-                        </div>
-                        <input
-                          type="text"
-                          value={customAmount}
-                          onChange={handleCustomAmountChange}
-                          placeholder="Enter Amount"
-                          className="w-full bg-white p-3 border border-gray-300 rounded-lg dark:text-slate-600"
-                        />
-                        <button
-                          type="button"
-                          onClick={handleDonasiClick}
-                          className="w-full mt-4 py-3 text-white bg-sky-800 dark:bg-sky-600 hover:bg-sky-600 transition duration-300 ease-in rounded-2xl"
-                        >
-                          {t('FormOneTimeDonatiom.button')}
-                        </button>
-                        {/* <div className="mt-4">
-                    <h4>Cookies: {cookies || "Fetching..."}</h4>
-                  </div> */}
-                      </form>
-                      <div className="flex flex-col dark:bg-sky-950 bg-sky-600 dark:text-white text-white p-8 text-center rounded-bl-[23px] rounded-br-[23px]">
-                        <h4>
-                          {t('FormOneTimeDonatiom.notes')}{' '}
-                          <a href="" className="font-extrabold">
-                            {t('FormOneTimeDonatiom.click')}
-                          </a>
-                        </h4>
-                      </div>
-                    </TabPanel>
-                  </TabPanels>
-                </TabGroup>
-              </div>
-            </motion.div>
-            <PopupNotif
-              message={notifMessage}
-              duration={3000}
-              onClose={() => setNotifMessage('')}
-            />
-          </section>
-        </SwiperSlide>
       </Swiper>
-      <section
-        dir={isRTL ? 'rtl' : 'ltr'}
-        className={`flex flex-row ${
-          isRTL ? 'flex-row-reverse' : ''
-        } hidden w-full h-full sm:p-24 p-6 sm:pt-28 pt-24 dark:bg-hero-pattern bg-hero-white sm:bg-cover bg-cover bg-center bg-no-repeat`}
+      <div
+        ref={panelRef}
+        style={{
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          height: '100%',
+          background: '#fff',
+          overflow: 'auto',
+          transform: 'translateX(360px)', // mulai dari luar layar
+          width: 0,
+          boxShadow: '-2px 0 10px rgba(0,0,0,0.2)',
+          zIndex: 9999
+        }}
       >
-        <motion.div
-          initial={{opacity: 0}}
-          animate={{opacity: 1}}
-          transition={{
-            duration: 1,
-            scale: {type: 'spring', visualDuration: 0.4}
-          }}
-          className="flex sm:flex-row flex-col gap-y-4 w-full items-center"
-        >
-          <div
-            className="flex flex-col sm:w-1/2 w-full justify-around items-center sm:pb-0 pb-8 h-[260px]"
-            data-aos="fade-left"
+        <div className="p-4 flex justify-between items-center border-b border-gray-300">
+          <h3 className="text-lg font-semibold">
+            {t('FormOneTimeDonatiom.title')}
+          </h3>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="text-gray-500 hover:text-gray-800"
           >
-            <h3 className="font-title font-bold text-white text-5xl text-3xl sm:pb-10 pb-3 leading-[1.1]">
-              {t('SectionMainHomeTitle.helps')}{' '}
-              <span className="font-semi text-sky-400">
-                {t('SectionMainHomeTitle.connect')}
-              </span>{' '}
-              {t('SectionMainHomeTitle.desc')}
-            </h3>
-            <h6 className="font-normal text-white text-lg">
-              {t('SectionMainHomeDesc.text')}
-            </h6>
-          </div>
-          <div
-            className="flex sm:w-1/2 w-full items-center justify-center"
-            data-aos="fade-right"
+            ✕
+          </button>
+        </div>
+
+        {/* Isi Form */}
+        <div className="p-4">
+          <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            transition={{
+              duration: 1,
+              scale: {type: 'spring', visualDuration: 0.4}
+            }}
+            dir={isRTL ? 'rtl' : 'ltr'}
+            className="flex sm:flex-row flex-col gap-y-4 w-full items-center"
           >
-            <TabGroup className="sm:w-3/4 w-full">
-              <TabList className="w-full">
-                <Tab className="cursor-default transition duration-150 ease-in w-full py-3 text-center text-sky-700 font-bold text-lg">
-                  {t('FormOneTimeDonatiom.title')}
-                </Tab>
-              </TabList>
-              <TabPanels>
-                <TabPanel
-                  className="flex flex-col text-sm transition duration-300 ease-in"
-                  data-aos="fade-left"
-                  data-aos-duration="500"
-                >
-                  <div className="dark:bg-sky-950 bg-sky-600 dark:text-white text-white p-4 text-center rounded-tl-[23px] rounded-tr-[23px]">
-                    <h4>{t('FormOneTimeDonatiom.desc')}</h4>
-                  </div>
-                  <form className="p-4 bg-white dark:bg-slate-100">
-                    <div className="grid grid-cols-3 gap-4 mb-4">
-                      {nominalOptions.map((option) => (
-                        <button
-                          key={option.value}
-                          type="button"
-                          onClick={() => handleAmountClick(option.value)}
-                          className={`p-3 text-center rounded-3xl transition ${
-                            selectedAmount === option.value
-                              ? 'bg-sky-600 text-white'
-                              : 'bg-gray-200 text-gray-600 hover:bg-gray-300 transition duration-200 ease-in-out'
-                          }`}
-                        >
-                          {option.label}
-                        </button>
-                      ))}
+            <div
+              className="flex w-full items-center justify-center"
+              data-aos="fade-right"
+            >
+              <TabGroup className="w-full">
+                <TabList className="w-full">
+                  <Tab className="cursor-default transition duration-150 ease-in w-full py-3 text-center text-sky-700 font-bold text-lg"></Tab>
+                </TabList>
+                <TabPanels>
+                  <TabPanel
+                    className="flex flex-col text-sm transition duration-300 ease-in"
+                    data-aos="fade-left"
+                    data-aos-duration="500"
+                  >
+                    <div className="dark:bg-sky-950 bg-sky-600 dark:text-white text-white p-4 text-center rounded-tl-[6px] rounded-tr-[6px]">
+                      <h4>{t('FormOneTimeDonatiom.desc')}</h4>
                     </div>
-                    <input
-                      type="text"
-                      value={customAmount}
-                      onChange={handleCustomAmountChange}
-                      placeholder="Enter Amount"
-                      className="w-full bg-white p-3 border border-gray-300 rounded-lg dark:text-slate-600"
-                    />
-                    <button
-                      type="button"
-                      onClick={handleDonasiClick}
-                      className="w-full mt-4 py-3 text-white bg-sky-800 dark:bg-sky-600 hover:bg-sky-600 transition duration-300 ease-in rounded-2xl"
-                    >
-                      {t('FormOneTimeDonatiom.button')}
-                    </button>
-                    {/* <div className="mt-4">
+                    <form className="p-4 bg-white dark:bg-slate-100">
+                      <div className="grid grid-cols-2 gap-4 mb-4">
+                        {nominalOptions.map((option) => (
+                          <button
+                            key={option.value}
+                            type="button"
+                            onClick={() => handleAmountClick(option.value)}
+                            className={`p-3 text-center rounded-lg transition ${
+                              selectedAmount === option.value
+                                ? 'bg-sky-600 text-white'
+                                : 'bg-gray-200 text-gray-600 hover:bg-gray-300 transition duration-200 ease-in-out'
+                            }`}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                      <input
+                        type="text"
+                        value={customAmount}
+                        onChange={handleCustomAmountChange}
+                        placeholder="Enter Amount"
+                        className="w-full bg-white p-3 border border-gray-300 rounded-lg dark:text-slate-600"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleDonasiClick}
+                        className="w-full mt-4 py-3 text-white bg-sky-800 dark:bg-sky-600 hover:bg-sky-600 transition duration-300 ease-in rounded-lg"
+                      >
+                        {t('FormOneTimeDonatiom.button')}
+                      </button>
+                      {/* <div className="mt-4">
                     <h4>Cookies: {cookies || "Fetching..."}</h4>
                   </div> */}
-                  </form>
-                  <div className="flex flex-col dark:bg-sky-950 bg-sky-600 dark:text-white text-white p-8 text-center rounded-bl-[23px] rounded-br-[23px]">
-                    <h4>
-                      {t('FormOneTimeDonatiom.notes')}{' '}
-                      <a href="" className="font-extrabold">
-                        {t('FormOneTimeDonatiom.click')}
-                      </a>
-                    </h4>
-                  </div>
-                </TabPanel>
-              </TabPanels>
-            </TabGroup>
-          </div>
-        </motion.div>
-        <PopupNotif
-          message={notifMessage}
-          duration={3000}
-          onClose={() => setNotifMessage('')}
-        />
-      </section>
+                    </form>
+                    <div className="flex flex-col dark:bg-sky-950 bg-sky-600 dark:text-white text-white p-8 text-center rounded-bl-[10px] rounded-br-[10px]">
+                      <h4>
+                        {t('FormOneTimeDonatiom.notes')}{' '}
+                        <a href="" className="font-extrabold">
+                          {t('FormOneTimeDonatiom.click')}
+                        </a>
+                      </h4>
+                    </div>
+                  </TabPanel>
+                </TabPanels>
+              </TabGroup>
+            </div>
+          </motion.div>
+          <PopupNotif
+            message={notifMessage}
+            duration={3000}
+            onClose={() => setNotifMessage('')}
+          />
+        </div>
+      </div>
     </>
   );
 };

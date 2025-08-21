@@ -555,7 +555,8 @@ const Page: React.FC = () => {
                                   <label className="text-slate-600 dark:text-white w-[150px]">
                                     Report
                                   </label>
-                                  {programfollowed.status === 'Finishing' && (
+                                  {(programfollowed.status === 'Finishing' ||
+                                    programfollowed.status === 'Closed') && (
                                     <p className="text-slate-800 dark:text-white flex flex-row justify-center items-center gap-x-2">
                                       Available To Download
                                       <Popover>
@@ -577,7 +578,7 @@ const Page: React.FC = () => {
                                     'Running',
                                     'Need Revision'
                                   ].includes(programfollowed.status) && (
-                                    <p className="text-slate-800 dark:text-white">
+                                    <p className="text-slate-400 dark:text-white">
                                       Not Available
                                     </p>
                                   )}

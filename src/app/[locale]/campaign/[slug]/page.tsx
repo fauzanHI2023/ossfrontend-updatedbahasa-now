@@ -2,6 +2,7 @@
 
 import React, {useEffect, useState, CSSProperties} from 'react';
 import Link from 'next/link';
+import {useQuery, useMutation} from '@tanstack/react-query';
 import {useParams} from 'next/navigation';
 import {fetchCampaign} from '@/lib/donation/campaign/auth-campaign';
 import {inputCart} from '@/lib/donation/transaction/auth-cart';
@@ -17,13 +18,21 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Image from 'next/image';
 import HashLoader from 'react-spinners/HashLoader';
-import {UsersRound, SendHorizontal, HandHeart} from 'lucide-react';
+import {
+  UsersRound,
+  SendHorizontal,
+  HandHeart,
+  Link2,
+  ContactRound
+} from 'lucide-react';
 import {motion, AnimatePresence} from 'framer-motion';
 import DOMPurify from 'dompurify';
 import {useLocale} from 'next-intl';
 import {formatCurrency} from '@/utils/formatCurrency';
 import {Progress} from '@/components/ui/progress_fe';
 import CountUp from '@/components/ui/count-up';
+import {fetchdonorList} from '@/lib/donation/campaign/auth-donorlist-bycampaign';
+import {div} from 'framer-motion/client';
 
 const override: CSSProperties = {
   display: 'block',
@@ -46,6 +55,21 @@ interface Campaigns {
   qurban_type: string;
 }
 
+interface ListDonorList {
+  id: number;
+  user_id: number;
+  transaction_no: string;
+  transaction_date: string;
+  payment_channel_id: string;
+  status_id: string;
+  total_amount: string;
+  created_at: string;
+  full_name: number;
+  email: string;
+  phone: string;
+  is_anonim: boolean;
+}
+
 const PostDetail: React.FC = () => {
   const params = useParams();
   const slug = params?.slug;
@@ -58,7 +82,7 @@ const PostDetail: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const {cartItems, setCartItems} = useCart();
   const [cookies, setCookies] = useState<string | null>(null);
-  let [color, setColor] = useState('#209ce2');
+  const [color, setColor] = useState('#209ce2');
   const [hoveredShare, setHoveredShare] = useState(false);
   const [hoveredDonate, setHoveredDonate] = useState(false);
   const router = useRouter();
@@ -66,6 +90,16 @@ const PostDetail: React.FC = () => {
 
   const minimumDonation = Number(post?.minimum_donation) || 0;
   const totalDonation = quantity * minimumDonation;
+
+  const {
+    data: donorlists = [],
+    isLoading: loadingDonorlists,
+    error: errorDonorlists
+  } = useQuery<ListDonorList[], Error>({
+    queryKey: ['appointments', post?.id], // pakai post.id
+    queryFn: () => fetchdonorList(post!.id), // pakai post.id
+    enabled: !!post?.id // hanya jalan kalau post.id ada
+  });
 
   const nominalOptions = [
     {label: 'Rp50.000', value: 50000.0},
@@ -388,7 +422,7 @@ const PostDetail: React.FC = () => {
                       placeholder="Enter Donation Amount"
                       className="w-full py-0 px-3 h-[48px] text-sm bg-gray-50 border border-gray-200 rounded-lg dark:text-slate-200 text-slate-700"
                     />
-                    <div className="w-full flex flex-row-reverse gap-x-4">
+                    <div className="w-full flex flex-row gap-x-4">
                       <div className="w-2/12">
                         <Link href="/share">
                           <button
@@ -417,7 +451,7 @@ const PostDetail: React.FC = () => {
                                   transition={{duration: 0.3}}
                                   className="absolute"
                                 >
-                                  <SendHorizontal size={20} />
+                                  <Link2 size={20} />
                                 </motion.span>
                               )}
                             </AnimatePresence>
@@ -675,12 +709,60 @@ const PostDetail: React.FC = () => {
           </div>
           <div className="w-full flex flex-col justify-start items-start gap-y-4">
             <h5 className="text-gray-600 text-lg font-semibold">Donors</h5>
-            <div className="w-full flex flex-col justify-start items-start">
-              <div className="w-full bg-gray-100 py-6 px-4 rounded-t-3xl">
-                <h6 className="text-slate-900 text-sm font-semibold">
+            <div className="w-full flex flex-col justify-center items-center">
+              <div className="w-full bg-sky-500 py-6 px-4 rounded-t-3xl">
+                <h6 className="text-white text-sm font-semibold">
                   Share with everyone the same as you donate
                 </h6>
               </div>
+              {loadingDonorlists ? (
+                <HashLoader
+                  color={color}
+                  loading={loadingDonorlists}
+                  cssOverride={override}
+                  size={50}
+                />
+              ) : errorDonorlists ? (
+                <p className="text-lg font-semibold text-red-600">
+                  Failed to load appointments
+                </p>
+              ) : donorlists.length === 0 ? (
+                <p className="text-lg font-semibold text-gray-600 dark:text-gray-300">
+                  No appointments found
+                </p>
+              ) : (
+                <div className="flex flex-col gap-4 w-full py-4">
+                  {donorlists.map((programfollowed: any, index: number) => (
+                    <div
+                      key={index}
+                      className="flex flex-row justify-between items-center bg-slate-50 px-4 py-4 rounded-2xl w-full"
+                    >
+                      <div className="flex flex-row items-center justify-center gap-x-2">
+                        <HandHeart
+                          strokeWidth={1}
+                          className="text-slate-400 w-7 h-7"
+                        />
+                        <div className="flex flex-col items-start justify-center gap-x-3">
+                          <h1 className="text-slate-700-500 text-sm leading-none">
+                            {programfollowed.is_anonim
+                              ? 'Anonim'
+                              : programfollowed.full_name}
+                          </h1>
+                          <h2 className="text-xs text-slate-500">
+                            {programfollowed.transaction_date}
+                          </h2>
+                        </div>
+                      </div>
+                      <h3 className="text-sm">
+                        {formatCurrency(programfollowed.total_amount)}
+                      </h3>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <button className="text-center bg-white text-sky-600 border border-sky-600 rounded-full py-1 px-2 font-semibold text-sm">
+                See All
+              </button>
               <div className="w-full bg-white rounded-b-3xl py-6 px-4"></div>
             </div>
           </div>

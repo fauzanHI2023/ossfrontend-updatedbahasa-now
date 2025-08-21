@@ -45,7 +45,7 @@ const Donate = () => {
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  let [color, setColor] = useState('#209ce2');
+  const [color, setColor] = useState('#209ce2');
 
   const itemsPerPage = 4;
 

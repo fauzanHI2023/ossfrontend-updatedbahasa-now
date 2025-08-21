@@ -1,5 +1,6 @@
 'use client';
 import React, {useState, useEffect, CSSProperties} from 'react';
+import Link from 'next/link';
 import {
   HandCoins,
   SmilePlus,
@@ -9,6 +10,7 @@ import {
   ClipboardCheck,
   MoveRight
 } from 'lucide-react';
+import {FaArrowLeft, FaArrowRight} from 'react-icons/fa';
 import Image from 'next/image';
 import {useSession} from 'next-auth/react';
 import PopupNotif from '@/components/ui/utility/PopupNotif';
@@ -48,6 +50,7 @@ import MapWithSearch, {
   PlaceResult
 } from '@/components/ui/utility/maps/MapsWithSearchBar';
 import ScrollingCards from '@/components/ui/utility/ScrollingCard';
+import {usePagination} from '@/hooks/usePagination';
 
 const override: CSSProperties = {
   display: 'block',
@@ -65,6 +68,7 @@ interface ProjectList {
   currency: string;
   amount: number;
   quantity: number;
+  files: string;
 }
 
 const CSRServices = () => {
@@ -82,6 +86,15 @@ const CSRServices = () => {
   const {data: session, status}: any = useSession();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const itemsPerPage = 8;
+  const maxVisiblePages = 5;
+  const {
+    currentPage,
+    setCurrentPage,
+    paginate,
+    totalPages,
+    getVisiblePageNumbers
+  } = usePagination(itemsPerPage, maxVisiblePages);
 
   useEffect(() => {
     if (status === 'authenticated' && session?.user?.phpDonorData?.length > 0) {
@@ -106,7 +119,7 @@ const CSRServices = () => {
     data: proposalprograms = [],
     isLoading,
     error
-  } = useQuery<ProjectList[]>({
+  } = useQuery<ProjectList[], Error>({
     queryKey: ['proposalprograms'],
     queryFn: fetchListProject
   });
@@ -250,7 +263,7 @@ const CSRServices = () => {
             className="rounded-tl-3xl rounded-tr-lg rounded-bl-lg rounded-br-3xl"
           />
         </div>
-        <div className="flex flex-col gap-y-10 sm:w-1/2 w-full bg-slate-100 p-8 rounded-3xl">
+        <div className="flex flex-col gap-y-4 sm:w-1/2 w-full bg-slate-100 p-8 rounded-3xl">
           <h4
             className={`text-slate-800 dark:text-white font-semibold sm:text-[50px] text-2xl sm:w-1/3 w-full pr-3 sm:pb-0 pb-4 leading-tight`}
             data-aos="fade-up"
@@ -260,19 +273,25 @@ const CSRServices = () => {
             Collaborative Impact{' '}
           </h4>
           <p
-            className="text-base text-gray-500 font-normal w-full leading-6"
+            className="text-base text-gray-500 font-normal w-full leading-6 text-sm"
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="950"
           >
-            Di tengah tantangan global, kolaborasi strategis penting untuk
-            menciptakan perubahan nyata. Human Initiative mengajak berbagai
-            pihak bersama wujudkan dampak positif dan pembangunan masyarakat
-            yang berkelanjutan.
+            Human Initiative adalah lembaga kemanusiaan terpercaya,
+            terverifikasi, dan berkualitas yang berbasis pada prinsip SDG dan
+            ESG, serta berpengalaman dalam mengelola CSR management bagi
+            berbagai perusahaan. Dengan jejaring lebih dari 1.000 institusi
+            dalam dan luar negeri, kami menghadirkan program berkelanjutan
+            melalui empat pilar utama: Lingkungan, Pendidikan, UMKM, dan
+            Kemanusiaan. Bergabunglah bersama kami untuk menciptakan dampak
+            nyata dan berkelanjutan. Mari wujudkan perubahan positif yang
+            memberi manfaat luas bagi masyarakat dan lingkungan melalui
+            kolaborasi CSR Anda bersama Human Initiative.
           </p>
         </div>
       </section>
-      <section className="flex flex-row gap-x-16 justify-center items-center sm:py-24 p-6 w-full">
+      <section className="hidden flex flex-row gap-x-16 justify-center items-center sm:py-24 p-6 w-full">
         <div className="flex sm:flex-row flex-col w-4/5 gap-x-14 ">
           <div
             className="sm:w-1/2 w-full bg-gradient-to-r from-blue-300 to-sky-300 p-8 rounded-3xl h-full"
@@ -546,7 +565,7 @@ const CSRServices = () => {
           </TabsList>
           <TabsContent
             value="all"
-            className="grid grid-cols-4 gap-x-4"
+            className="grid grid-cols-4 gap-x-4 gap-y-10"
             data-aos="fade-up"
             data-aos-duration="3000"
           >
@@ -557,289 +576,359 @@ const CSRServices = () => {
                 cssOverride={override}
                 size={50}
               />
-            ) : error || proposalprograms.length === 0 ? (
+            ) : error ||
+              !Array.isArray(proposalprograms) ||
+              proposalprograms.length === 0 ? (
               <p className="text-lg font-semibold text-gray-600 dark:text-gray-300">
                 No data available
               </p>
             ) : (
-              proposalprograms.map((programs, index) => (
-                <div key={index} className="flex flex-col gap-y-4">
-                  <Image
-                    src="/IMG_1975.jpg"
-                    alt="Human Initiative"
-                    width={300}
-                    height={180}
-                    className="rounded-lg"
-                  />
-                  <div className="flex flex-col justify-start items-start gap-x-1">
-                    <h5>{programs.title}</h5>
-                    <p className="text-slate-400 text-sm">
-                      {programs.program_name}
-                    </p>
-                  </div>
-                  <div className="flex flex-row gap-6">
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button className="w-1/3 bg-slate-100 text-slate-600 rounded-2xl dark:bg-sky-800 transition ease-in duration-300 hover:bg-slate-200">
-                          Detail
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[825px]">
-                        <DialogHeader>
-                          <DialogTitle>
-                            Project - {programs.program_name}
-                          </DialogTitle>
-                          <DialogDescription>{programs.id}</DialogDescription>
-                        </DialogHeader>
-                        <div className="flex flex-wrap w-full">
-                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                              Program Name
-                            </label>
-                            <h6 className="text-slate-800 dark:text-white">
-                              {programs.program_name}
-                            </h6>
+              paginate(proposalprograms as ProjectList[]).map(
+                (programs, index) => (
+                  <div key={index} className="flex flex-col gap-y-4">
+                    <Image
+                      src="/IMG_1975.jpg"
+                      alt="Human Initiative"
+                      width={300}
+                      height={180}
+                      className="rounded-lg"
+                    />
+                    <div className="flex flex-col justify-start items-start gap-x-1">
+                      <h5>{programs.title}</h5>
+                      <p className="text-slate-400 text-sm">
+                        {programs.program_name}
+                      </p>
+                    </div>
+                    <div className="flex flex-row gap-6">
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button className="w-1/3 bg-slate-100 text-slate-600 rounded-2xl dark:bg-sky-800 transition ease-in duration-300 hover:bg-slate-200">
+                            Detail
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[825px]">
+                          <DialogHeader>
+                            <DialogTitle>
+                              Project - {programs.program_name}
+                            </DialogTitle>
+                            <DialogDescription>{programs.id}</DialogDescription>
+                          </DialogHeader>
+                          <div className="flex flex-wrap w-full">
+                            <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                                Program Name
+                              </label>
+                              <h6 className="text-slate-800 dark:text-white">
+                                {programs.program_name}
+                              </h6>
+                            </div>
+                            <div className="w-full flex flex-col gap-y-4 items-start justify-center pb-4">
+                              <label className="text-sm font-bold text-slate-600 dark:text-slate-300 w-[150px]">
+                                Project Description
+                              </label>
+                              <h6 className="text-slate-700 text-sm dark:text-white h-[180px] w-[682px] overflow-y-hidden">
+                                {programs.project_description}
+                              </h6>
+                            </div>
+                            <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                                Project Goals
+                              </label>
+                              <h6 className="text-slate-800 dark:text-white">
+                                {programs.project_goal}
+                              </h6>
+                            </div>
+                            <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                                Project Scope
+                              </label>
+                              <h6 className="text-slate-800 dark:text-white">
+                                {programs.project_scope}
+                              </h6>
+                            </div>
+                            <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                                Amount
+                              </label>
+                              <h6 className="text-sky-500 cursor-pointer">
+                                {formatPrice(programs.amount)}
+                              </h6>
+                            </div>
+                            <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                                Quantity
+                              </label>
+                              <h6 className="text-sky-500 cursor-pointer">
+                                {programs.quantity}
+                              </h6>
+                            </div>
+                            <div className="w-full flex flex-row gap-x-4 items-center pb-4">
+                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                                Document
+                              </label>
+                              <h6 className="text-sky-500 cursor-pointer">
+                                {programs.files}
+                              </h6>
+                            </div>
                           </div>
-                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                              Project Description
-                            </label>
-                            <h6 className="text-slate-800 dark:text-white">
-                              {programs.project_description}
-                            </h6>
-                          </div>
-                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                              Project Goals
-                            </label>
-                            <h6 className="text-slate-800 dark:text-white">
-                              {programs.project_goal}
-                            </h6>
-                          </div>
-                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                              Project Scope
-                            </label>
-                            <h6 className="text-slate-800 dark:text-white">
-                              {programs.project_scope}
-                            </h6>
-                          </div>
-                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                              Amount
-                            </label>
-                            <h6 className="text-sky-500 cursor-pointer">
-                              {formatPrice(programs.amount)}
-                            </h6>
-                          </div>
-                          <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                            <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
-                              Quantity
-                            </label>
-                            <h6 className="text-sky-500 cursor-pointer">
-                              {programs.quantity}
-                            </h6>
-                          </div>
-                        </div>
-                        <DialogFooter>
-                          <DialogClose asChild>
-                            <Button variant="outline">Cancel</Button>
-                          </DialogClose>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog>
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button className="bg-slate-700 rounded-2xl text-white dark:bg-sky-800 transition ease-in duration-300 hover:bg-sky-600">
-                          Book an Appointment
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[825px]">
-                        <DialogHeader>
-                          <DialogTitle>
-                            Make an Appointment - {programs.program_name}{' '}
-                            {programs.id}
-                          </DialogTitle>
-                          <DialogDescription>
-                            To join the program please make an appointment first
-                          </DialogDescription>
-                        </DialogHeader>
+                          <DialogFooter>
+                            <DialogClose asChild>
+                              <Button variant="outline">Cancel</Button>
+                            </DialogClose>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button className="bg-slate-700 rounded-2xl text-white dark:bg-sky-800 transition ease-in duration-300 hover:bg-sky-600">
+                            Book an Appointment
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[825px]">
+                          <DialogHeader>
+                            <DialogTitle>
+                              Make an Appointment - {programs.program_name}{' '}
+                              {programs.id}
+                            </DialogTitle>
+                            <DialogDescription>
+                              To join the program please make an appointment
+                              first
+                            </DialogDescription>
+                          </DialogHeader>
 
-                        <div className="grid gap-4 py-4">
-                          {/* STEP 1: Jika belum login, minta Nama & Email */}
-                          {step === 1 && status !== 'authenticated' && (
-                            <>
-                              <div className="flex flex-col gap-2">
-                                <label className="text-sm text-slate-600">
-                                  Nama
-                                </label>
-                                <input
-                                  type="text"
-                                  value={name}
-                                  onChange={(e) => setName(e.target.value)}
-                                  className="w-full border rounded-md px-3 py-2"
-                                  placeholder="Nama lengkap"
-                                />
-                              </div>
+                          <div className="grid gap-4 py-4">
+                            {/* STEP 1: Jika belum login, minta Nama & Email */}
+                            {step === 1 && status !== 'authenticated' && (
+                              <>
+                                <div className="flex flex-col gap-2">
+                                  <label className="text-sm text-slate-600">
+                                    Nama
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    className="w-full border rounded-md px-3 py-2"
+                                    placeholder="Nama lengkap"
+                                  />
+                                </div>
 
-                              <div className="flex flex-col gap-2">
-                                <label className="text-sm text-slate-600">
-                                  Email
-                                </label>
-                                <input
-                                  type="email"
-                                  value={email}
-                                  onChange={(e) => setEmail(e.target.value)}
-                                  className="w-full border rounded-md px-3 py-2"
-                                  placeholder="Email aktif"
-                                />
-                              </div>
+                                <div className="flex flex-col gap-2">
+                                  <label className="text-sm text-slate-600">
+                                    Email
+                                  </label>
+                                  <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="w-full border rounded-md px-3 py-2"
+                                    placeholder="Email aktif"
+                                  />
+                                </div>
 
-                              <Button
-                                className="mt-4"
-                                disabled={!name || !email}
-                                onClick={() => setStep(2)}
-                              >
-                                Lanjutkan
-                              </Button>
-                            </>
-                          )}
-
-                          {/* STEP 1 jika SUDAH login langsung skip ke pilih tanggal */}
-                          {(step === 1 && status === 'authenticated') ||
-                          (step === 2 && status !== 'authenticated') ? (
-                            <>
-                              {/* Pilih Tanggal */}
-                              <CalendarPicker
-                                selectedDate={selectedDate}
-                                onSelectDate={setSelectedDate}
-                              />
-
-                              {/* Pilih Jam Mulai */}
-                              <div className="flex flex-col gap-2">
-                                <label className="text-sm text-slate-600">
-                                  Jam Mulai
-                                </label>
-                                <select
-                                  value={startTime}
-                                  onChange={(e) => setStartTime(e.target.value)}
-                                  className="w-full border rounded-md px-3 py-2"
+                                <Button
+                                  className="mt-4"
+                                  disabled={!name || !email}
+                                  onClick={() => setStep(2)}
                                 >
-                                  <option value="">Pilih jam mulai</option>
-                                  {Array.from({length: 24}, (_, i) => (
-                                    <option
-                                      key={i}
-                                      value={`${String(i).padStart(2, '0')}:00`}
-                                    >
-                                      {`${String(i).padStart(2, '0')}:00`}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
+                                  Lanjutkan
+                                </Button>
+                              </>
+                            )}
 
-                              {/* Pilih Jam Selesai */}
-                              <div className="flex flex-col gap-2">
-                                <label className="text-sm text-slate-600">
-                                  Jam Selesai
-                                </label>
-                                <select
-                                  value={endTime}
-                                  onChange={(e) => setEndTime(e.target.value)}
-                                  className="w-full border rounded-md px-3 py-2"
-                                >
-                                  <option value="">Pilih jam selesai</option>
-                                  {Array.from({length: 24}, (_, i) => (
-                                    <option
-                                      key={i}
-                                      value={`${String(i).padStart(2, '0')}:00`}
-                                    >
-                                      {`${String(i).padStart(2, '0')}:00`}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              <Button
-                                className="mt-4"
-                                disabled={
-                                  !selectedDate || !startTime || !endTime
-                                }
-                                onClick={() => setStep(3)}
-                              >
-                                Lanjutkan
-                              </Button>
-                            </>
-                          ) : null}
-
-                          {/* STEP 3 */}
-                          {step === 3 && (
-                            <>
-                              {/* Input Tempat */}
-                              <div className="flex flex-col">
-                                <label className="text-sm text-slate-600">
-                                  Tempat
-                                </label>
-                                <input
-                                  type="hidden"
-                                  value={placeText}
-                                  name="tempat"
+                            {/* STEP 1 jika SUDAH login langsung skip ke pilih tanggal */}
+                            {(step === 1 && status === 'authenticated') ||
+                            (step === 2 && status !== 'authenticated') ? (
+                              <>
+                                {/* Pilih Tanggal */}
+                                <CalendarPicker
+                                  selectedDate={selectedDate}
+                                  onSelectDate={setSelectedDate}
                                 />
-                              </div>
-                              <MapWithSearch
-                                onSelect={(placeResult) => {
-                                  setPlace(placeResult);
-                                  setPlaceText(placeResult.address ?? '');
-                                }}
-                              />
 
-                              {/* Input Catatan */}
-                              <div className="flex flex-col">
-                                <label className="text-sm text-slate-600">
-                                  Catatan
-                                </label>
-                                <textarea
-                                  value={notes}
-                                  onChange={(e) => setNotes(e.target.value)}
-                                  className="w-full border px-3 py-2 rounded-md"
-                                  placeholder="Tulis catatan (opsional)"
-                                />
-                              </div>
-
-                              <DialogFooter>
-                                <DialogClose>
-                                  <Button
-                                    type="submit"
-                                    onClick={() => {
-                                      if (!selectedDate) return;
-
-                                      handleSubmitAppointment({
-                                        programId: programs.id,
-                                        selectedDate,
-                                        startTime,
-                                        endTime,
-                                        placeText,
-                                        notes,
-                                        name,
-                                        email
-                                      });
-                                    }}
+                                {/* Pilih Jam Mulai */}
+                                <div className="flex flex-col gap-2">
+                                  <label className="text-sm text-slate-600">
+                                    Jam Mulai
+                                  </label>
+                                  <select
+                                    value={startTime}
+                                    onChange={(e) =>
+                                      setStartTime(e.target.value)
+                                    }
+                                    className="w-full border rounded-md px-3 py-2"
                                   >
-                                    Submit Appointment
-                                  </Button>
-                                </DialogClose>
-                              </DialogFooter>
-                            </>
-                          )}
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                                    <option value="">Pilih jam mulai</option>
+                                    {Array.from({length: 24}, (_, i) => (
+                                      <option
+                                        key={i}
+                                        value={`${String(i).padStart(2, '0')}:00`}
+                                      >
+                                        {`${String(i).padStart(2, '0')}:00`}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+
+                                {/* Pilih Jam Selesai */}
+                                <div className="flex flex-col gap-2">
+                                  <label className="text-sm text-slate-600">
+                                    Jam Selesai
+                                  </label>
+                                  <select
+                                    value={endTime}
+                                    onChange={(e) => setEndTime(e.target.value)}
+                                    className="w-full border rounded-md px-3 py-2"
+                                  >
+                                    <option value="">Pilih jam selesai</option>
+                                    {Array.from({length: 24}, (_, i) => (
+                                      <option
+                                        key={i}
+                                        value={`${String(i).padStart(2, '0')}:00`}
+                                      >
+                                        {`${String(i).padStart(2, '0')}:00`}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+
+                                <Button
+                                  className="mt-4"
+                                  disabled={
+                                    !selectedDate || !startTime || !endTime
+                                  }
+                                  onClick={() => setStep(3)}
+                                >
+                                  Lanjutkan
+                                </Button>
+                              </>
+                            ) : null}
+
+                            {/* STEP 3 */}
+                            {step === 3 && (
+                              <>
+                                {/* Input Tempat */}
+                                <div className="flex flex-col">
+                                  <label className="text-sm text-slate-600">
+                                    Tempat
+                                  </label>
+                                  <input
+                                    type="hidden"
+                                    value={placeText}
+                                    name="tempat"
+                                  />
+                                </div>
+                                <MapWithSearch
+                                  onSelect={(placeResult) => {
+                                    setPlace(placeResult);
+                                    setPlaceText(placeResult.address ?? '');
+                                  }}
+                                />
+
+                                {/* Input Catatan */}
+                                <div className="flex flex-col">
+                                  <label className="text-sm text-slate-600">
+                                    Catatan
+                                  </label>
+                                  <textarea
+                                    value={notes}
+                                    onChange={(e) => setNotes(e.target.value)}
+                                    className="w-full border px-3 py-2 rounded-md"
+                                    placeholder="Tulis catatan (opsional)"
+                                  />
+                                </div>
+
+                                <DialogFooter>
+                                  <DialogClose>
+                                    <Button
+                                      type="submit"
+                                      onClick={() => {
+                                        if (!selectedDate) return;
+
+                                        handleSubmitAppointment({
+                                          programId: programs.id,
+                                          selectedDate,
+                                          startTime,
+                                          endTime,
+                                          placeText,
+                                          notes,
+                                          name,
+                                          email
+                                        });
+                                      }}
+                                    >
+                                      Submit Appointment
+                                    </Button>
+                                  </DialogClose>
+                                </DialogFooter>
+                              </>
+                            )}
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
                   </div>
-                </div>
-              ))
+                )
+              )
             )}
           </TabsContent>
         </Tabs>
+        <div className="pagination-controls flex justify-center items-center gap-4 mt-14">
+          <button
+            onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-[#0499fd] text-white rounded-xl disabled:bg-gray-300"
+          >
+            <FaArrowLeft />
+          </button>
+
+          <div className="page-numbers flex gap-2">
+            {getVisiblePageNumbers(
+              (proposalprograms as ProjectList[]).length || 0
+            ).map((pageNumber) => (
+              <button
+                key={pageNumber}
+                onClick={() => setCurrentPage(pageNumber)}
+                className={`px-4 py-2 border rounded-xl ${
+                  currentPage === pageNumber
+                    ? 'bg-[#0499fd] text-white'
+                    : 'bg-gray-200 text-black'
+                }`}
+              >
+                {pageNumber}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() =>
+              setCurrentPage(
+                Math.min(
+                  currentPage + 1,
+                  totalPages((proposalprograms as ProjectList[]).length || 0)
+                )
+              )
+            }
+            disabled={
+              currentPage ===
+              totalPages((proposalprograms as ProjectList[]).length || 0)
+            }
+            className="px-4 py-2 bg-[#0499fd] text-white rounded-xl disabled:bg-gray-300"
+          >
+            <FaArrowRight />
+          </button>
+        </div>
       </motion.section>
+      <section className="w-full relative flex flex-col justify-center items-start bg-gradient-to-l to-gray-50 from-white px-32 py-16">
+        <div className="w-full flex flex-row justify-between items-center">
+          <h5 className="text-sky-700 text-4xl font-semibold">
+            Collaborative News
+          </h5>
+          <Link href="/publication/news&stories" className="text-slate-900">
+            See All
+          </Link>
+        </div>
+      </section>
       <PopupNotif
         message={notifMessage}
         duration={3000}

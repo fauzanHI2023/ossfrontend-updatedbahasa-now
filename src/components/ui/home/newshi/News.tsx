@@ -98,7 +98,7 @@ const News = () => {
   return (
     <section
       className={`scroll-smooth relative flex flex-col w-full sm:px-24 sm:py-16 p-6 dark:bg-slate-950 bg-white`}
-      id="#section-project-browse"
+      id="section-newshome"
     >
       <div className="flex sm:flex-row flex-col justify-between sm:pb-14 pb-2">
         <h5

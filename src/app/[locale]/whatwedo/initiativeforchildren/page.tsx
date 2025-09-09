@@ -1,17 +1,19 @@
 'use client';
 import React from 'react';
 import Banner from '@/components/ui/banner/Banner';
-import {Baby, University, Backpack} from 'lucide-react';
+import {Baby, University, Backpack, MoveRight} from 'lucide-react';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger
-} from '@/components/ui/tabs-program';
+} from '@/components/ui/tabs-fe';
 import Image from 'next/image';
 import {fetchNewsByHashtagProgram} from '@/lib/publication/auth-news';
 import {useQuery} from '@tanstack/react-query';
 import {useTranslations} from 'next-intl';
+import InitiativeChildren from '@/components/ui/whatwedo/InitiativeChildren';
+import Link from 'next/link';
 
 const InitiativeForChildren = () => {
   const t = useTranslations();
@@ -22,6 +24,32 @@ const InitiativeForChildren = () => {
 
   const posts = data?.data ?? [];
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
+
+  const stripHtml = (html: string) => {
+    if (typeof window !== 'undefined') {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      return doc.body.textContent || '';
+    }
+    return html;
+  };
+
+  const truncateAndStripHtml = (html: string, wordLimit: number) => {
+    const plainText = stripHtml(html);
+    const words = plainText.split(' ');
+    return (
+      words.slice(0, wordLimit).join(' ') +
+      (words.length > wordLimit ? '...' : '')
+    );
+  };
+
   return (
     <main className="flex flex-col sm:py-16 py-6 sm:pt-28 pt-24 dark:bg-slate-950 bg-white">
       <Banner
@@ -29,7 +57,7 @@ const InitiativeForChildren = () => {
         description={t('bannerInitiativeChildren.desc')}
         image="/DSC08227.JPG"
       />
-      <section className="relative overflow-hidden flex flex-col justify-center items-center sm:gap-y-10 gap-y-10 sm:py-[150px] py-10 sm:px-24 px-6 dark:bg-slate-950 bg-white">
+      <section className="relative overflow-hidden flex flex-col justify-center items-center sm:gap-y-10 gap-y-10 py-10 sm:px-24 px-6 dark:bg-slate-950 bg-white">
         {/* <div className="absolute inset-0 w-full h-full z-20 pointer-events-none" />
         <Boxes/> */}
         <div className="flex flex-row justify-center items-center gap-x-10 w-full relative z-20">
@@ -37,12 +65,9 @@ const InitiativeForChildren = () => {
             Initiative for <span className="text-sky-600">Children</span>
           </h5>
           <p className="text-slate-600 dark:text-white font-normal text-base">
-            Initiative for Children is a collection of various programs that
-            focus on improving the knowledge and skills of orphans or the poor.
-            These programs include educational scholarship programs, provision
-            of school supplies, worship equipment, psychological support, and
-            various trainings that support them to be able to live
-            independently.
+            Program bagi anak-anak yang membutuhkan dengan fokus tujuan untuk
+            memenuhi 10 Hak Anak berdasarkan Konvensi Perserikatan Bangsa-Bangsa
+            (PBB) tahun 1989
           </p>
         </div>
         {/* <div className="flex flex-row gap-x-16 justify-center items-center w-2/3">
@@ -66,144 +91,34 @@ const InitiativeForChildren = () => {
           </div>
         </div> */}
         <Tabs defaultValue="perlindungananak" className="w-full">
-          <TabsList className="flex flex-row justify-start items-center gap-x-8 relative z-20">
+          <TabsList className="flex flex-row justify-start items-center gap-x-1 relative z-20">
             <TabsTrigger
               value="perlindungananak"
               className="w-max-content flex flex-row gap-x-2"
             >
-              <Baby className="text-sky-600" /> Child Protection
+              Penguatan Komunitas
             </TabsTrigger>
             <TabsTrigger
               value="pendidikananakyatimdanduafa"
               className="w-max-content flex flex-row gap-x-2"
             >
-              <Backpack className="text-sky-600" /> Education of Orphans and The
-              Underprivileged
+              Penguatan Sekolah
             </TabsTrigger>
             <TabsTrigger
               value="pemenuhankebutuhandasar"
               className="w-max-content flex flex-row gap-x-2"
             >
-              <University className="text-sky-600" /> Fulfillment of Basic Needs
+              Penguatan Keluarga
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="perlindungananak">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10">
-              <p className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                Hai Sahabat Inisiator, Anak adalah masa depan. Anak yang
-                Sehat,kuat dan berkarakter menjadi cikal bakal bangsa yang
-                hebat. itu semua dapat terwujud dengan pemperhatikan hak-hak
-                anak dalam pertumbuhannya. Yuk Simak Video Berikut
-              </p>
-              <iframe
-                src="https://human-initiative.org/wp-content/uploads/2018/05/Child-Protection-Human-Initiative-REV-01.mp4?_=4"
-                frameBorder="0"
-                allowFullScreen
-                width="600"
-                height="400"
-                className="relative z-20"
-              ></iframe>
-              <h6 className="text-xl font-semibold text-slate-700 dark:text-slate-300 relative z-20">
-                Seperti Keluarga di Rumah, HOME Ingin Setiap Anak Mencapai
-                Potensi Maksimalnya
-              </h6>
-              <p className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                HOME Children Learning Center adalah tempat bagi setiap anak,
-                khususnya yatim, anak berasal dari keluarga kurang mampu, dan
-                anak terlantar untuk mendapatkan dukungan pemenuhan hak dan
-                perlindungan anak. Seperti Rumah, HOME ingin setiap anak
-                mencapai potensi maksimalnya melalui kegiatan belajar, bermain,
-                berkreasi serta ruang untuk konsultasi. Anak Tangguh di masa
-                depan perlu mendapatkan dukungan dari orang baik di masa
-                kecilnya.
-              </p>
-              <iframe
-                src="https://human-initiative.org/wp-content/uploads/2018/05/Home-2-COMPRESS.mp4?_=5"
-                frameBorder="0"
-                allowFullScreen
-                width="600"
-                height="400"
-                className="relative z-20"
-              ></iframe>
-              <p className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                Selanjutnya, Kami memiliki Sekolah Tanpa Kekerasan yang
-                merupakan program preventif untuk menutup peluang terjadinya
-                kekerasan, eksploitasi, perlakuan salah, dan penelantaran di
-                sekolah dengan mengimplementasikan child safeguarding policy.
-                Melalui program ini, civitas sekolah diedukasi, dilatih,
-                didampingi dalam penyusunan dan implementasi child safeguarding
-                policy.
-              </p>
-            </div>
+          <TabsContent value="perlindungananak" className="py-4">
+            <InitiativeChildren tab="penguatankomunitas" />
           </TabsContent>
-          <TabsContent value="pendidikananakyatimdanduafa">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10">
-              <p className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                Program ini mencakup Sekolah Human Initiative, Pondok Yatim dan
-                Duafa dan Pendidikan Untuk Anak Penyintas.
-              </p>
-              <ul className="list-disc list-inside">
-                <li className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                  Sekolah Human Initiative adalah Program pembangunan sekolah
-                  untuk anak-anak terdampak bencana agar dapat mengenyam
-                  pendidikan formal.
-                </li>
-                <li className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                  Pondok Yatim dan Duafa merupakan Program pembangunan pondok
-                  untuk anak-anak yatim terdampak bencana yang berkomitmen
-                  menghafal Alquran dan belajar ilmu agama.
-                </li>
-                <li className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                  Pendidikan Untuk Anak Penyintas adalah Program dukungan
-                  pendidikan kepada para penyintas dari berbagai negara yang
-                  berada di Indonesia. Dukungan pendidikan berupa advokasi akses
-                  pendidikan formal dan penyelenggaraan pendidikan nonformal
-                  berupa pendidikan budaya, bahasa inggris, komputer, dan life
-                  skill untuk anak-anak pengungsi.
-                </li>
-              </ul>
-              <div className="w-full relative z-20">
-                <Image
-                  src="/DSC08242 (1)_11zon.jpg"
-                  width={400}
-                  height={400}
-                  alt="Human Initiative Disaster"
-                  className="w-[400px] rounded-xl"
-                />
-              </div>
-              <div className="w-full relative z-20">
-                <Image
-                  src="/PRT01592_11zon.jpg"
-                  width={400}
-                  height={400}
-                  alt="Human Initiative Disaster"
-                  className="w-[400px] rounded-xl"
-                />
-              </div>
-            </div>
+          <TabsContent value="pendidikananakyatimdanduafa" className="py-4">
+            <InitiativeChildren tab="penguatansekolah" />
           </TabsContent>
-          <TabsContent value="pemenuhankebutuhandasar">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10 relative">
-              <p className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                Pemenuhan Kebutuhan Dasar Anak meliputi Program Orang Tua
-                Asuh(OTA)
-              </p>
-              <iframe
-                src="https://human-initiative.org/wp-content/uploads/2018/05/OTA-Aksa_rev-2-video.mp4?_=6"
-                frameBorder="0"
-                allowFullScreen
-                width="600"
-                height="400"
-                className="relative z-20"
-              ></iframe>
-              <p className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                Program Orang Tua Asuh sendiri adalah Gerakan kepedulian sosial
-                untuk menjamin keberlangsungan pendidikan anak-anak yatim dan
-                pelajar kurang mampu melalui pola pengasuhan. Bentuk program
-                gerakan Orang Tua Asuh adalah bantuan beasiswa dan pendidikan
-                karakter serta budi pekerti kepada penerima manfaat.
-              </p>
-            </div>
+          <TabsContent value="pemenuhankebutuhandasar" className="py-4">
+            <InitiativeChildren tab="penguatankeluarga" />
           </TabsContent>
         </Tabs>
       </section>
@@ -214,7 +129,7 @@ const InitiativeForChildren = () => {
           </h5>
         </div>
 
-        <div className="list_post flex flex-wrap gap-8 w-full justify-start">
+        <div className="sm:grid sm:grid-cols-4 sm:gap-8 flex flex-col w-full">
           {isLoading && <p className="text-slate-600">Memuat data...</p>}
           {isError && (
             <p className="text-red-500">Gagal mengambil data publikasi.</p>
@@ -223,29 +138,41 @@ const InitiativeForChildren = () => {
           {posts.map((post: any) => (
             <div
               key={post.id}
-              className="post_program_card w-full sm:w-[22%] flex flex-col gap-y-4"
+              className="publikasi-card mb-4 pb-4 w-full flex flex-col transition duration-500 ease-in"
             >
-              <div className="w-full relative z-20">
-                <Image
-                  src={
-                    post.news_integration
-                      ? `https://cdnx.human-initiative.org/image/${post.guid}`
-                      : `${post.guid}`
-                  }
-                  width={400}
-                  height={400}
-                  alt={post.post_title || 'Gambar Publikasi'}
-                  className="w-full h-[250px] object-cover rounded-xl"
-                />
-              </div>
-              <div className="flex flex-col gap-y-4 relative z-20">
-                <h5 className="text-slate-700 font-semibold text-lg line-clamp-2">
-                  {post.post_title}
-                </h5>
-                <p
-                  className="text-slate-600 font-normal text-base line-clamp-3"
-                  dangerouslySetInnerHTML={{__html: post.post_content}}
-                />
+              <span className="w-full h-[300px] overflow-hidden relative">
+                <Link href={`/publication/news&stories/${post.slug}`}>
+                  <Image
+                    src={
+                      post.news_integration
+                        ? `https://cdnx.human-initiative.org/image/${post.guid}`
+                        : `${post.guid}`
+                    }
+                    alt={post.post_title}
+                    width={500}
+                    height={300}
+                    className="w-full h-full rounded-xl object-cover float-none absolute"
+                  />
+                </Link>
+              </span>
+              <div className="flex flex-col gap-y-4 justify-start items-start px-0 py-4">
+                <span className="dark:bg-slate-800 dark:text-slate-300 text-slate-600 bg-slate-200 py-1 px-2 rounded-2xl w-max">
+                  {formatDate(post.post_date)}
+                </span>
+                <Link href={`/publication/news&stories/${post.slug}`}>
+                  <h2 className="text-sky-800 hover:text-sky-500 transition duration-300 ease-in dark:text-white sm:text-base text-base font-semibold leading-6 h-[50px] overflow-hidden">
+                    {post.post_title}
+                  </h2>
+                </Link>
+                <p className="text-slate-500 text-sm font-normal dark:text-slate-200">
+                  {truncateAndStripHtml(post.post_content, 5)}
+                </p>
+                <Link
+                  href={`/publication/news&stories/${post.slug}`}
+                  className="flex flex-row gap-x-2 items-center w-full text-center rounded-lg text-sky-700 dark:text-sky-500 inline-block bg-transparent font-medium text-sm p-1 hover:transition hover:ease-in-out"
+                >
+                  Read More <MoveRight />
+                </Link>
               </div>
             </div>
           ))}

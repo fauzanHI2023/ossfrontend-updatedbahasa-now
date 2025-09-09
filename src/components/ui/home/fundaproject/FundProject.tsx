@@ -80,7 +80,10 @@ const FundProject = () => {
   };
 
   return (
-    <section className="sm:px-24 py-12 p-6 flex flex-col sm:gap-y-4 gap-y-2 w-full dark:bg-slate-950 bg-[#f6fcff]">
+    <section
+      id="section-fundraisinghome"
+      className="sm:px-24 py-12 p-6 flex flex-col sm:gap-y-4 gap-y-2 w-full dark:bg-slate-950 bg-[#f6fcff]"
+    >
       <div className="flex flex-row justify-between items-end">
         <div className="flex flex-col gap-y-4">
           <h5

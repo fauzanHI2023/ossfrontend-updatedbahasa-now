@@ -100,6 +100,7 @@ const CollectionsPublications = () => {
   return (
     <section
       className={`sm:p-24 p-6 bg flex flex-col w-full gap-y-12 bg-white dark:bg-slate-800`}
+      id="section-publicationhome"
     >
       <div className="flex flex-row justify-between items-center">
         <h5

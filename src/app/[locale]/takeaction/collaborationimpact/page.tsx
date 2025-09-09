@@ -51,6 +51,7 @@ import MapWithSearch, {
 } from '@/components/ui/utility/maps/MapsWithSearchBar';
 import ScrollingCards from '@/components/ui/utility/ScrollingCard';
 import {usePagination} from '@/hooks/usePagination';
+import NewsCollaborate from '@/components/ui/joinourmovement/NewsCollaborate';
 
 const override: CSSProperties = {
   display: 'block',
@@ -86,6 +87,7 @@ const CSRServices = () => {
   const {data: session, status}: any = useSession();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [placeOption, setPlaceOption] = useState('');
   const itemsPerPage = 8;
   const maxVisiblePages = 5;
   const {
@@ -606,67 +608,67 @@ const CSRServices = () => {
                             Detail
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[825px]">
+                        <DialogContent className="sm:max-w-[825px] h-[600px]">
                           <DialogHeader>
                             <DialogTitle>
                               Project - {programs.program_name}
                             </DialogTitle>
                             <DialogDescription>{programs.id}</DialogDescription>
                           </DialogHeader>
-                          <div className="flex flex-wrap w-full">
-                            <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                          <div className="flex flex-col gap-y-6 w-full h-[450px] relative overflow-y-scroll">
+                            <div className="w-full flex flex-col gap-y-2 items-start pb-4">
+                              <label className="text-base font-bold text-sky-500 dark:text-slate-300 w-[150px]">
                                 Program Name
                               </label>
-                              <h6 className="text-slate-800 dark:text-white">
+                              <h6 className="text-slate-700 text-sm dark:text-white">
                                 {programs.program_name}
                               </h6>
                             </div>
-                            <div className="w-full flex flex-col gap-y-4 items-start justify-center pb-4">
-                              <label className="text-sm font-bold text-slate-600 dark:text-slate-300 w-[150px]">
+                            <div className="w-full flex flex-col gap-y-2 items-start justify-center pb-4">
+                              <label className="text-base font-bold text-sky-500 dark:text-slate-300 w-[150px]">
                                 Project Description
                               </label>
-                              <h6 className="text-slate-700 text-sm dark:text-white h-[180px] w-[682px] overflow-y-hidden">
+                              <h6 className="text-slate-700 text-sm dark:text-white min-h-[40px] max-h-[200px] w-[682px] overflow-y-hidden">
                                 {programs.project_description}
                               </h6>
                             </div>
-                            <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                            <div className="w-full flex flex-col gap-y-2 items-start pb-4">
+                              <label className="text-base font-bold text-sky-500 dark:text-slate-300 w-[150px]">
                                 Project Goals
                               </label>
-                              <h6 className="text-slate-800 dark:text-white">
+                              <h6 className="text-slate-700 text-sm dark:text-white">
                                 {programs.project_goal}
                               </h6>
                             </div>
-                            <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                            <div className="w-full flex flex-col gap-y-2 items-start pb-4">
+                              <label className="text-base font-bold text-sky-500 dark:text-slate-300 w-[150px]">
                                 Project Scope
                               </label>
-                              <h6 className="text-slate-800 dark:text-white">
+                              <h6 className="text-slate-700 text-sm dark:text-white min-h-[40px] max-h-[200px] w-[682px] overflow-y-hidden">
                                 {programs.project_scope}
                               </h6>
                             </div>
                             <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                              <label className="text-base font-bold text-sky-500 dark:text-slate-300 w-[150px]">
                                 Amount
                               </label>
-                              <h6 className="text-sky-500 cursor-pointer">
+                              <h6 className="text-slate-700 text-sm dark:text-white">
                                 {formatPrice(programs.amount)}
                               </h6>
                             </div>
                             <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                              <label className="text-base font-bold text-sky-500 dark:text-slate-300 w-[150px]">
                                 Quantity
                               </label>
-                              <h6 className="text-sky-500 cursor-pointer">
+                              <h6 className="text-slate-700 text-sm dark:text-white">
                                 {programs.quantity}
                               </h6>
                             </div>
                             <div className="w-full flex flex-row gap-x-4 items-center pb-4">
-                              <label className="text-sm font-semibold text-slate-600 dark:text-slate-300 w-[150px]">
+                              <label className="text-base font-bold text-sky-500 dark:text-slate-300 w-[150px]">
                                 Document
                               </label>
-                              <h6 className="text-sky-500 cursor-pointer">
+                              <h6 className="text-slate-700 text-sm dark:text-white cursor-pointer">
                                 {programs.files}
                               </h6>
                             </div>
@@ -807,23 +809,52 @@ const CSRServices = () => {
                             {/* STEP 3 */}
                             {step === 3 && (
                               <>
-                                {/* Input Tempat */}
-                                <div className="flex flex-col">
+                                {/* Select Tempat */}
+                                <div className="flex flex-col gap-2">
                                   <label className="text-sm text-slate-600">
                                     Tempat
                                   </label>
-                                  <input
-                                    type="hidden"
-                                    value={placeText}
-                                    name="tempat"
-                                  />
+                                  <select
+                                    value={placeOption}
+                                    onChange={(e) => {
+                                      const value = e.target.value;
+                                      setPlaceOption(value);
+
+                                      // otomatis isi placeText kalau Online atau HQ
+                                      if (value === 'Online') {
+                                        setPlaceText('Online');
+                                        setPlace(null);
+                                      } else if (value === 'HQ') {
+                                        setPlaceText(
+                                          'Human Initiative Headquarter'
+                                        );
+                                        setPlace(null);
+                                      } else {
+                                        setPlaceText(''); // kosongkan dulu, nanti isi dari Map
+                                      }
+                                    }}
+                                    className="w-full border rounded-md px-3 py-2"
+                                  >
+                                    <option value="">Pilih tempat</option>
+                                    <option value="Online">Online</option>
+                                    <option value="HQ">
+                                      Human Initiative Headquarter
+                                    </option>
+                                    <option value="Custom">
+                                      Pilih tempat sendiri
+                                    </option>
+                                  </select>
                                 </div>
-                                <MapWithSearch
-                                  onSelect={(placeResult) => {
-                                    setPlace(placeResult);
-                                    setPlaceText(placeResult.address ?? '');
-                                  }}
-                                />
+
+                                {/* Kalau pilih tempat sendiri, baru tampilkan Map */}
+                                {placeOption === 'Custom' && (
+                                  <MapWithSearch
+                                    onSelect={(placeResult) => {
+                                      setPlace(placeResult);
+                                      setPlaceText(placeResult.address ?? '');
+                                    }}
+                                  />
+                                )}
 
                                 {/* Input Catatan */}
                                 <div className="flex flex-col">
@@ -856,6 +887,7 @@ const CSRServices = () => {
                                           email
                                         });
                                       }}
+                                      disabled={!placeText} // jangan bisa submit kalau tempat belum dipilih
                                     >
                                       Submit Appointment
                                     </Button>
@@ -919,16 +951,7 @@ const CSRServices = () => {
           </button>
         </div>
       </motion.section>
-      <section className="w-full relative flex flex-col justify-center items-start bg-gradient-to-l to-gray-50 from-white px-32 py-16">
-        <div className="w-full flex flex-row justify-between items-center">
-          <h5 className="text-sky-700 text-4xl font-semibold">
-            Collaborative News
-          </h5>
-          <Link href="/publication/news&stories" className="text-slate-900">
-            See All
-          </Link>
-        </div>
-      </section>
+      <NewsCollaborate />
       <PopupNotif
         message={notifMessage}
         duration={3000}

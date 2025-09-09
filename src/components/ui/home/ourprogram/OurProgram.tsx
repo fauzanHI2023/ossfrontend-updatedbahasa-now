@@ -19,6 +19,7 @@ const OurProgram = () => {
   return (
     <section
       className={`relative bg-[#f3f7fa] flex flex-col w-full sm:px-32 sm:py-20 p-6`}
+      id="section-valuestreamhome"
     >
       <div
         dir={isRTL ? 'rtl' : 'ltr'}

@@ -211,7 +211,7 @@ const BannerHomeNew = () => {
               } w-full h-full ${hero.img} bg-cover bg-left bg-no-repeat`}
             >
               <div className="absolute inset-0 bg-black/30"></div>
-              <div className="flex sm:flex-row flex-col gap-y-4 w-full justify-end items-end px-12">
+              <div className="flex sm:flex-row flex-col gap-y-4 w-full justify-start items-end px-12">
                 <div
                   className="flex flex-col gap-y-7 sm:w-5/12 w-full h-full px-10 px-16 justify-center items-start sm:pb-0 pb-8 h-[260px] mt-10"
                   data-aos="fade-left"

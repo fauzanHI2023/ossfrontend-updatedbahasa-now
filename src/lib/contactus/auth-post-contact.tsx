@@ -4,7 +4,7 @@ export interface PostContact {
   nama: string;
   email: string;
   feature: string;
-  desciptions: string;
+  descriptions: string;
 }
 
 export const postContact = async (data: PostContact): Promise<any> => {

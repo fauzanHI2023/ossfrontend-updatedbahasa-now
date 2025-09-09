@@ -297,7 +297,7 @@ const Donate = () => {
 
             <TabsContent value={activeTab}>
               {loading ? (
-                <div className="sm:grid sm:grid-cols-3 sm:gap-10 w-full flex flex-col gap-y-6">
+                <div className="flex flex-col sm:grid sm:grid-cols-3 gap-x-8 gap-y-6 flex-wrap">
                   {Array.from({length: itemsPerPage}).map((_, index) => (
                     <div
                       key={index}

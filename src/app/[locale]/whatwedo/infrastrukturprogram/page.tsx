@@ -8,7 +8,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger
-} from '@/components/ui/tabs-program';
+} from '@/components/ui/tabs-fe';
 import Image from 'next/image';
 import {MdOutlineMosque} from 'react-icons/md';
 import {FaHandsWash} from 'react-icons/fa';
@@ -17,6 +17,7 @@ import {GiSuspensionBridge} from 'react-icons/gi';
 import {fetchNewsByHashtagProgram} from '@/lib/publication/auth-news';
 import {useQuery} from '@tanstack/react-query';
 import {useTranslations} from 'next-intl';
+import InitiativeInfrastruktur from '@/components/ui/whatwedo/InitiativeInfrastruktur';
 
 const InfrastructureProgram = () => {
   const t = useTranslations();
@@ -60,18 +61,15 @@ const InfrastructureProgram = () => {
         description={t('bannerInitiativeInfrastructure.desc')}
         image="/DSC_10301.JPG"
       />
-      <section className="relative overflow-hidden flex flex-col justify-center items-center sm:gap-y-10 gap-y-10 sm:py-[150px] py-10 sm:px-24 px-6 dark:bg-slate-950 bg-white">
+      <section className="relative overflow-hidden flex flex-col justify-center items-center sm:gap-y-10 gap-y-10 py-10 sm:px-24 px-6 dark:bg-slate-950 bg-white">
         <div className="absolute inset-0 w-full h-full z-20 pointer-events-none" />
         <div className="flex flex-row justify-center items-center gap-x-10 w-full relative z-20">
           <h5 className="text-slate-700 w-full dark:text-white font-semibold text-5xl">
             Infrastruktur <span className="text-sky-600">Program</span>
           </h5>
           <p className="text-slate-600 dark:text-white font-normal text-base">
-            Initiative for Infrastructure merupakan program Human Initiative
-            dalam upaya mewujudkan kesejahteraan melalui peningkatan kualitas
-            infrastruktur masyarakat di dalam dan luar negeri. Pelaksanaan
-            dilakukan melalui program reguler atau program pemulihan
-            pascabencana(recovery).
+            Program yang bertujuan membuka akses untuk peningkatan kualitas
+            hidup masyarakat
           </p>
         </div>
         {/* <div className="flex flex-row gap-x-16 justify-center items-center w-2/3">
@@ -94,412 +92,26 @@ const InfrastructureProgram = () => {
             <h5>Pemenuhan Kebutuhan Dasar</h5>
           </div>
         </div> */}
-        <Tabs defaultValue="masjid" className="w-full">
-          <TabsList className="flex flex-wrap justify-start items-center gap-x-2 relative z-20 h-full ">
+        <Tabs defaultValue="umum" className="w-full">
+          <TabsList className="flex flex-wrap justify-start items-center gap-x-1 relative z-20 h-full ">
             <TabsTrigger
-              value="masjid"
+              value="umum"
               className="w-max-content flex flex-row gap-x-2"
             >
-              <Image
-                src="/Asset 8@16x.png"
-                width={20}
-                height={20}
-                alt="Human Initiative Disaster"
-                className="w-[20px] rounded-xl"
-              />{' '}
-              Pembangunan & Renovasi Masjid
+              Sarana Umum
             </TabsTrigger>
             <TabsTrigger
-              value="sekolah"
+              value="perorangan"
               className="w-max-content flex flex-row gap-x-2"
             >
-              <Image
-                src="/Asset 6@16x.png"
-                width={20}
-                height={20}
-                alt="Human Initiative Disaster"
-                className="w-[20px] rounded-xl"
-              />{' '}
-              Pembangunan Sarana Pendidikan
-            </TabsTrigger>
-            <TabsTrigger
-              value="wash"
-              className="w-max-content flex flex-row gap-x-2"
-            >
-              <Image
-                src="/Asset 12@16x.png"
-                width={20}
-                height={20}
-                alt="Human Initiative Disaster"
-                className="w-[20px] rounded-xl"
-              />{' '}
-              Pembangunan Sarana Air Bersih
-            </TabsTrigger>
-            <TabsTrigger
-              value="kesehatan"
-              className="w-max-content flex flex-row gap-x-2"
-            >
-              <Image
-                src="/Asset 11@16x.png"
-                width={20}
-                height={20}
-                alt="Human Initiative Disaster"
-                className="w-[20px] rounded-xl"
-              />{' '}
-              Penyediaan Sarana Kesehatan
-            </TabsTrigger>
-            <TabsTrigger
-              value="hunian"
-              className="w-max-content flex flex-row gap-x-2 mt-4"
-            >
-              <Image
-                src="/Asset 10@16x.png"
-                width={20}
-                height={20}
-                alt="Human Initiative Disaster"
-                className="w-[20px] rounded-xl"
-              />{' '}
-              Pembangunan Hunian
-            </TabsTrigger>
-            <TabsTrigger
-              value="jembatan"
-              className="w-max-content flex flex-row gap-x-2 mt-4"
-            >
-              <Image
-                src="/Asset 5@16x.png"
-                width={20}
-                height={20}
-                alt="Human Initiative Disaster"
-                className="w-[20px] rounded-xl"
-              />{' '}
-              Pembangunan Sarana Umum
-            </TabsTrigger>
-            <TabsTrigger
-              value="saranaalat"
-              className="w-max-content flex flex-row gap-x-2 mt-4"
-            >
-              <Image
-                src="/Asset 9@16x.png"
-                width={20}
-                height={20}
-                alt="Human Initiative Disaster"
-                className="w-[20px] rounded-xl"
-              />{' '}
-              Peralatan Sarana Umum
+              Sarana Perorangan
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="masjid">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10">
-              <p className="text-sm font-normal text-indigo-950 relative z-20">
-                Masjid bukan hanya sebagai tempat ibadah, tetapi juga sebagai
-                pusat kegiatan sosial dan pendidikan bagi masyarakat lokal.
-                Program ini melibatkan sumber daya lokal, termasuk tenaga kerja
-                setempat, tukang batu, tukang kayu, dan pengrajin lokal untuk
-                membangun masjid. Dalam hal ini, pembangunan masjid dapat
-                menjadi pusat komunitas yang mendukung pendidikan agama,
-                pelatihan keterampilan, serta memberikan tempat bagi warga untuk
-                beribadah dan berkumpul.
-              </p>
-              <p className="text-sm font-normal text-indigo-950 relative z-20">
-                Selama pelaksanaan program ini, penting untuk memastikan
-                partisipasi aktif dan inklusi masyarakat lokal dalam perencanaan
-                dan pengambilan keputusan. Program ini juga harus memastikan
-                keberlanjutan jangka panjang melalui pelatihan dan pengembangan
-                kapasitas lokal. Selain itu, pemerintah dan mitra non-pemerintah
-                dapat berkolaborasi untuk mengidentifikasi sumber daya, dana,
-                dan teknologi yang diperlukan untuk menjalankan program ini
-                dengan sukses. Program pembangunan infrastruktur yang berfokus
-                pada pemberdayaan sumber daya lokal dapat berdampak positif pada
-                perkembangan sosial, ekonomi, dan kualitas hidup masyarakat di
-                Indonesia.
-              </p>
-              <Image
-                src="/PROGRES-100-4-1-2048x1152 (2).jpg"
-                width={1000}
-                height={700}
-                alt="Human Initiative"
-                className="w-full h-full relative z-20 rounded"
-              />
-            </div>
+          <TabsContent value="umum">
+            <InitiativeInfrastruktur tab="saranaumum" />
           </TabsContent>
-          <TabsContent value="wash">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10">
-              <div className="flex flex-col gap-y-6">
-                <Image
-                  src="/Asset 12@16x.png"
-                  width={100}
-                  height={100}
-                  alt="Human Initiative Disaster"
-                  className="w-[100px] rounded-xl"
-                />
-                <div className="flex flex-row gap-x-5 justify-between items-center">
-                  <p className="w-1/5 flex flex-row gap-x-3 text-3xl font-bold text-sky-600 dark:text-slate-300 relative z-20">
-                    Pembangunan Sarana Air Bersih
-                  </p>
-                  <p className="w-4/5 text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                    Akses ke air bersih adalah hak asasi manusia, dan
-                    pembangunan sumber air bersih sangat penting. Program ini
-                    mencakup pembuatan sumur bor, pengembangan sistem distribusi
-                    air, dan penyediaan pelatihan bagi warga setempat dalam
-                    pengelolaan air. Dengan melibatkan komunitas dalam
-                    pemeliharaan dan pengelolaan sumber air, program ini dapat
-                    berkelanjutan dan memberdayakan masyarakat setempat.
-                  </p>
-                </div>
-              </div>
-              <Image
-                src="/IMG_3814-2048x1365.jpg"
-                width={400}
-                height={400}
-                alt="Human Initiative"
-                className="w-[400px] h-full relative z-20"
-              />
-              <p className="text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                Selama pelaksanaan program ini, penting untuk memastikan
-                partisipasi aktif dan inklusi masyarakat lokal dalam perencanaan
-                dan pengambilan keputusan. Program ini juga harus memastikan
-                keberlanjutan jangka panjang melalui pelatihan dan pengembangan
-                kapasitas lokal. Selain itu, pemerintah dan mitra non-pemerintah
-                dapat berkolaborasi untuk mengidentifikasi sumber daya, dana,
-                dan teknologi yang diperlukan untuk menjalankan program ini
-                dengan sukses. Program pembangunan infrastruktur yang berfokus
-                pada pemberdayaan sumber daya lokal dapat berdampak positif pada
-                perkembangan sosial, ekonomi, dan kualitas hidup masyarakat di
-                Indonesia.
-              </p>
-            </div>
-          </TabsContent>
-          <TabsContent value="sekolah">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10 relative">
-              <div className="flex flex-col gap-y-6">
-                <Image
-                  src="/Asset 6@16x.png"
-                  width={100}
-                  height={100}
-                  alt="Human Initiative Disaster"
-                  className="w-[100px] rounded-xl"
-                />
-                <div className="flex flex-row gap-x-5 justify-between items-center">
-                  <p className="w-1/5 flex flex-row gap-x-3 text-3xl font-bold text-sky-600 dark:text-slate-300 relative z-20">
-                    Pembangunan Sarana Pendidikan
-                  </p>
-                  <p className="w-4/5 text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                    Sekolah adalah langkah penting untuk meningkatkan pendidikan
-                    di daerah tersebut. Program ini mencakup pembangunan gedung
-                    sekolah, penyediaan peralatan pendidikan, dan pelatihan guru
-                    lokal. Sumber daya lokal dapat dimanfaatkan dalam
-                    pembangunan sekolah, seperti pekerjaan konstruksi,
-                    penyediaan makanan sekolah dari petani lokal, dan melibatkan
-                    komite sekolah dalam pengelolaan sekolah.
-                  </p>
-                </div>
-              </div>
-              <p className="flex flex-row gap-x-3 text-xl font-bold text-sky-800 dark:text-slate-300 relative z-20">
-                Bentuk program Pembangunan Sarana Pendidikan, antara lain:
-              </p>
-              <ul className="list-disc list-inside relative z-20">
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300">
-                  Ruang Kelas
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Asrama
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Sekolah
-                </li>
-              </ul>
-              <Image
-                src="/DSC04008-2048x1365.jpg"
-                width={400}
-                height={400}
-                alt="Human Initiative"
-                className="w-[400px] h-full relative z-20 rounded"
-              />
-            </div>
-          </TabsContent>
-          <TabsContent value="kesehatan">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10 relative">
-              <div className="flex flex-col gap-y-6">
-                <Image
-                  src="/Asset 11@16x.png"
-                  width={100}
-                  height={100}
-                  alt="Human Initiative Disaster"
-                  className="w-[100px] rounded-xl"
-                />
-                <div className="flex flex-row gap-x-5 justify-between items-center">
-                  <p className="w-1/5 flex flex-row gap-x-3 text-3xl font-bold text-sky-600 dark:text-slate-300 relative z-20">
-                    Penyediaan Sarana Kesehatan
-                  </p>
-                  <p className="w-4/5 text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                    Kegiatan penyediaan sarana maupun prasarana yang bertujuan
-                    mendukung program kesehatan masyarakat sehingga mampu
-                    meningkatkan kesejahteraan dan membentuk lingkungan
-                    masyarakat yang sehat.
-                  </p>
-                </div>
-              </div>
-              <p className="flex flex-row gap-x-3 text-xl font-bold text-sky-800 dark:text-slate-300 relative z-20">
-                Bentuk program Penyediaan Sarana Kesehatan, antara lain:
-              </p>
-              <ul className="list-disc list-inside relative z-20">
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300">
-                  Pembangunan Klinik
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Sarana dan Prasarana Klinik
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Ambulans Laut
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Safety Mobile
-                </li>
-              </ul>
-              <Image
-                src="/IMG_8495.JPG"
-                width={400}
-                height={400}
-                alt="Human Initiative"
-                className="w-[400px] h-full relative z-20 rounded hidden"
-              />
-            </div>
-          </TabsContent>
-          <TabsContent value="hunian">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10 relative">
-              <div className="flex flex-col gap-y-6">
-                <Image
-                  src="/Asset 10@16x.png"
-                  width={100}
-                  height={100}
-                  alt="Human Initiative Disaster"
-                  className="w-[100px] rounded-xl"
-                />
-                <div className="flex flex-row justify-between items-center">
-                  <p className="w-1/5 flex flex-row gap-x-3 text-3xl font-bold text-sky-600 dark:text-slate-300 relative z-20">
-                    Pembangunan Hunian
-                  </p>
-                  <p className="w-4/5 text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                    Kegiatan pembangunan ataupun perbaikan tempat tinggal yang
-                    bertujuan memenuhi kebutuhan dasar manusia akan tempat
-                    tinggal yang guna meningkatkan kualitas hidup.
-                  </p>
-                </div>
-              </div>
-              <p className="flex flex-row gap-x-3 text-xl font-bold text-sky-800 dark:text-slate-300 relative z-20">
-                Bentuk program Pembangunan Hunian, antara lain:
-              </p>
-              <ul className="list-disc list-inside relative z-20">
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300">
-                  Hunian Sementara (Huntara)
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Hunian Tetap (Huntap)
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Renovasi Rumah
-                </li>
-              </ul>
-              <Image
-                src="/IMG_8495.JPG"
-                width={400}
-                height={400}
-                alt="Human Initiative"
-                className="w-[400px] h-full relative z-20 rounded"
-              />
-            </div>
-          </TabsContent>
-          <TabsContent value="jembatan">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10 relative">
-              <div className="flex flex-col gap-y-6">
-                <Image
-                  src="/Asset 5@16x.png"
-                  width={100}
-                  height={100}
-                  alt="Human Initiative Disaster"
-                  className="w-[100px] rounded-xl"
-                />
-                <div className="flex flex-row justify-between items-center">
-                  <p className="w-1/5 flex flex-row gap-x-3 text-3xl font-bold text-sky-600 dark:text-slate-300 relative z-20">
-                    Peralatan Sarana Umum
-                  </p>
-                  <p className="w-4/5 text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                    Jembatan dapat menghubungkan wilayah yang sebelumnya
-                    terisolasi, memudahkan akses ke pasar, layanan kesehatan,
-                    dan pendidikan. Program ini mempekerjakan insinyur dan
-                    tenaga kerja lokal untuk membangun jembatan. Selain itu,
-                    program ini juga dapat mencakup pelatihan bagi warga
-                    setempat tentang pemeliharaan dan manajemen jembatan.
-                  </p>
-                </div>
-              </div>
-              <Image
-                src="/DJI_0505-2048x1536.jpg"
-                width={1000}
-                height={700}
-                alt="Human Initiative"
-                className="w-full h-full relative z-20 rounded"
-              />
-              <p className="text-base font-normal text-slate-700 relative z-20">
-                Selama pelaksanaan program ini, penting untuk memastikan
-                partisipasi aktif dan inklusi masyarakat lokal dalam perencanaan
-                dan pengambilan keputusan. Program ini juga harus memastikan
-                keberlanjutan jangka panjang melalui pelatihan dan pengembangan
-                kapasitas lokal. Selain itu, pemerintah dan mitra non-pemerintah
-                dapat berkolaborasi untuk mengidentifikasi sumber daya, dana,
-                dan teknologi yang diperlukan untuk menjalankan program ini
-                dengan sukses. Program pembangunan infrastruktur yang berfokus
-                pada pemberdayaan sumber daya lokal dapat berdampak positif pada
-                perkembangan sosial, ekonomi, dan kualitas hidup masyarakat di
-                Indonesia.
-              </p>
-            </div>
-          </TabsContent>
-          <TabsContent value="saranaalat">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10">
-              <div className="flex flex-col gap-y-6">
-                <Image
-                  src="/Asset 9@16x.png"
-                  width={100}
-                  height={100}
-                  alt="Human Initiative Disaster"
-                  className="w-[100px] rounded-xl"
-                />
-                <div className="flex flex-row justify-between items-center">
-                  <p className="flex flex-row gap-x-3 text-3xl font-bold text-sky-600 dark:text-slate-300 relative z-20">
-                    Peralatan Sarana Umum
-                  </p>
-                  <p className="text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                    Kegiatan distribusi peralatan ibadah yang bertujuan untuk
-                    mendukung kegiatan ibadah bagi masyarakat duafa dan
-                    mendukung pembangunan berkelanjutan.
-                  </p>
-                </div>
-              </div>
-              <p className="flex flex-row gap-x-3 text-xl font-bold text-sky-800 dark:text-slate-300 relative z-20">
-                Bentuk program Peralatan Sarana Umum, antara lain:
-              </p>
-              <ul className="list-disc list-inside relative z-20">
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300">
-                  Peralatan Ibadah
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Sound System
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Kipas Angin
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Dispenser
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Al-quran
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Solar Panel
-                </li>
-              </ul>
-            </div>
+          <TabsContent value="perorangan">
+            <InitiativeInfrastruktur tab="saranaperorangan" />
           </TabsContent>
         </Tabs>
       </section>
@@ -510,7 +122,7 @@ const InfrastructureProgram = () => {
           </h5>
         </div>
 
-        <div className="list_post flex flex-wrap gap-8 w-full justify-start">
+        <div className="sm:grid sm:grid-cols-4 sm:gap-8 flex flex-col w-full">
           {isLoading && <p className="text-slate-600">Memuat data...</p>}
           {isError && (
             <p className="text-red-500">Gagal mengambil data publikasi.</p>
@@ -519,29 +131,41 @@ const InfrastructureProgram = () => {
           {posts.map((post: any) => (
             <div
               key={post.id}
-              className="post_program_card w-full sm:w-[22%] flex flex-col gap-y-4"
+              className="publikasi-card mb-4 pb-4 w-full flex flex-col transition duration-500 ease-in"
             >
-              <div className="w-full relative z-20">
-                <Image
-                  src={
-                    post.news_integration
-                      ? `https://cdnx.human-initiative.org/image/${post.guid}`
-                      : `${post.guid}`
-                  }
-                  width={400}
-                  height={400}
-                  alt={post.post_title || 'Gambar Publikasi'}
-                  className="w-full h-[250px] object-cover rounded-xl"
-                />
-              </div>
-              <div className="flex flex-col gap-y-4 relative z-20">
-                <h5 className="text-slate-700 font-semibold text-lg line-clamp-2">
-                  {post.post_title}
-                </h5>
-                <p
-                  className="text-slate-600 font-normal text-base line-clamp-3"
-                  dangerouslySetInnerHTML={{__html: post.post_content}}
-                />
+              <span className="w-full h-[300px] overflow-hidden relative">
+                <Link href={`/publication/news&stories/${post.slug}`}>
+                  <Image
+                    src={
+                      post.news_integration
+                        ? `https://cdnx.human-initiative.org/image/${post.guid}`
+                        : `${post.guid}`
+                    }
+                    alt={post.post_title}
+                    width={500}
+                    height={300}
+                    className="w-full h-full rounded-xl object-cover float-none absolute"
+                  />
+                </Link>
+              </span>
+              <div className="flex flex-col gap-y-4 justify-start items-start px-0 py-4">
+                <span className="dark:bg-slate-800 dark:text-slate-300 text-slate-600 bg-slate-200 py-1 px-2 rounded-2xl w-max">
+                  {formatDate(post.post_date)}
+                </span>
+                <Link href={`/publication/news&stories/${post.slug}`}>
+                  <h2 className="text-sky-800 hover:text-sky-500 transition duration-300 ease-in dark:text-white sm:text-base text-base font-semibold leading-6 h-[50px] overflow-hidden">
+                    {post.post_title}
+                  </h2>
+                </Link>
+                <p className="text-slate-500 text-sm font-normal dark:text-slate-200">
+                  {truncateAndStripHtml(post.post_content, 5)}
+                </p>
+                <Link
+                  href={`/publication/news&stories/${post.slug}`}
+                  className="flex flex-row gap-x-2 items-center w-full text-center rounded-lg text-sky-700 dark:text-sky-500 inline-block bg-transparent font-medium text-sm p-1 hover:transition hover:ease-in-out"
+                >
+                  Read More <MoveRight />
+                </Link>
               </div>
             </div>
           ))}

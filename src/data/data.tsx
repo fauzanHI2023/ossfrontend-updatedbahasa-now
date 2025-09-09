@@ -14,6 +14,575 @@ import {Banknote, FileChartLine, HandHelping, ListChecks} from 'lucide-react';
 import {GiTakeMyMoney} from 'react-icons/gi';
 import Image from 'next/image';
 
+interface initiativeChildren {
+  id: number;
+  tab: string;
+  icon: string;
+  title: string;
+  description: string;
+  pemegangempat: string;
+  pemeganglima: string;
+  details?: {
+    deskripsi: string;
+    totalpemeganghak: string;
+    harga: string;
+  }[];
+}
+
+export const initiativeChildren = [
+  {
+    id: 1,
+    tab: 'penguatankomunitas',
+    icon: '/icon_katalog/Outline@16x.png',
+    title: 'HOME Children Center',
+    description:
+      'Bentuk program Pusat Pengembangan Anak yaitu dengan mendirikan HOME Children Center sebagai pusat perlindungan dan pemenuhan hak anak di wilayah-wilayah rawan dan terpencil sebagai pemenuhan hak dan perlindungan anak.',
+    pemegangempat: '1.783',
+    pemeganglima: '3.000',
+    details: [
+      {
+        deskripsi: 'Home Learning Center (12 Bulan)',
+        totalpemeganghak: '50-100 ',
+        harga: '300.000.000 '
+      }
+    ]
+  },
+  {
+    id: 2,
+    tab: 'penguatankomunitas',
+    icon: '/icon_katalog/Asset 16@16x.png',
+    title: 'Pendidikan Pra Sekolah',
+    description:
+      'Program Pendidikan Pra Sekolah untuk anak-anak, khususnya para refugees yang tinggal di Indonesia. ',
+    pemegangempat: '714',
+    pemeganglima: '2.500',
+    details: [
+      {
+        deskripsi: 'Pendidikan pra Sekolah ',
+        totalpemeganghak: '100',
+        harga: '60.000.000'
+      }
+    ]
+  },
+  {
+    id: 3,
+    tab: 'penguatansekolah',
+    icon: '/icon_katalog/Asset 17@16x.png',
+    title: 'Penguatan Kapasitas Sekolah',
+    description:
+      'merupakan program yang diberikan kepada sekolah untuk meningkatkan kualitas pendidikan di sekolah. Bentuk penguatan yang diberikan antara lain sarana perpustakaan sekolah, laboratorium komputer, pelatihan guru, dan bentuk penguatan sistem lainnya',
+    pemegangempat: '1.334',
+    pemeganglima: '3.000',
+    details: [
+      {
+        deskripsi: 'Komputer (per 10 unit) ',
+        totalpemeganghak: '30',
+        harga: '65.000.000 '
+      },
+      {
+        deskripsi: 'Laptop (per 10 unit)',
+        totalpemeganghak: '30',
+        harga: '85.000.000'
+      },
+      {
+        deskripsi: 'Perpustakaan',
+        totalpemeganghak: '300',
+        harga: '70.000.000'
+      },
+      {
+        deskripsi: 'Buku',
+        totalpemeganghak: '300',
+        harga: '50.000.000'
+      },
+      {
+        deskripsi: 'Alat Peraga Pendidikan',
+        totalpemeganghak: '100',
+        harga: '50.000.000'
+      },
+      {
+        deskripsi: 'Pelatihan Guru',
+        totalpemeganghak: '15',
+        harga: '30.000.000 '
+      }
+    ]
+  },
+  {
+    id: 4,
+    tab: 'penguatankeluarga',
+    icon: '',
+    title: 'Orang Tua Asuh',
+    description:
+      'Program pemberian beasiswa pendidikan dalam bentuk bantuan dana pendidikan serta pembinaan bagi anak-anak yatim dan duafa digulirkan dengan skema bantuan Orang Tua Asuh (OTA) dari mitra donatur untuk anak-anak Pemegang Hak Program. Dalam implementasi program tersebut, Human Initiative berkolaborasi dengan mitra/komunitas lokal. ',
+    pemegangempat: '8.283',
+    pemeganglima: '8.300'
+  },
+  {
+    id: 5,
+    tab: 'penguatankeluarga',
+    icon: '/icon_katalog/Asset 18@16x.png',
+    title: 'Kesehatan Mental',
+    description:
+      'Program Dukungan Psikososial bisa mencakup layanan konseling atau terapi untuk siswa yang membutuhkan. Program ini bertujuan untuk memberikan dukungan yang diperlukan kepada siswa untuk mengatasi masalah kesehatan mental serta menciptakan lingkungan sekolah dan keluarga yang mendukung kesehatan mental siswa.',
+    pemegangempat: '338',
+    pemeganglima: '3.000',
+    details: [
+      {
+        deskripsi: 'Dukungan Psikososial',
+        totalpemeganghak: '200',
+        harga: '40.000.000'
+      },
+      {
+        deskripsi: 'Sekolah Tanpa Kekerasan',
+        totalpemeganghak: '100',
+        harga: '100.000.000'
+      },
+      {
+        deskripsi: 'Edukasi Parenting',
+        totalpemeganghak: '100',
+        harga: '50.000.000'
+      }
+    ]
+  }
+];
+
+interface initiativeEmpowerment {
+  id: number;
+  tab: string;
+  icon: string;
+  title: string;
+  description: string;
+  pemegangempat: string;
+  pemeganglima: string;
+  details?: {
+    deskripsi: string;
+    totalpemeganghak: string;
+    harga: string;
+  }[];
+}
+
+export const initiativeEmpowerment = [
+  {
+    id: 1,
+    tab: 'peningkatanpendapatan',
+    icon: '/icon_katalog/Asset 14@16x.png',
+    title: 'Pelatihan Keterampilan',
+    description:
+      'Program Pelatihan Keterampilan yang menitikberatkan pada pengkapasitasan masyarakat dalam rangka meningkatkan keterampilan usaha serta kemampuan kerja yang sesuai dengan lapangan pekerjaan yang dibutuhkan. ',
+    pemegangempat: '450',
+    pemeganglima: '610'
+  },
+  {
+    id: 2,
+    tab: 'peningkatanpendapatan',
+    icon: '/icon_katalog/Asset 22@16x.png',
+    title: 'Dukungan Sarana & Modal Usaha',
+    description:
+      'Program Sarana dan Modal Usaha dengan bantuan pembinaan yang bertujuan untuk meningkatkan pengetahuan dan keterampilan UMKM.',
+    pemegangempat: '2.600',
+    pemeganglima: '7.300',
+    details: [
+      {
+        deskripsi: 'Bantuan Dana Usaha',
+        totalpemeganghak: '1',
+        harga: '4.000.000'
+      },
+      {
+        deskripsi: 'Bnantuan Gerobak',
+        totalpemeganghak: '1',
+        harga: '8.000.000'
+      },
+      {
+        deskripsi: 'Bantuan Perahu',
+        totalpemeganghak: '1',
+        harga: '10.000.000'
+      },
+      {
+        deskripsi: 'Bantuan Mesin Jahit',
+        totalpemeganghak: '1',
+        harga: '5.000.000'
+      },
+      {
+        deskripsi: 'Bantuan Bibit Ikan',
+        totalpemeganghak: '1',
+        harga: '4.000.000'
+      },
+      {
+        deskripsi: 'Bantuan Ternak',
+        totalpemeganghak: '1',
+        harga: '7.000.000'
+      },
+      {
+        deskripsi: 'Bantuan Sarana Pertanian',
+        totalpemeganghak: '1',
+        harga: '10.000.000'
+      }
+    ]
+  },
+  {
+    id: 3,
+    tab: 'peningkatanpendapatan',
+    icon: '/icon_katalog/Asset 15@16x.png',
+    title: 'Pemberdayaan Ekonomi Keluarga',
+    description:
+      'Program pemberdayaan ekonomi keluarga yang bertujuan untuk meningkatkan pendapatan suatu keluarga dengan memberikan kesempatan bagi keluarga yang memiliki unit usaha',
+    pemegangempat: '865',
+    pemeganglima: '1.050',
+    details: [
+      {
+        deskripsi: 'Kelompok Usaha Mandiri Masyarakat (KUMM)',
+        totalpemeganghak: '30',
+        harga: '225.000.000'
+      },
+      {
+        deskripsi: 'Pusat Inkubasi Kemandirian (PIK)',
+        totalpemeganghak: '30',
+        harga: '255.000.000'
+      }
+    ]
+  },
+  {
+    id: 4,
+    tab: 'peningkatanpendapatan',
+    icon: '/icon_katalog/Asset 13@16x.png',
+    title: 'Pemberdayaan Ekonomi Komunoitas',
+    description:
+      'Program pemberdayaan masyarakat yang bertujuan untuk meningkatkan pendapatan masyarakat dalam suatu wilayah dengan membangun ekosistem yang kondusif bagi pengembangan ekonomi masyarakat',
+    pemegangempat: '550',
+    pemeganglima: '1.200',
+    details: [
+      {
+        deskripsi: 'Bangun Industri Desa (BID)',
+        totalpemeganghak: '30',
+        harga: '300.000.000'
+      },
+      {
+        deskripsi: 'Kelompok Usaha Bersama (KUBE)',
+        totalpemeganghak: '30',
+        harga: '225.000.000'
+      }
+    ]
+  },
+  {
+    id: 5,
+    tab: 'pemenuhangizidanketahananpangan',
+    icon: '/icon_katalog/Asset 21@16x.png',
+    title: 'Pemenuhan Gizi dan Ketahanan Pangan',
+    description:
+      'Program bantuan peningkatan derajat kesehatan terhadap isu-isu kesehatan di lingkungan masyarakat.',
+    pemegangempat: '1.066',
+    pemeganglima: '1.000',
+    details: [
+      {
+        deskripsi: 'Gizi Ibu Hamil dan Balita',
+        totalpemeganghak: '20',
+        harga: '200.000.000'
+      },
+      {
+        deskripsi: 'Kebun Gizi',
+        totalpemeganghak: '30',
+        harga: '120.000.000'
+      },
+      {
+        deskripsi: 'Bidan Inspiratif',
+        totalpemeganghak: '20',
+        harga: '180.000.000'
+      }
+    ]
+  },
+  {
+    id: 6,
+    tab: 'perbaikanaksesairbersihsaniatasi',
+    icon: '/icon_katalog/Asset 20@16x.png',
+    title: 'Perbaikan Akses Air Bersih dan Sanitasi',
+    description:
+      'Program pemberdayaan masyarakat sebagai upaya peningkatan perilaku hidup sehat dan pengelolaan sampah rumah tangga berbasis komunitas.',
+    pemegangempat: '561',
+    pemeganglima: '3.500',
+    details: [
+      {
+        deskripsi: 'Sarana Air Bersih',
+        totalpemeganghak: '60',
+        harga: '380.000.000'
+      },
+      {
+        deskripsi: 'Bank Sampah',
+        totalpemeganghak: '25',
+        harga: '150.000.000'
+      },
+      {
+        deskripsi: 'Arisan Jamban',
+        totalpemeganghak: '30',
+        harga: '120.000.000'
+      }
+    ]
+  }
+];
+
+interface initiativeDisaster {
+  id: number;
+  tab: string;
+  icon: string;
+  title: string;
+  description: string;
+  pemegangempat: string;
+  pemeganglima: string;
+  details?: {
+    deskripsi: string;
+    totalpemeganghak: string;
+    harga: string;
+  }[];
+}
+
+export const initiativeDisaster = [
+  {
+    id: 1,
+    tab: 'tanggapdarurat',
+    icon: '/icon_katalog/Asset 7@16x.png',
+    title: 'Emergency Response',
+    description:
+      'Sejumlah program yang bertujuan meningkatnya kualitas hidup masyarakat terdampak bencana minimal ke posisi awal sebelum bencana terjadi.',
+    pemegangempat: '217.200',
+    pemeganglima: '',
+    details: [
+      {
+        deskripsi: 'SAR Rescue',
+        totalpemeganghak: '200 KK',
+        harga: '80.000.000'
+      },
+      {
+        deskripsi: 'Food Packs',
+        totalpemeganghak: '100 KK',
+        harga: '30.000.000'
+      },
+      {
+        deskripsi: 'Shelter Kits',
+        totalpemeganghak: '100 KK',
+        harga: '75.000.000'
+      },
+      {
+        deskripsi: 'Hygiene kits',
+        totalpemeganghak: '100 KK',
+        harga: '27.500.000'
+      },
+      {
+        deskripsi: 'Toilet Darurat',
+        totalpemeganghak: '50 KK',
+        harga: '20.000.000'
+      },
+      {
+        deskripsi: 'Hunian Darurat',
+        totalpemeganghak: '1 KK',
+        harga: '8.000.000'
+      },
+      {
+        deskripsi: 'Dignity Kits',
+        totalpemeganghak: '100 KK',
+        harga: '25.000.000'
+      }
+    ]
+  },
+  {
+    id: 2,
+    tab: 'penguranganresikobencana',
+    icon: '',
+    title: 'Kampung Tangguh',
+    description:
+      'merupakan desa yang memiliki kemampuan untuk mengenali ancaman di wilayahnya dan mampu mengorganisir sumber daya masyarakat untuk mengurangi kerentanan dan sekaligus meningkatkan kapasitas demi mengurangi risiko bencana. '
+  },
+  {
+    id: 3,
+    tab: 'penguranganresikobencana',
+    icon: '',
+    title: 'Mitigasi Perubahan Iklim',
+    description:
+      'Program Mitigasi Perubahan Iklim adalah serangkaian kegiatan untuk mengurangi dampak perubahan iklim dengan menurunkan emisi gas rumah kaca atau meningkatkan penyimpanan karbon.'
+  }
+];
+
+interface initiativeInfrastruktur {
+  id: number;
+  tab: string;
+  icon: string;
+  title: string;
+  description: string;
+  pemegangempat: string;
+  pemeganglima: string;
+  details?: {
+    deskripsi: string;
+    ukuranluas: string;
+    ukurankedalaman: string;
+    jumlahtoilet: string;
+    totalpemeganghak: string;
+    harga: string;
+  }[];
+}
+
+export const initiativeInfrastruktur = [
+  {
+    id: 1,
+    tab: 'saranaumum',
+    icon: '/icon_katalog/Asset 8@16x.png',
+    title: 'Pembangunan & Renovasi Masjid',
+    description: '',
+    pemegangempat: '173',
+    pemeganglima: '195',
+    details: [{}]
+  },
+  {
+    id: 2,
+    tab: 'saranaumum',
+    icon: '/icon_katalog/Asset 6@16x.png',
+    title: 'Pembangunan Sarana Pendidikan',
+    description: '',
+    pemegangempat: '31',
+    pemeganglima: '70',
+    details: [
+      {
+        deskripsi: 'Ruang Kelas',
+        ukuranluas: '5 x 6',
+        jumlahtoilet: '0',
+        totalpemeganghak: '30',
+        harga: '92.500.000'
+      }
+    ]
+  },
+  {
+    id: 3,
+    tab: 'saranaumum',
+    icon: '/icon_katalog/Asset 12@16x.png',
+    title: 'Pembangunan Sarana Air Bersih',
+    description:
+      'Pembangunan sumur yang bertujuan untuk menyediakan sarana air bersih sehingga mampu meningkatkan kesejahteraan dan membentuk lingkungan masyarakat yang sehat.',
+    pemegangempat: '488',
+    pemeganglima: '935',
+    details: [
+      {
+        deskripsi: 'Sumur Ukuran Standar',
+        ukurankedalaman: '12',
+        harga: '16.500.000'
+      },
+      {
+        deskripsi: 'Sumur Ukuran Menengah',
+        ukurankedalaman: '20 - 30',
+        harga: '25.320.000'
+      },
+      {
+        deskripsi: 'Sumur Ukuran Dalam',
+        ukurankedalaman: '50',
+        harga: '65.000.000'
+      }
+    ]
+  },
+  {
+    id: 4,
+    tab: 'saranaumum',
+    icon: '/icon_katalog/Asset 11@16x.png',
+    title: 'Penyedia Sarana Kesehatan',
+    description:
+      'Kegiatan penyediaan sarana maupun prasarana yang bertujuan mendukung program kesehatan masyarakat sehingga mampu meningkatkan kesejahteraan dan membentuk lingkungan masyarakat yang sehat.',
+    pemegangempat: '8',
+    pemeganglima: '17',
+    details: [
+      {
+        deskripsi: 'Pembangunan Klinik (12x6 meter)',
+        totalpemeganghak: '100',
+        harga: '300.000.000'
+      },
+      {
+        deskripsi: 'Ambulans (operasional)',
+        totalpemeganghak: '100',
+        harga: '120.000.000'
+      }
+    ]
+  },
+  {
+    id: 5,
+    tab: 'saranaumum',
+    icon: '/icon_katalog/Asset 5@16x.png',
+    title: 'Pembangunan Sarana Umum',
+    description:
+      'Kegiatan pembangunan ataupun perbaikan fasilitas umum yang bertujuan untuk meningkatkan kualitas hidup masyarakat dan mendukung pembangunan berkelanjutan.',
+    pemegangempat: '5',
+    pemeganglima: '10',
+    details: [
+      {
+        deskripsi: 'Jembatan',
+        totalpemeganghak: '100',
+        harga: '500.000.000'
+      }
+    ]
+  },
+  {
+    id: 6,
+    tab: 'saranaumum',
+    icon: '/icon_katalog/Asset 9@16x.png',
+    title: 'Peralatan Sarana Umum',
+    description:
+      'Kegiatan distribusi peralatan ibadah yang bertujuan untuk mendukung kegiatan ibadah bagi masyarakat duafa dan mendukung pembangunan berkelanjutan.',
+    pemegangempat: '761',
+    pemeganglima: '1.000',
+    details: [
+      {
+        deskripsi: 'Peralatan Ibadah',
+        totalpemeganghak: '100',
+        harga: '40.000.000'
+      },
+      {
+        deskripsi: 'Sound System (1 paket per masjid)',
+        totalpemeganghak: '50',
+        harga: '10.000.000'
+      },
+      {
+        deskripsi: 'Kipas Angin Tornado (2 unit per masjid)',
+        totalpemeganghak: '50',
+        harga: '2.000.000'
+      },
+      {
+        deskripsi: 'Dispenser (1 unit per masjid)',
+        totalpemeganghak: '50',
+        harga: '2.300.000'
+      },
+      {
+        deskripsi: 'Alquran',
+        totalpemeganghak: '100',
+        harga: '15.000.000'
+      },
+      {
+        deskripsi: 'Solar Panel',
+        totalpemeganghak: '50',
+        harga: 'Menyesuaikan'
+      }
+    ]
+  },
+  {
+    id: 7,
+    tab: 'saranaperorangan',
+    icon: '/icon_katalog/Asset 10@16x.png',
+    title: 'Pembangunan Hunian',
+    description:
+      'Kegiatan pembangunan ataupun perbaikan tempat tinggal yang bertujuan memenuhi kebutuhan dasar manusia akan tempat tinggal yang guna meningkatkan kualitas hidup.',
+    pemegangempat: '',
+    pemeganglima: '',
+    details: [
+      {
+        deskripsi: 'Huntara',
+        totalpemeganghak: '1',
+        harga: '20.000.000'
+      },
+      {
+        deskripsi: 'Huntap (5x6 m )',
+        totalpemeganghak: '1',
+        harga: '125.000.000'
+      },
+      {
+        deskripsi: 'Renovasi Rumah',
+        totalpemeganghak: '1',
+        harga: 'Menyesuaikan'
+      }
+    ]
+  }
+];
+
 interface collaborateSponsor {
   id: number;
   img: string;

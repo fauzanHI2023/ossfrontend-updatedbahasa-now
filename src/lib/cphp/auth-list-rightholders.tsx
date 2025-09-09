@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 interface Rightholder {
   id: string;
@@ -9,12 +9,12 @@ interface Rightholder {
 }
 
 export const fetchRightholders = async (): Promise<Rightholder[]> => {
-  const apiUrl = `${process.env.NEXT_PUBLIC_API_BACKEND_TWO}/oss/cphp/form-list`;
+  const apiUrl = `${process.env.NEXT_PUBLIC_API_BACKEND_PROD}/oss/cphp/form-list`;
   try {
     const response = await axios.get(apiUrl);
     return response.data.data;
   } catch (error) {
-    console.log("Error fetching campaign", error);
+    console.log('Error fetching campaign', error);
     return [];
   }
 };

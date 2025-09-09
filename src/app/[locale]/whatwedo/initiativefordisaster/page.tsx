@@ -1,7 +1,8 @@
 'use client';
 import React from 'react';
+import Link from 'next/link';
 import Banner from '@/components/ui/banner/Banner';
-import {Flame, TimerReset, BedDouble} from 'lucide-react';
+import {Baby, University, Backpack, MoveRight} from 'lucide-react';
 import {
   Tabs,
   TabsContent,
@@ -14,6 +15,7 @@ import {useQuery} from '@tanstack/react-query';
 import {SiAwesomewm} from 'react-icons/si';
 import {SiDeliveroo} from 'react-icons/si';
 import {useTranslations} from 'next-intl';
+import InitiativeDisaster from '@/components/ui/whatwedo/InitiativeDisaster';
 
 const InitiativeForDisaster = () => {
   const t = useTranslations();
@@ -24,6 +26,32 @@ const InitiativeForDisaster = () => {
 
   const posts = data?.data ?? [];
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
+
+  const stripHtml = (html: string) => {
+    if (typeof window !== 'undefined') {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      return doc.body.textContent || '';
+    }
+    return html;
+  };
+
+  const truncateAndStripHtml = (html: string, wordLimit: number) => {
+    const plainText = stripHtml(html);
+    const words = plainText.split(' ');
+    return (
+      words.slice(0, wordLimit).join(' ') +
+      (words.length > wordLimit ? '...' : '')
+    );
+  };
+
   return (
     <main className="flex flex-col sm:py-16 py-6 sm:pt-28 pt-24 dark:bg-slate-950 bg-white">
       <Banner
@@ -31,19 +59,15 @@ const InitiativeForDisaster = () => {
         description={t('bannerInitiativeDisaster.desc')}
         image="/DSC04568.JPG"
       />
-      <section className="relative overflow-hidden flex flex-col justify-center items-center sm:gap-y-10 gap-y-10 sm:py-[150px] py-10 sm:px-24 px-6 dark:bg-slate-950 bg-white">
+      <section className="relative overflow-hidden flex flex-col justify-center items-center sm:gap-y-10 gap-y-10 py-10 sm:px-24 px-6 dark:bg-slate-950 bg-white">
         <div className="absolute inset-0 w-full h-full z-20 pointer-events-none" />
         <div className="flex flex-row justify-center items-center gap-x-10 w-full relative z-20">
           <h5 className="text-slate-700 w-full dark:text-white font-semibold text-5xl">
             Initiative for <span className="text-sky-600">Disaster</span>
           </h5>
           <p className="text-slate-600 dark:text-white font-normal text-base">
-            Initiative for Disaster is a collection of various programs aimed at
-            reducing the impact of disasters, through empowering the potential
-            and capacity of the community to recognize potential disasters, and
-            making preparations for disasters. In addition to preventive
-            actions, the preparation of teams that will be deployed in the event
-            of a disaster is also a concern in various disaster programs.​
+            Program yang bertujuan untuk membangun resiliensi masyarakat
+            terhadap bencana dan perubahan iklim
           </p>
         </div>
         {/* <div className="flex flex-row gap-x-16 justify-center items-center w-2/3">
@@ -67,37 +91,19 @@ const InitiativeForDisaster = () => {
           </div>
         </div> */}
         <Tabs defaultValue="programkampungtangguhbencana" className="w-full">
-          <TabsList className="flex flex-row justify-start items-center gap-x-2 relative z-20">
+          <TabsList className="flex flex-row justify-start items-center gap-x-1 relative z-20">
             <TabsTrigger
               value="programkampungtangguhbencana"
               className="w-max-content flex flex-row gap-x-2"
             >
-              <Flame className="text-sky-600" /> Program Kampung Tangguh Bencana
+              Tanggap Darurat
             </TabsTrigger>
             <TabsTrigger
               value="mitigasperubahaniklim"
               className="w-max-content flex flex-row gap-x-2"
             >
-              <BedDouble className="text-sky-600" /> Mitigasi Perubahan Iklim
+              Pengurangan Resiko Bencana
             </TabsTrigger>
-            <TabsTrigger
-              value="pengurannganrisikobencana"
-              className="w-max-content flex flex-row gap-x-2"
-            >
-              <BedDouble className="text-sky-600" /> Pengurangan Risiko Bencana
-            </TabsTrigger>
-            <TabsTrigger
-              value="tanggapdarurat"
-              className="w-max-content flex flex-row gap-x-2"
-            >
-              <BedDouble className="text-sky-600" /> Emergency Response
-            </TabsTrigger>
-            {/* <TabsTrigger
-              value="pemulihanpascabencana"
-              className="w-max-content flex flex-row gap-x-2"
-            >
-              <TimerReset className="text-sky-600" /> Post Disaster Recovery
-            </TabsTrigger> */}
           </TabsList>
           {/* <TabsContent value="penguranganresikobencana">
             <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10">
@@ -135,168 +141,10 @@ const InitiativeForDisaster = () => {
             </div>
           </TabsContent> */}
           <TabsContent value="programkampungtangguhbencana">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10">
-              <div className="flex flex-col gap-y-3">
-                <h4 className="text-sm text-indigo-950 font-bold">
-                  Manajemen Bencana
-                </h4>
-                <p className="text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                  Serangkaian kegiatan yang dilaksanakan dalam rangka
-                  pencegahan, mitigasi kesiapsiagaan, tanggap darurat, dan
-                  pemulihan yang berkaitan dengan kejadian bencana.
-                </p>
-              </div>
-              <div className="flex flex-col gap-y-3">
-                <h4 className="text-sm text-indigo-950 font-bold">
-                  Program Kampung Tangguh Bencana
-                </h4>
-                <p className="text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                  merupakan desa yang memiliki kemampuan untuk mengenali ancaman
-                  di wilayahnya dan mampu mengorganisir sumber daya masyarakat
-                  untuk mengurangi kerentanan dan sekaligus meningkatkan
-                  kapasitas demi mengurangi risiko bencana.
-                </p>
-              </div>
-              <p className="flex flex-row gap-x-3 text-3xl font-bold text-sky-600 dark:text-slate-300 relative z-20">
-                <SiAwesomewm className="text-sky-500" /> Keunggulan Program
-              </p>
-              <ul className="list-disc list-inside relative z-20">
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300">
-                  Dilakukan pendampingan secara rutin
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Advokasi mendapatkan pengakuan dari BPBD
-                </li>
-                <li className="text-sm font-normal text-indigo-950dark:text-slate-300 pt-2">
-                  Memasukkan aksi perubahan iklim di wilayah program
-                </li>
-              </ul>
-            </div>
+            <InitiativeDisaster tab="tanggapdarurat" />
           </TabsContent>
           <TabsContent value="mitigasperubahaniklim">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10">
-              <p className="text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                Program Mitigasi Perubahan Iklim adalah serangkaian kegiatan
-                untuk mengurangi dampak perubahan iklim dengan menurunkan emisi
-                gas rumah kaca atau meningkatkan penyimpanan karbon.
-              </p>
-              <p className="flex flex-row gap-x-3 text-3xl font-bold text-sky-600 dark:text-slate-300 relative z-20">
-                <SiAwesomewm className="text-sky-500" /> Keunggulan Program
-              </p>
-              <ul className="list-disc list-inside relative z-20">
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300">
-                  Pengurangan emisi gas rumah kaca
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Peningkatan kualitas lingkungan dan ketahanan ekosistem
-                </li>
-                <li className="text-sm font-normal text-indigo-950dark:text-slate-300 pt-2">
-                  Pengembangan teknologi hijau, efisiensi energi dan penghematan
-                  biaya
-                </li>
-                <li className="text-sm font-normal text-indigo-950dark:text-slate-300 pt-2">
-                  Peningkatan kesadaran dan partisipasi masyarakat
-                </li>
-                <li className="text-sm font-normal text-indigo-950dark:text-slate-300 pt-2">
-                  Pengurangan risiko bencana
-                </li>
-              </ul>
-            </div>
-          </TabsContent>
-          <TabsContent value="pengurannganrisikobencana">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10">
-              <p className="text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                Sejumlah program yang bertujuan untuk meningkatnya resiliensi
-                masyarakat terhadap penanggulangan bencana dan adaptasi
-                perubahan iklim.
-              </p>
-              <p className="flex flex-row gap-x-3 text-3xl font-bold text-sky-600 dark:text-slate-300 relative z-20">
-                <SiDeliveroo className="text-sky-500" /> Bentuk program
-                Pengurangan Risiko Bencana:
-              </p>
-              <ul className="list-disc list-inside relative z-20">
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300">
-                  Kampung Tangguh
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Aksi Adaptasi dan Mitigasi Perubahan Iklim
-                </li>
-                <li className="text-sm font-normal text-indigo-950dark:text-slate-300 pt-2">
-                  Sekolah Aman Bencana
-                </li>
-                <li className="text-sm font-normal text-indigo-950dark:text-slate-300 pt-2">
-                  Aksi Antisipasi
-                </li>
-              </ul>
-            </div>
-          </TabsContent>
-          <TabsContent value="tanggapdarurat">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10">
-              <p className="text-sm font-normal text-indigo-950 dark:text-slate-300 relative z-20">
-                Sejumlah program yang bertujuan meningkatnya kualitas hidup
-                masyarakat terdampak bencana minimal ke posisi awal sebelum
-                bencana terjadi.
-              </p>
-              <p className="flex flex-row gap-x-3 text-3xl font-bold text-sky-600 dark:text-slate-300 relative z-20">
-                <SiDeliveroo className="text-sky-500" /> Bentuk program
-                Pengurangan Risiko Bencana:
-              </p>
-              <ul className="list-disc list-inside relative z-20">
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300">
-                  SAR – Rescue
-                </li>
-                <li className="text-sm font-normal text-indigo-950 dark:text-slate-300 pt-2">
-                  Emergency Relief
-                </li>
-              </ul>
-            </div>
-          </TabsContent>
-          <TabsContent value="pemulihanpascabencana">
-            <div className="flex flex-col gap-y-8 w-full h-full rounded-2xl p-10 relative">
-              <p className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                A process through which basic needs are met after a disaster,
-                both natural and social disasters, will be carried out by the
-                disaster recovery team.​
-              </p>
-              <p className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                There are various activities carried out by the recovery team,
-                including Psychosocial Support Assistance provided to
-                individuals and communities experiencing psychological
-                disorders, where this assistance is carried out continuously and
-                mutually influences between psychological aspects and social
-                aspects in the environment where individuals or communities
-                are.​
-              </p>
-              <p className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                Then there is also Emergency Relief, which is a program to
-                fulfill basic needs for residents affected by disasters during
-                emergency response quickly, precisely, and with dignity with a
-                scope:​
-              </p>
-              <ul className="list-disc list-inside">
-                <li className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                  Shelter
-                </li>
-                <li className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                  Water, Sanitation and Health Promotion
-                </li>
-                <li className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                  Food Security/Nutrition
-                </li>
-                <li className="text-base font-normal text-slate-700 dark:text-slate-300 relative z-20">
-                  Family Needs
-                </li>
-              </ul>
-              <div className="w-full relative z-20">
-                <Image
-                  src="/IMG_5460_11zon.jpg"
-                  width={400}
-                  height={400}
-                  alt="Human Initiative Disaster"
-                  className="w-[400px] rounded-xl"
-                />
-              </div>
-            </div>
+            <InitiativeDisaster tab="penguranganresikobencana" />
           </TabsContent>
         </Tabs>
       </section>
@@ -307,7 +155,7 @@ const InitiativeForDisaster = () => {
           </h5>
         </div>
 
-        <div className="list_post flex flex-wrap gap-8 w-full justify-start">
+        <div className="sm:grid sm:grid-cols-4 sm:gap-8 flex flex-col w-full">
           {isLoading && <p className="text-slate-600">Memuat data...</p>}
           {isError && (
             <p className="text-red-500">Gagal mengambil data publikasi.</p>
@@ -316,29 +164,41 @@ const InitiativeForDisaster = () => {
           {posts.map((post: any) => (
             <div
               key={post.id}
-              className="post_program_card w-full sm:w-[22%] flex flex-col gap-y-4"
+              className="publikasi-card mb-4 pb-4 w-full flex flex-col transition duration-500 ease-in"
             >
-              <div className="w-full relative z-20">
-                <Image
-                  src={
-                    post.news_integration
-                      ? `https://cdnx.human-initiative.org/image/${post.guid}`
-                      : `${post.guid}`
-                  }
-                  width={400}
-                  height={400}
-                  alt={post.post_title || 'Gambar Publikasi'}
-                  className="w-full h-[250px] object-cover rounded-xl"
-                />
-              </div>
-              <div className="flex flex-col gap-y-4 relative z-20">
-                <h5 className="text-slate-700 font-semibold text-lg line-clamp-2">
-                  {post.post_title}
-                </h5>
-                <p
-                  className="text-slate-600 font-normal text-base line-clamp-3"
-                  dangerouslySetInnerHTML={{__html: post.post_content}}
-                />
+              <span className="w-full h-[300px] overflow-hidden relative">
+                <Link href={`/publication/news&stories/${post.slug}`}>
+                  <Image
+                    src={
+                      post.news_integration
+                        ? `https://cdnx.human-initiative.org/image/${post.guid}`
+                        : `${post.guid}`
+                    }
+                    alt={post.post_title}
+                    width={500}
+                    height={300}
+                    className="w-full h-full rounded-xl object-cover float-none absolute"
+                  />
+                </Link>
+              </span>
+              <div className="flex flex-col gap-y-4 justify-start items-start px-0 py-4">
+                <span className="dark:bg-slate-800 dark:text-slate-300 text-slate-600 bg-slate-200 py-1 px-2 rounded-2xl w-max">
+                  {formatDate(post.post_date)}
+                </span>
+                <Link href={`/publication/news&stories/${post.slug}`}>
+                  <h2 className="text-sky-800 hover:text-sky-500 transition duration-300 ease-in dark:text-white sm:text-base text-base font-semibold leading-6 h-[50px] overflow-hidden">
+                    {post.post_title}
+                  </h2>
+                </Link>
+                <p className="text-slate-500 text-sm font-normal dark:text-slate-200">
+                  {truncateAndStripHtml(post.post_content, 5)}
+                </p>
+                <Link
+                  href={`/publication/news&stories/${post.slug}`}
+                  className="flex flex-row gap-x-2 items-center w-full text-center rounded-lg text-sky-700 dark:text-sky-500 inline-block bg-transparent font-medium text-sm p-1 hover:transition hover:ease-in-out"
+                >
+                  Read More <MoveRight />
+                </Link>
               </div>
             </div>
           ))}

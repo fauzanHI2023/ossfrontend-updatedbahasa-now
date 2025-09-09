@@ -387,6 +387,7 @@ const Checkout: React.FC = () => {
               <PhoneInput
                 placeholder="Enter phone number"
                 international
+                defaultCountry="ID"
                 value={phone}
                 onChange={(setValue) => setPhone(setValue)}
                 className="border p-2 px-4 rounded-lg dark:bg-black text-sm"

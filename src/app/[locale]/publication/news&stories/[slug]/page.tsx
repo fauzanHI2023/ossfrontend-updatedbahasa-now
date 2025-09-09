@@ -5,14 +5,7 @@ import {useParams} from 'next/navigation';
 import {fetchNews} from '@/lib/publication/auth-news';
 import HashLoader from 'react-spinners/HashLoader';
 import Image from 'next/image';
-import Link from 'next/link';
-import {
-  FaWhatsapp,
-  FaInstagram,
-  FaTiktok,
-  FaLinkedinIn,
-  FaFacebookF
-} from 'react-icons/fa';
+import {FaWhatsapp, FaInstagram, FaFacebookF} from 'react-icons/fa';
 import GradientText from '@/components/ui/GradienText';
 
 interface News {
@@ -33,32 +26,13 @@ const override: CSSProperties = {
 
 const PostDetail: React.FC = () => {
   const params = useParams();
-  const slug = params?.slug;
-  const [newss, setNewss] = useState<News[] | null>(null);
+  const slug = params?.slug as string | undefined;
   const [post, setPost] = useState<News | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [color, setColor] = useState('#209ce2');
-
-  const stripHtml = (html: string) => {
-    if (typeof window !== 'undefined') {
-      // Untuk lingkungan client-side
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      const text = doc.body.textContent || '';
-
-      // Hapus karakter "rn" atau variasinya
-      return text.replace(/(\r\n|\n|\r|rn)+/g, ' ').trim();
-    }
-
-    // Fallback untuk SSR (menghapus HTML tag dan karakter \r\n)
-    return html
-      .replace(/<[^>]*>?/gm, '') // Hapus semua tag HTML
-      .replace(/(\r\n|\n|\r|rn)+/g, ' ') // Hapus karakter \r\n dan variasinya
-      .trim(); // Hapus spasi ekstra di awal/akhir
-  };
+  const [color] = useState('#209ce2');
 
   useEffect(() => {
     const fetchPost = async () => {
-      // console.log("Params from URL:", params); // Debug log
       if (!slug) {
         console.warn('Missing slug in URL');
         setLoading(false);
@@ -68,14 +42,9 @@ const PostDetail: React.FC = () => {
       setLoading(true);
       try {
         const data = await fetchNews();
-        // console.log("Fetched data:", data); // Debug log
         if (data?.status === '200') {
-          const posts: News[] = data.data.map((post: News) => ({
-            ...post,
-            post_content: stripHtml(post.post_content)
-          }));
+          const posts: News[] = data.data;
           const foundPost = posts.find((post) => post.slug === slug);
-          // console.log("Found post:", foundPost); // Debug log
           setPost(foundPost || null);
         } else {
           console.error('Invalid response status:', data.status);
@@ -118,12 +87,22 @@ const PostDetail: React.FC = () => {
     return <p>Post not found. Please check the URL or slug.</p>;
   }
 
+  // 🟢 proses konten HTML: biarkan <img>, tapi tambahkan styling
   const processContent = (html: string) => {
-    let processedHtml = html.replace(/(\r\n|\r|\n)+/g, '<br>'); // Replace all line breaks with <br>
+    // Hapus "rn" literal jadi line break
+    let processedHtml = html.replace(/rn/gi, '<br/>');
+
+    // Kalau ada sisa newline asli (\r, \n) juga ganti jadi <br/>
+    processedHtml = processedHtml.replace(/(\r\n|\r|\n)+/g, '<br/>');
+
+    // Tambahkan styling untuk <img>
     processedHtml = processedHtml.replace(
       /<img([^>]+)>/g,
-      `<div style="text-align: center;"><img$1 style="margin: 1rem auto; max-width: 100%; height: auto;" /></div>`
-    ); // Center <img> tags
+      `<div class="flex justify-center my-6">
+         <img$1 class="rounded-lg max-w-full h-auto" />
+       </div>`
+    );
+
     return processedHtml;
   };
 
@@ -170,18 +149,6 @@ const PostDetail: React.FC = () => {
           }}
         />
       </div>
-      <ul className="relative mb-15 w-10/12 mb-12">
-        <li className="inline-block absolute w-full h-[1px] bg-slate-300 top-1/2 left-0 mt-[-1px]"></li>
-        <li className="inline-block px-4 bg-white relative">
-          <FaWhatsapp className="text-slate-500 w-8 h-8 hover:text-slate-800 cursor-pointer" />
-        </li>
-        <li className="inline-block px-4 bg-white relative">
-          <FaInstagram className="text-slate-500 w-8 h-8 hover:text-slate-800 cursor-pointer" />
-        </li>
-        <li className="inline-block px-4 bg-white relative">
-          <FaFacebookF className="text-slate-500 w-8 h-8 hover:text-slate-800 cursor-pointer" />
-        </li>
-      </ul>
       <section className="flex flex-col justify-center items-center">
         <h3 className="flex flex-row gap-x-2 text-3xl font-bold text-slate-500">
           More

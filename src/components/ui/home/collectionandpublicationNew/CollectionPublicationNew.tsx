@@ -14,7 +14,10 @@ const CollectionPublicationNew = () => {
     AOS.init();
   }, []);
   return (
-    <section className="flex flex-col justify-center items-center w-full sm:py-24 p-6">
+    <section
+      id="section-publicationhome"
+      className="flex flex-col justify-center items-center w-full sm:py-24 p-6"
+    >
       <div className="flex flex-col gap-y-[67px] w-full pt-3">
         <div className="flex flex-col justify-center items-center gap-y-4 w-full h-[200px]">
           <h5

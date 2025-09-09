@@ -66,10 +66,13 @@ const Footer = () => {
   const isPageLogin = pathname === '/login';
 
   const isPageRegister = pathname === '/register';
+  const isPageContact = /^\/[a-z]{2}\/contactus\/?$/.test(pathname || '');
   return (
     <footer
       className={`flex flex-col mx-auto w-full max-w-8xl ${
         isPageLogin ? 'hidden' : 'flex'
+      } ${
+        isPageContact ? 'hidden' : 'flex'
       } ${isPageRegister ? 'hidden' : 'flex'}`}
       // style={{boxShadow: '0px 0px 3px 0px rgba(148,148,148,1)'}}
     >

@@ -15,6 +15,21 @@ export const fetchNews = async () => {
   }
 };
 
+export const fetchNewsCollaborate = async () => {
+  const apiUrl = `${process.env.NEXT_PUBLIC_BASE_API_URL}/publikasi/posts-api/get-collaborate-category`;
+  try {
+    const response = await axios.get(apiUrl, {
+      headers: {
+        Authorization: process.env.NEXT_PUBLIC_API_KEY_NEWS || ''
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching news posts:', error);
+    return null;
+  }
+};
+
 export const fetchNewsByHashtagProgram = async (hashtagProgram: string) => {
   try {
     const response = await axios.get(

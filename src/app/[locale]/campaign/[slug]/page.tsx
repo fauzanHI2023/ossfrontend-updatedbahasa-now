@@ -31,8 +31,28 @@ import {useLocale} from 'next-intl';
 import {formatCurrency} from '@/utils/formatCurrency';
 import {Progress} from '@/components/ui/progress_fe';
 import CountUp from '@/components/ui/count-up';
-import {fetchdonorList} from '@/lib/donation/campaign/auth-donorlist-bycampaign';
+import {
+  fetchdonorList,
+  fetchdonorListTopNominal
+} from '@/lib/donation/campaign/auth-donorlist-bycampaign';
 import {div} from 'framer-motion/client';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger
+} from '@/components/ui/tabs-fe';
+import {formatRelativeTime} from '@/utils/formatDate';
 
 const override: CSSProperties = {
   display: 'block',
@@ -96,8 +116,18 @@ const PostDetail: React.FC = () => {
     isLoading: loadingDonorlists,
     error: errorDonorlists
   } = useQuery<ListDonorList[], Error>({
-    queryKey: ['appointments', post?.id], // pakai post.id
+    queryKey: ['donorlists', post?.id], // pakai post.id
     queryFn: () => fetchdonorList(post!.id), // pakai post.id
+    enabled: !!post?.id // hanya jalan kalau post.id ada
+  });
+
+  const {
+    data: donorlistnominals = [],
+    isLoading: loadingDonorlistnominals,
+    error: errorDonorlistnominals
+  } = useQuery<ListDonorList[], Error>({
+    queryKey: ['donorlistnominals', post?.id], // pakai post.id
+    queryFn: () => fetchdonorListTopNominal(post!.id), // pakai post.id
     enabled: !!post?.id // hanya jalan kalau post.id ada
   });
 
@@ -530,7 +560,10 @@ const PostDetail: React.FC = () => {
                       <>
                         <div className="flex flex-col w-full">
                           {Array.from({length: quantity}, (_, index) => (
-                            <div className="qurban-1/7sapi flex flex-col justify-center items-start gap-y-2 mt-4">
+                            <div
+                              key={index}
+                              className="qurban-1/7sapi flex flex-col justify-center items-start gap-y-2 mt-4"
+                            >
                               <div className="flex w-full mb-1 border-b">
                                 <h4 className="flex flex-row gap-x-2 text-sm font-semibold text-gray-700 mb-4">
                                   <span>
@@ -557,7 +590,10 @@ const PostDetail: React.FC = () => {
                       <>
                         <div className="flex flex-col w-full">
                           {Array.from({length: quantity}, (_, index) => (
-                            <div className="qurban-sapi flex flex-col w-full mt-4">
+                            <div
+                              key={index}
+                              className="qurban-sapi flex flex-col w-full mt-4"
+                            >
                               <div className="flex flex-col justify-center items-start gap-y-2">
                                 <div className="flex w-full mb-1 border-b">
                                   <h4 className="flex flex-row gap-x-2 text-sm font-semibold text-gray-700 mb-4">
@@ -664,7 +700,10 @@ const PostDetail: React.FC = () => {
                       <>
                         <div className="flex flex-col w-full">
                           {Array.from({length: quantity}, (_, index) => (
-                            <div className="qurban-kambing flex flex-col justify-center items-start gap-y-2 mt-4">
+                            <div
+                              key={index}
+                              className="qurban-kambing flex flex-col justify-center items-start gap-y-2 mt-4"
+                            >
                               <div className="flex w-full mb-1 border-b">
                                 <h4 className="flex flex-row gap-x-2 text-sm font-semibold text-gray-700 mb-4">
                                   <span>
@@ -749,7 +788,9 @@ const PostDetail: React.FC = () => {
                               : programfollowed.full_name}
                           </h1>
                           <h2 className="text-xs text-slate-500">
-                            {programfollowed.transaction_date}
+                            {formatRelativeTime(
+                              programfollowed.transaction_date
+                            )}
                           </h2>
                         </div>
                       </div>
@@ -760,15 +801,143 @@ const PostDetail: React.FC = () => {
                   ))}
                 </div>
               )}
-              <button className="text-center bg-white text-sky-600 border border-sky-600 rounded-full py-1 px-2 font-semibold text-sm">
-                See All
-              </button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button className="text-center bg-white text-sky-600 border border-sky-600 rounded-full py-1 px-2 font-semibold text-sm">
+                    See All
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[700px]">
+                  <DialogHeader>
+                    <DialogTitle>Donation ({post.support})</DialogTitle>
+                    <DialogDescription>
+                      <Tabs defaultValue="all" className="w-full pt-8">
+                        <TabsList>
+                          <TabsTrigger value="new">Newest</TabsTrigger>
+                          <TabsTrigger value="top">Top</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="new">
+                          <h5>Newest Donation</h5>
+                          {loadingDonorlists ? (
+                            <HashLoader
+                              color={color}
+                              loading={loadingDonorlists}
+                              cssOverride={override}
+                              size={50}
+                            />
+                          ) : errorDonorlists ? (
+                            <p className="text-lg font-semibold text-red-600">
+                              Failed to load appointments
+                            </p>
+                          ) : donorlists.length === 0 ? (
+                            <p className="text-lg font-semibold text-gray-600 dark:text-gray-300">
+                              No appointments found
+                            </p>
+                          ) : (
+                            <div className="flex flex-col gap-4 w-full py-4">
+                              {donorlists.map(
+                                (programfollowed: any, index: number) => (
+                                  <div
+                                    key={index}
+                                    className="flex flex-row justify-between items-center bg-slate-50 px-4 py-4 rounded-2xl w-full"
+                                  >
+                                    <div className="flex flex-row items-center justify-center gap-x-2">
+                                      <HandHeart
+                                        strokeWidth={1}
+                                        className="text-slate-400 w-7 h-7"
+                                      />
+                                      <div className="flex flex-col items-start justify-center gap-x-3">
+                                        <h1 className="text-slate-700-500 text-sm leading-none">
+                                          {programfollowed.is_anonim
+                                            ? 'Anonim'
+                                            : programfollowed.full_name}
+                                        </h1>
+                                        <h2 className="text-xs text-slate-500">
+                                          {formatRelativeTime(
+                                            programfollowed.transaction_date
+                                          )}
+                                        </h2>
+                                      </div>
+                                    </div>
+                                    <h3 className="text-sm">
+                                      {formatCurrency(
+                                        programfollowed.total_amount
+                                      )}
+                                    </h3>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          )}
+                        </TabsContent>
+                        <TabsContent value="top">
+                          <h5>Tops Donation</h5>
+                          {loadingDonorlistnominals ? (
+                            <HashLoader
+                              color={color}
+                              loading={loadingDonorlistnominals}
+                              cssOverride={override}
+                              size={50}
+                            />
+                          ) : errorDonorlistnominals ? (
+                            <p className="text-lg font-semibold text-red-600">
+                              Failed to load appointments
+                            </p>
+                          ) : donorlistnominals.length === 0 ? (
+                            <p className="text-lg font-semibold text-gray-600 dark:text-gray-300">
+                              No appointments found
+                            </p>
+                          ) : (
+                            <div className="flex flex-col gap-4 w-full py-4">
+                              {donorlistnominals.map(
+                                (
+                                  programfollowednominal: any,
+                                  index: number
+                                ) => (
+                                  <div
+                                    key={index}
+                                    className="flex flex-row justify-between items-center bg-slate-50 px-4 py-4 rounded-2xl w-full"
+                                  >
+                                    <div className="flex flex-row items-center justify-center gap-x-2">
+                                      <HandHeart
+                                        strokeWidth={1}
+                                        className="text-slate-400 w-7 h-7"
+                                      />
+                                      <div className="flex flex-col items-start justify-center gap-x-3">
+                                        <h1 className="text-slate-700-500 text-sm leading-none">
+                                          {programfollowednominal.is_anonim
+                                            ? 'Anonim'
+                                            : programfollowednominal.full_name}
+                                        </h1>
+                                        <h2 className="text-xs text-slate-500">
+                                          {formatRelativeTime(
+                                            programfollowednominal.transaction_date
+                                          )}
+                                        </h2>
+                                      </div>
+                                    </div>
+                                    <h3 className="text-sm">
+                                      {formatCurrency(
+                                        programfollowednominal.total_amount
+                                      )}
+                                    </h3>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          )}
+                        </TabsContent>
+                      </Tabs>
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
               <div className="w-full bg-white rounded-b-3xl py-6 px-4"></div>
             </div>
           </div>
           <div className="w-full flex flex-col justify-start items-start gap-y-4">
             <div className="w-full flex flex-row justify-between items-center">
-              <h5 className="text-gray-600 text-lg font-semibold">Reports</h5>
+              <h5 className="text-gray-600 text-lg font-semibold">Updates</h5>
               <div className="flex flex-row justify-center items-center gap-x-1 bg-white dark:bg-slate-700 dark:text-white">
                 <p className="text-xs font-normal text-sky-700 dark:text-sky-500">
                   Amount Distributed
@@ -781,7 +950,7 @@ const PostDetail: React.FC = () => {
             <div className="w-full flex flex-col justify-start items-start">
               <div className="w-full bg-gray-100 py-6 px-4 rounded-t-3xl">
                 <h6 className="text-slate-900 text-sm font-semibold">
-                  Qurban Report
+                  Recent Update
                 </h6>
               </div>
               <div className="w-full bg-white rounded-b-3xl py-6 px-4"></div>

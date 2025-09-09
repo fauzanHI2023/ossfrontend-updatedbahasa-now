@@ -167,6 +167,8 @@ const Navbar = () => {
 
   const isPageDonate = pathname === '/takeaction/selfdonate';
 
+  const isPageContact = /^\/[a-z]{2}\/contactus\/?$/.test(pathname || '');
+
   const isPageDetailsCareer =
     /^\/joinourmovement\/behumanitarianworker\/[^/]+$/.test(pathname || '');
 
@@ -180,7 +182,7 @@ const Navbar = () => {
           isPageRegister ? 'hidden' : 'flex'
         } ${isPageDonate ? 'sm:bg-transparent' : ''} ${
           isPageDetailsCareer ? 'sm:bg-transparent text-white' : ''
-        } ${
+        } ${isPageContact ? 'hidden' : 'flex'} ${
           isScrolled
             ? 'fixed sm:sticky text-slate-700 dark:text-white dark:bg-slate-800 bg-white/75 shadow transition duration-300 z-[100]'
             : 'bg-transparent z-[100]'
@@ -228,6 +230,12 @@ const Navbar = () => {
                       >
                         <BookUser />
                       </Link>
+                      <Link
+                        href="/takeaction/donate"
+                        className="cursor-pointer bg-sky-700 hover:bg-sky-500 transition duration-300 ease-in rounded-xl p-2 text-white font-bold mt-0 sm:mt-0 mr-2"
+                      >
+                        Donate
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -235,7 +243,6 @@ const Navbar = () => {
               <MobileMenu />
               <div className="flex flex-col gap-x-4 justify-center items-start">
                 <div className="flex shrink-0 items-center gap-x-4">
-                  <Theme />
                   <Cart />
                   <LocaleSwitcher />
                 </div>
@@ -244,9 +251,14 @@ const Navbar = () => {
           </MobileNav>
           <div className="hidden sm:flex flex-row gap-x-4 ">
             <div className="flex shrink-0 items-center gap-x-4">
-              <Theme />
               <Cart />
               <LocaleSwitcher />
+              <Link
+                href="/takeaction/donate"
+                className="cursor-pointer bg-sky-700 hover:bg-sky-500 transition duration-300 ease-in rounded-xl p-2 text-white font-bold mt-0 sm:mt-0 mr-2"
+              >
+                Donate
+              </Link>
             </div>
             <Suspense fallback="loading">
               <div className="flex flex-wrap items-center text-base justify-center gap-6">
@@ -280,12 +292,6 @@ const Navbar = () => {
                   </Fragment>
                 ) : (
                   <div className="flex flex-row justify-center items-center">
-                    <Link
-                      href="/takeaction/donate"
-                      className="cursor-pointer bg-sky-700 hover:bg-sky-500 transition duration-300 ease-in rounded-xl p-2 text-white font-bold mt-0 sm:mt-0 mr-2"
-                    >
-                      Donate
-                    </Link>
                     <p>|</p>
                     <button
                       onClick={() => setShowModal(true)}

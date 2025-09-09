@@ -8,25 +8,25 @@ import {useTranslations} from 'next-intl';
 
 const slides = [
   {
-    keyword: 'Child Protection',
+    keyword: 'Initiative For Children',
     buttonlabel: 'Pelajari Selengkapnya!',
     colorlabel: 'bg-gradient-to-r from-blue-500 to-sky-500',
     image: '/IMG_8069.JPG'
   },
   {
-    keyword: 'Infrastruktur',
+    keyword: 'Initiative For Infrastructure',
     buttonlabel: 'Pelajari Selengkapnya!',
     colorlabel: 'bg-gradient-to-r from-blue-500 to-sky-500',
     image: '/DSC_1030.JPG'
   },
   {
-    keyword: 'Empowerment',
+    keyword: 'Initiative For Empowerment',
     buttonlabel: 'Pelajari Selengkapnya!',
     colorlabel: 'bg-gradient-to-r from-blue-500 to-sky-500',
     image: '/DSC05047.JPG'
   },
   {
-    keyword: 'Disaster Management',
+    keyword: 'Initiative For Disaster',
     buttonlabel: 'Pelajari Selengkapnya!',
     colorlabel: 'bg-gradient-to-r from-blue-500 to-sky-500',
     image: '/WhatsApp Image 2025-03-12 at 4.40.21 PM.jpeg'
@@ -75,8 +75,8 @@ export default function BannerCarousel() {
     <div className="w-full min:h-[778px] bg-gradient-to-r from-white to-blue-100 flex items-center justify-center p-6 pt-32 pb-28">
       <div className="w-10/12 grid grid-cols-1 md:flex md:flex-row md:justify-between gap-8 items-center">
         {/* Text Section */}
-        <div className="space-y-2 flex flex-col gap-y-5 w-[65%]">
-          <h2 className="md:leading-[40px] w-[65%] text-3xl md:text-[2.5rem] font-bold text-gray-900">
+        <div className="space-y-2 flex flex-col gap-y-5 w-[55%]">
+          <h2 className="md:leading-[40px] w-[87%] text-3xl md:text-[2.5rem] font-bold text-gray-900">
             <span className="md:leading-[72px]">
               {t('takeactionCollaborationImpact.sectionOne.titleOne')}
             </span>
@@ -136,7 +136,7 @@ export default function BannerCarousel() {
         </div>
 
         {/* Image Section */}
-        <div className="w-[35%] relative h-64 md:h-80 overflow-hidden">
+        <div className="w-[45%] relative h-80 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
               key={slides[index].image}

@@ -7,6 +7,9 @@ import HashLoader from 'react-spinners/HashLoader';
 import Image from 'next/image';
 import {FaWhatsapp, FaInstagram, FaFacebookF} from 'react-icons/fa';
 import GradientText from '@/components/ui/GradienText';
+import {useQuery} from '@tanstack/react-query';
+import Link from 'next/link';
+import {MoveRight} from 'lucide-react';
 
 interface News {
   id: number;
@@ -31,33 +34,23 @@ const PostDetail: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [color] = useState('#209ce2');
 
+  // 🔵 Ambil semua berita pakai TanStack
+  const {data: newsData, isLoading} = useQuery({
+    queryKey: ['news'],
+    queryFn: fetchNews
+  });
+
   useEffect(() => {
-    const fetchPost = async () => {
-      if (!slug) {
-        console.warn('Missing slug in URL');
-        setLoading(false);
-        return;
-      }
+    if (!slug || !newsData) return;
+    setLoading(true);
 
-      setLoading(true);
-      try {
-        const data = await fetchNews();
-        if (data?.status === '200') {
-          const posts: News[] = data.data;
-          const foundPost = posts.find((post) => post.slug === slug);
-          setPost(foundPost || null);
-        } else {
-          console.error('Invalid response status:', data.status);
-        }
-      } catch (error) {
-        console.error('Error fetching post:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPost();
-  }, [slug]);
+    if (newsData?.status === '200') {
+      const posts: News[] = newsData.data;
+      const foundPost = posts.find((p) => p.slug === slug);
+      setPost(foundPost || null);
+    }
+    setLoading(false);
+  }, [slug, newsData]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -68,7 +61,7 @@ const PostDetail: React.FC = () => {
     });
   };
 
-  if (loading) {
+  if (loading || isLoading) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center p-24 dark:bg-slate-900 bg-gray-50">
         <HashLoader
@@ -87,27 +80,44 @@ const PostDetail: React.FC = () => {
     return <p>Post not found. Please check the URL or slug.</p>;
   }
 
-  // 🟢 proses konten HTML: biarkan <img>, tapi tambahkan styling
+  // 🟢 proses konten HTML
   const processContent = (html: string) => {
-    // Hapus "rn" literal jadi line break
     let processedHtml = html.replace(/rn/gi, '<br/>');
-
-    // Kalau ada sisa newline asli (\r, \n) juga ganti jadi <br/>
     processedHtml = processedHtml.replace(/(\r\n|\r|\n)+/g, '<br/>');
-
-    // Tambahkan styling untuk <img>
     processedHtml = processedHtml.replace(
       /<img([^>]+)>/g,
       `<div class="flex justify-center my-6">
          <img$1 class="rounded-lg max-w-full h-auto" />
        </div>`
     );
-
     return processedHtml;
   };
 
+  const stripHtml = (html: string) => {
+    if (typeof window !== 'undefined') {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      return doc.body.textContent || '';
+    }
+    return html;
+  };
+
+  const truncateAndStripHtml = (html: string, wordLimit: number) => {
+    const plainText = stripHtml(html);
+    const words = plainText.split(' ');
+    return (
+      words.slice(0, wordLimit).join(' ') +
+      (words.length > wordLimit ? '...' : '')
+    );
+  };
+
+  // 🔴 Ambil berita lain selain yang sedang dibuka
+  const moreNews =
+    newsData?.status === '200'
+      ? (newsData.data as News[]).filter((n) => n.slug !== slug).slice(0, 3)
+      : [];
+
   return (
-    <main className="flex flex-col text-center justify-center items-center sm:my-36 py-0 w-full">
+    <main className="flex flex-col text-center justify-center items-center sm:mt-36 sm:mb-14 py-0 w-full">
       <header className="flex flex-col justify-center items-center w-full h-auto px-12">
         <div className="flex flex-col justify-center items-center w-full mb-4">
           <h1 className="text-4xl w-[800px] font-semibold z-[1] text-sky-900 dark:text-white leading-[3.5rem]">
@@ -141,6 +151,8 @@ const PostDetail: React.FC = () => {
           className="rounded-xl w-11/12 h-[500px] object-cover"
         />
       </header>
+
+      {/* 🔵 Konten */}
       <div className="sm:w-8/12 sm:max-w-[1430px] mx-auto mx-16 mt-8 mb-8">
         <div
           className="prose text-justify max-w-none leading-9 text-base text-[#666] dark:text-white"
@@ -149,8 +161,10 @@ const PostDetail: React.FC = () => {
           }}
         />
       </div>
-      <section className="flex flex-col justify-center items-center">
-        <h3 className="flex flex-row gap-x-2 text-3xl font-bold text-slate-500">
+
+      {/* 🔵 More News */}
+      <section className="flex flex-col justify-center items-center w-full sm:px-20 px-6 sm:py-8 py-10">
+        <h3 className="flex flex-row gap-x-2 text-3xl font-bold text-slate-500 mb-8">
           More
           <GradientText
             colors={['#0284c7', '#172554']}
@@ -161,6 +175,50 @@ const PostDetail: React.FC = () => {
             News & Stories
           </GradientText>
         </h3>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-11/12">
+          {moreNews.map((item) => (
+            <div
+              key={item.id}
+              className="publikasi-card mb-4 border-b pb-4 w-full flex flex-col transition duration-500 ease-in"
+            >
+              <span className="w-full h-[300px] overflow-hidden relative">
+                <Link href={`/publication/news&stories/${item.slug}`}>
+                  <Image
+                    src={
+                      item.news_integration
+                        ? `https://cdnx.human-initiative.org/image/${item.guid}`
+                        : `${item.guid}`
+                    }
+                    alt={item.post_title}
+                    width={500}
+                    height={300}
+                    className="rounded-t-xl w-full h-full object-cover float-none absolute"
+                  />
+                </Link>
+              </span>
+              <div className="flex flex-col gap-y-4 justify-start items-start px-0 py-4">
+                <span className="dark:bg-slate-800 dark:text-slate-300 text-slate-600 bg-slate-200 py-1 px-2 rounded-2xl w-max">
+                  {formatDate(item.post_date_gmt)}
+                </span>
+                <Link href={`/publication/news&stories/${item.slug}`}>
+                  <h2 className="text-sky-800 dark:text-white sm:text-base text-base text-left font-semibold dark:text-white leading-6 h-[50px] overflow-hidden">
+                    {item.post_title}
+                  </h2>
+                </Link>
+                <p className="text-slate-500 text-sm font-normal dark:text-slate-200">
+                  {truncateAndStripHtml(item.post_content, 5)}
+                </p>
+                <Link
+                  href={item.post_title}
+                  className={`flex flex-row gap-x-2 items-center w-full text-center rounded-lg text-sky-500 dark:text-sky-500 inline-block bg-transparent font-medium text-normal p-1 hover:transition hover:ease-in-out`}
+                >
+                  Read More <MoveRight />
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
     </main>
   );

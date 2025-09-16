@@ -76,7 +76,7 @@ const Footer = () => {
       } ${isPageRegister ? 'hidden' : 'flex'}`}
       // style={{boxShadow: '0px 0px 3px 0px rgba(148,148,148,1)'}}
     >
-      <div className="flex flex-col gap-y-10 px-6 py-12 xs:px-8 sm:px-24 sm:py-24 sm:pb-16 bg-sky-400 border-t border-gray-100">
+      <div className="flex flex-col gap-y-10 px-6 py-12 xs:px-8 sm:px-24 sm:py-24 sm:pb-16 bg-sky-500 border-t border-gray-100">
         <div className="flex sm:flex-row flex-col justify-between items-start w-full">
           <div className="sm:w-1/3 w-full">
             <Image

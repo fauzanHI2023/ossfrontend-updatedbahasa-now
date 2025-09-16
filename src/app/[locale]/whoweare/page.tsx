@@ -536,7 +536,7 @@ const WhoWeAre = () => {
           </div>
         </div>
       </section>
-      <section className="flex flex-row sm:gap-x-16 gap-x-10 sm:py-24 py-10 sm:px-28 px-6 dark:bg-slate-950 bg-sky-50">
+      <section className="flex flex-row sm:gap-x-16 gap-x-10 sm:py-16 py-10 sm:px-28 px-6 dark:bg-slate-950 bg-sky-50">
         <div className="flex flex-col justify-center items-start gap-y-10 w-1/2">
           <h5
             className="text-slate-700 dark:text-white font-semibold text-6xl"
@@ -626,7 +626,7 @@ const WhoWeAre = () => {
           />
         </div>
       </section>
-      <section className="relative flex flex-col sm:gap-y-16 gap-y-10 sm:py-28 py-14 sm:px-28 px-6 dark:bg-slate-950 bg-white">
+      <section className="relative flex flex-col sm:gap-y-16 gap-y-10 sm:py-16 py-14 sm:px-28 px-6 dark:bg-slate-950 bg-white">
         <div className="flex flex-row justify-start items-center gap-x-10">
           <div className="w-1/2 ">
             <Image
@@ -691,7 +691,7 @@ const WhoWeAre = () => {
           </div>
         </div>
       </section>
-      <section className="relative flex flex-col sm:gap-y-16 gap-y-10 sm:py-28 py-14 sm:px-28 px-6 dark:bg-slate-950 bg-white">
+      <section className="relative flex flex-col sm:gap-y-16 gap-y-10 sm:py-16 py-14 sm:px-28 px-6 dark:bg-slate-950 bg-white">
         <div className="flex flex-row justify-start items-center gap-x-10">
           <div className="flex w-1/2 flex-col gap-y-8">
             <h5
@@ -725,7 +725,7 @@ const WhoWeAre = () => {
           </div>
         </div>
       </section>
-      <section className="flex flex-col sm:gap-y-16 gap-y-10 sm:py-[150px] py-10 sm:px-24 px-6 dark:bg-slate-950 bg-white">
+      <section className="flex flex-col sm:gap-y-16 gap-y-10 sm:py-16 py-10 sm:px-24 px-6 dark:bg-slate-950 bg-white">
         <div className="flex flex-col justify-center items-center gap-y-10 w-full">
           <h5
             className="text-slate-700 text-center w-full dark:text-white font-semibold text-5xl"

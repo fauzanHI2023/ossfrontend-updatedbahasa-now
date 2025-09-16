@@ -166,6 +166,7 @@ export const authOptions: NextAuthOptions = {
             religion: donorData?.religion || session.user.religion,
             blood_type: donorData?.blood_type || session.user.blood_type,
             sex: donorData?.sex || session.user.sex,
+            csr_status: donorData?.csr_status || session.user.csr_status,
             identity_no: donorData?.identity_no || session.user.identity_no,
             website: donorData?.website || session.user.website,
             location_id: donorData?.location_id || session.user.location_id,
@@ -247,6 +248,8 @@ export const authOptions: NextAuthOptions = {
           token.phpDonorData[0].blood_type =
             session?.blood_type || token.phpDonorData[0].blood_type;
           token.phpDonorData[0].sex = session?.sex || token.phpDonorData[0].sex;
+          token.phpDonorData[0].csr_status =
+            session?.csr_status || token.phpDonorData[0].csr_status;
           token.phpDonorData[0].identity_no =
             session?.identity_no || token.phpDonorData[0].identity_no;
           token.phpDonorData[0].website =

@@ -314,8 +314,8 @@
       "desc": "Register yourself to become a prospective program rights holder"
     },
     "sectionFour": {
-      "titleOne": "Good Helping",
-      "titleTwo": "Humanity",
+      "titleOne": "Rights Holder Applications",
+      "titleTwo": "Available",
       "desc": "We help survivors of war rebuild their lives and choose their own futures",
       "apply": "Apply"
     }
@@ -344,16 +344,16 @@
   },
   "HeroBannerHome": {
     "SlideOne": {
-      "desc": "Menyelesaikan persoalan kemanusiaan bukan sekadar kerja baik, tapi tentang menemukan makna sejati dari kolaborasi antarhati dan aksi"
+      "desc": "Resolving humanitarian issues is not merely a good deed, but about discovering the true meaning of heartfelt collaboration and action."
     },
     "SlideTwo": {
-      "desc": "Dunia berubah bukan karena mereka yang paling kuat, tapi karena mereka yang memilih untuk saling memberdayakan"
+      "desc": "The world changes not because of those who are strongest, but because of those who choose to empower one another."
     },
     "SlideThree": {
-      "desc": "Kita mungkin tak bisa menyelesaikan semua hal sendiri, tapi dengan saling menguatkan, kita bisa menghadapi apa pun bersama"
+      "desc": "We may not be able to accomplish everything on our own, but by supporting each other, we can face anything together."
     },
     "SlideFour": {
-      "desc": "Mari bergerak bersama, karena kebaikan tak akan pernah cukup jika berjalan sendiri"
+      "desc": "Let's move forward together, because goodness will never be enough if we walk alone."
     }
   }
 }

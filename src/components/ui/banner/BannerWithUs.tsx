@@ -126,7 +126,7 @@ export default function BannerCarousel() {
                   animate="animate"
                   exit="exit"
                   transition={{duration: 0.7}}
-                  className="rounded-2xl text-center flex justify-center items-center text-slate-700 px-3 w-[240px] h-12 bg-white border border-slate-400 transition duration-300 ease-in"
+                  className="rounded-2xl text-center flex justify-center items-center text-slate-50 px-3 w-[240px] h-12 bg-sky-500 border border-white transition duration-300 ease-in"
                 >
                   Contact us
                 </motion.span>

@@ -61,7 +61,7 @@ const Page: React.FC = () => {
             <ul className="flex flex-col gap-y-4 w-full">
               <li className="flex flex-row justify-start items-center gap-x-2 text-slate-800 bg-sky-50 px-4 py-3 rounded-xl w-full">
                 <FaWhatsapp />
-                <p>+6287749279494</p>
+                <p>+62 812 8080 4561</p>
               </li>
               <li className="flex flex-row justify-start items-center gap-x-2 text-slate-800 bg-sky-100 px-4 py-3 rounded-xl w-full">
                 <MdOutlineMail />
@@ -147,7 +147,15 @@ const Page: React.FC = () => {
                   disabled={isPending}
                   className="bg-slate-700 text-white px-2 py-4 rounded-xl w-full disabled:opacity-50"
                 >
-                  {isPending ? 'Submitting...' : 'Submit'}
+                  {isPending ? (
+                    <motion.div
+                      className="h-5 w-5 border-4 border-white border-t-transparent rounded-full animate-spin"
+                      initial={{opacity: 0}}
+                      animate={{opacity: 1}}
+                    />
+                  ) : (
+                    'Submit'
+                  )}
                 </button>
               </form>
             </div>

@@ -304,7 +304,7 @@ const Page: React.FC = () => {
         <div className="box flex flex-col gap-y-5 rounded-3xl dark:bg-slate-900 bg-white">
           {csrStatus === 0 || csrStatus === null ? (
             <div className="status-denied h-full p-6 flex justify-center items-center">
-              <div className="w-full rounded-3xl flex flex-row justify-center items-center bg-gradient-to-r to-sky-300 from-sky-500 px-8 py-12">
+              <div className="w-full rounded-3xl flex flex-row justify-center items-center bg-gradient-to-r to-sky-900 from-slate-500 px-8 py-12">
                 <div className="flex flex-col gap-y-5 w-2/3">
                   <h3 className="text-white font-bold text-2xl">
                     Mari wujudkan perubahan bersama.
@@ -315,7 +315,7 @@ const Page: React.FC = () => {
                   </p>
                   <Dialog>
                     <DialogTrigger asChild>
-                      <button className="w-2/3 text-white backdrop-opacity-10 backdrop-invert bg-slate-900/30 drop-shadow-xl rounded-xl text-sm font-normal py-2 px-3 ">
+                      <button className="w-2/3 text-slate-500 bg-slate-100 drop-shadow-xl rounded-xl text-sm font-normal py-2 px-3 ">
                         Apakah anda ingin mengaktifkan fitur CSR?
                       </button>
                     </DialogTrigger>

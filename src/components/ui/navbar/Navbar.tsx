@@ -255,7 +255,7 @@ const Navbar = () => {
               <LocaleSwitcher />
               <Link
                 href="/takeaction/donate"
-                className="cursor-pointer bg-sky-700 hover:bg-sky-500 transition duration-300 ease-in rounded-xl p-2 text-white font-bold mt-0 sm:mt-0 mr-2"
+                className="cursor-pointer bg-sky-700 hover:bg-sky-500 transition duration-300 ease-in rounded-lg px-6 py-2 text-white font-bold mt-0 sm:mt-0"
               >
                 Donate
               </Link>

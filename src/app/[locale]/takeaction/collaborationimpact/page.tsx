@@ -267,12 +267,12 @@ const CSRServices = () => {
         </div>
         <div className="flex flex-col gap-y-4 sm:w-1/2 w-full bg-slate-100 p-8 rounded-3xl">
           <h4
-            className={`text-slate-800 dark:text-white font-semibold sm:text-[50px] text-2xl sm:w-1/3 w-full pr-3 sm:pb-0 pb-4 leading-tight`}
+            className={`text-slate-700 dark:text-white font-semibold text-5xl w-full pr-3 sm:pb-0 pb-4 leading-none`}
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="350"
           >
-            Collaborative Impact{' '}
+            Drive Sustainable Impact with us{' '}
           </h4>
           <p
             className="text-base text-gray-500 font-normal w-full leading-6 text-sm"
@@ -524,7 +524,7 @@ const CSRServices = () => {
       </section>
       <section className="w-full relative flex flex-col justify-center items-center bg-slate-50 py-24">
         <h5 className="text-sky-600 text-4xl font-semibold">
-          Collaborative Sponsor
+          Our Clients and Partners
         </h5>
         <ScrollingCards />
       </section>
@@ -538,11 +538,12 @@ const CSRServices = () => {
       >
         <div className="flex sm:flex-row flex-col pb-12">
           <h5
-            className={`font-semibold sm:text-[54px] text-2xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4 leading-tight`}
+            className={`font-semibold text-[44px] sm:w-1/2 w-full pr-3 sm:pb-0 pb-4 leading-tight`}
             data-aos="fade-up"
             data-aos-duration="550"
           >
-            Humanity Project <span className="text-sky-400">Browse</span>
+            Projects {''}
+            <span className="text-sky-400">Available</span>
           </h5>
           <p
             className={`flex justify-end items-center font-normal text-sky-950 dark:text-slate-500 text-normal sm:w-1/2 w-full pr-6`}

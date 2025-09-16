@@ -194,7 +194,7 @@ const Rightholders = () => {
             data-aos="fade-left"
           >
             <div className="flex flex-col items-center gap-y-6">
-              <h3 className="font-medium sm:text-[60px] text-2xl leading-[50px] text-center dark:text-white text-[#002C4A]">
+              <h3 className="font-medium sm:text-[60px] text-2xl leading-[50px] text-center dark:text-white text-slate-500">
                 {t('takeactionRightholders.sectionTwo.title')}
               </h3>
             </div>
@@ -235,7 +235,7 @@ const Rightholders = () => {
       >
         <div className="flex sm:flex-row flex-col sm:pb-20 pb-12">
           <h5
-            className={`font-semibold sm:text-[54px] text-2xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4 leading-tight`}
+            className={`font-semibold text-4xl w-full pr-3 sm:pb-0 pb-4 leading-tight`}
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="700"
@@ -246,7 +246,7 @@ const Rightholders = () => {
             </span>
           </h5>
           <p
-            className={`flex justify-end items-center font-semibold text-sky-950 text-normal sm:w-1/2 w-full pr-6`}
+            className={`hidden flex justify-end items-center font-semibold text-sky-950 text-normal sm:w-1/2 w-full pr-6`}
             data-aos="fade-right"
             data-aos-easing="linear"
             data-aos-duration="1000"

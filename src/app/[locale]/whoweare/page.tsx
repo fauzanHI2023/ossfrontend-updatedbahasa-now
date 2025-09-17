@@ -16,7 +16,7 @@ import {
   SunSnow,
   MapPinned
 } from 'lucide-react';
-import {FaTrophy} from 'react-icons/fa';
+import {Trophy} from 'lucide-react';
 import {
   Tabs,
   TabsContent,
@@ -826,10 +826,10 @@ const WhoWeAre = () => {
           </Slider>
         </div>
       </section>
-      <section className="relative flex flex-col sm:gap-y-16 gap-y-10 sm:py-24 py-10 sm:px-24 px-6 dark:bg-slate-900 bg-slate-200 mx-4 rounded-3xl">
+      <section className="relative flex flex-col sm:gap-y-16 gap-y-10 sm:py-24 py-10 sm:px-24 px-6 dark:bg-slate-900 bg-slate-50 mx-4 rounded-3xl">
         <div className="flex flex-row justify-center items-center gap-x-6 w-full">
           <h5 className="text-slate-700 text-center dark:text-white font-semibold text-5xl">
-            <span className="text-gray-800 dark:text-sky-600">
+            <span className="text-slate-800 dark:text-sky-600">
               {t('whoWeArePage.sectionNine.title')}
             </span>
           </h5>
@@ -838,13 +838,13 @@ const WhoWeAre = () => {
           {awards.map((award, index) => (
             <div
               key={index}
-              className="custom-spotlight-card flex flex-col relative gap-y-4 p-6 rounded-xl border border-solid border-slate-400 dark:border-slate-800 bg-gray-900 dark:bg-gray-950"
+              className="custom-spotlight-card flex flex-col relative gap-y-4 p-6 rounded-xl border border-solid border-slate-400 dark:border-slate-800 bg-gradient-to-t from-slate-700 to-sky-400 dark:bg-gray-950"
             >
               <span className="absolute right-4">
-                <FaTrophy className="text-amber-300 dark:text-amber-300 text-4xl w-8 h-8 font-light" />
+                <Trophy className="text-slate-900 dark:text-amber-300 text-4xl w-8 h-8 font-light" />
               </span>
               <h5 className="text-white text-3xl font-bold">{award.tahun}</h5>
-              <h4 className="text-sky-500 text-lg font-semibold leading-6">
+              <h4 className="text-sky-100 text-lg font-semibold leading-6">
                 {award.judul}
               </h4>
               <p className="text-slate-300 text-sm">{award.keterangan}</p>

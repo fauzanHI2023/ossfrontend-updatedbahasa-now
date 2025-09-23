@@ -67,7 +67,7 @@ export default function WorldMap() {
   return (
     <MapContainer
       center={position}
-      zoom={2}
+      zoom={1}
       style={{
         height: '500px',
         width: '100%',

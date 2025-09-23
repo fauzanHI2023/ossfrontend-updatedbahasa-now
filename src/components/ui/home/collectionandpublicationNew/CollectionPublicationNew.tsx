@@ -33,7 +33,7 @@ const CollectionPublicationNew = () => {
           </p>
         </div>
       </div>
-      <div className="w-full flex flex-row gap-x-3 px-24 pt-3">
+      <div className="w-full flex flex-row gap-x-3 sm:px-24 px-6 pt-3">
         <Swiper
           slidesPerView={5}
           spaceBetween={30}
@@ -44,9 +44,14 @@ const CollectionPublicationNew = () => {
           pagination={{
             clickable: true
           }}
+          breakpoints={{
+            0: {slidesPerView: 2}, // default (mobile kecil)
+            640: {slidesPerView: 2}, // mobile
+            768: {slidesPerView: 2}, // tablet
+            1024: {slidesPerView: 3} // desktop
+          }}
           loop={true}
           modules={[Autoplay, Pagination]}
-          //   style={{paddingRight: '80px'}}
           className="mySwiper h-[300px]"
         >
           <SwiperSlide>
@@ -60,6 +65,7 @@ const CollectionPublicationNew = () => {
                   alt="Situation Report Human Initiative"
                   width={100}
                   height={100}
+                  sizes="(max-width: 640px) 80px, (max-width: 1024px) 60px, 50px"
                 />
               </div>
               <p className="text-sm text-slate-800 font-semibold">

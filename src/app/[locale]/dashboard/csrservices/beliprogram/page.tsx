@@ -104,13 +104,20 @@ const Page: React.FC = () => {
   const [place, setPlace] = useState('');
   const [notes, setNotes] = useState('');
 
-  const stepsUI = ['Review', 'On Progress', 'Finish', 'Complete'];
+  const stepsUI = [
+    'Review',
+    'On Progress',
+    'Finish',
+    'Waiting Payment',
+    'Complete'
+  ];
 
   const mapStatusToStep = (status: string): string => {
     const reviewStatuses = ['Draft', 'New', 'Need Revision', 'Verified'];
     if (reviewStatuses.includes(status)) return 'Review';
     if (status === 'Running') return 'On Progress';
     if (status === 'Finishing') return 'Finish';
+    if (status === 'Waiting Payment') return 'Waiting Payment';
     if (status === 'Closed') return 'Complete';
     return 'Unknown';
   };
@@ -452,11 +459,13 @@ const Page: React.FC = () => {
                                   <h5 className="text-slate-500 dark:text-sky-600 text-normal font-semibold">
                                     Detail Program
                                   </h5>
-                                  {programfollowed.status === 'Finishing' && (
-                                    <button className="text-blue-500 font-semibold">
-                                      Download Report
-                                    </button>
-                                  )}
+                                  {programfollowed.status === 'Finishing' ||
+                                    (programfollowed.status ===
+                                      'Waiting Payment' && (
+                                      <button className="text-blue-500 font-semibold">
+                                        Download Report
+                                      </button>
+                                    ))}
                                   {[
                                     'Verified',
                                     'New',
@@ -556,7 +565,9 @@ const Page: React.FC = () => {
                                     Report
                                   </label>
                                   {(programfollowed.status === 'Finishing' ||
-                                    programfollowed.status === 'Closed') && (
+                                    programfollowed.status === 'Closed' ||
+                                    programfollowed.status ===
+                                      'Waiting Payment') && (
                                     <p className="text-slate-800 dark:text-white flex flex-row justify-center items-center gap-x-2">
                                       Available To Download
                                       <Popover>

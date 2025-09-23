@@ -14,14 +14,15 @@ export default function LoadingOverlay() {
       exit={{opacity: 0}}
     >
       <motion.div
-        className="text-2xl font-semibold flex flex-col justify-center items-center"
+        className="flex flex-col justify-center items-center"
         initial={{scale: 0.5}}
         animate={{scale: 1}}
         transition={{duration: 0.5}}
       >
         <HashLoader color={color} loading={true} size={50} />
-        Loading Authentikasi
-        <span>Login </span>
+        <h1 className="text-2xl font-normal text-slate-800">
+          Loading Authentikasi
+        </h1>
       </motion.div>
     </motion.div>
   );

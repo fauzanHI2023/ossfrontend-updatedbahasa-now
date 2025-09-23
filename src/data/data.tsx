@@ -934,7 +934,7 @@ export const menuDashboard = [
     icon: <RiCustomerService2Line />,
     subMenu: [
       {
-        label: 'Sponsor Program',
+        label: 'Status Program',
         url: '/dashboard/csrservices/beliprogram'
       }
       // { label: "Join Proposal", url: "/dashboard/csrservices/ajukankonsep" },

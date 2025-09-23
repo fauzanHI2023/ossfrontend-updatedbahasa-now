@@ -154,7 +154,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex flex-col gap-y-10 px-6 py-4 xs:px-8 sm:px-24 sm:py-4 bg-slate-50 shadow-xl">
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex sm:flex-row flex-col sm:justify-between justify-center sm:items-center items-center sm:gap-0 gap-y-3">
           <motion.div
             variants={containerVariants}
             initial="hidden"

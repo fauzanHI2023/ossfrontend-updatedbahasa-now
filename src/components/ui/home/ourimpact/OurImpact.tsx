@@ -20,11 +20,11 @@ const OurImpact: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative flex flex-col w-full py-12 px-24 p-6 bg-white bg-center ">
-      <div className="flex flex-col gap-y-6 backdrop-blur-sm bg-white/50 p-16 pt-0 rounded-tr-3xl rounded-tl-3xl">
-        <div className="flex justify-center items-center sm:pb-4 pb-4">
+    <div className="relative flex flex-col w-full sm:py-12 sm:px-24 py-8 px-4 p-6 bg-white bg-center ">
+      <div className="flex flex-col sm:gap-y-6 gap-y-2 backdrop-blur-sm bg-white/50 sm:p-16 p-4 pt-0 rounded-tr-3xl rounded-tl-3xl">
+        <div className="flex justify-center items-center sm:pb-4 pb-0">
           <h5
-            className="text-center text-slate-600 font-semibold text-4xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4"
+            className="text-center text-slate-600 font-semibold sm:text-4xl text-xl sm:w-1/2 w-full pr-0 sm:pr-3 pb-0 sm:pb-4"
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="700"
@@ -57,12 +57,12 @@ const OurImpact: React.FC = () => {
             </select>
           </form>
         </div>
-        <div className="flex flex-col sm:flex-row gap-x-8">
-          <div className="w-1/4 flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
+        <div className="sm:flex grid sm:flex-row grid-cols-2 gap-x-8">
+          <div className="sm:w-1/4 w-full flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
             <span>
               <UsersRound className="w-14 h-14 text-sky-600" />
             </span>
-            <h5 className="totaldata text-slate-700 font-semibold text-3xl">
+            <h5 className="totaldata text-slate-700 font-semibold text-lg">
               <CountUp
                 from={0}
                 to={3783423}
@@ -76,11 +76,11 @@ const OurImpact: React.FC = () => {
               Rightholders
             </h6>
           </div>
-          <div className="w-1/4 flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
+          <div className="sm:w-1/4 w-full flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
             <span>
               <HandHelping className="w-14 h-14 text-sky-600" />
             </span>
-            <h5 className="totaldata text-slate-700 font-semibold text-3xl">
+            <h5 className="totaldata text-slate-700 font-semibold text-lg">
               <CountUp
                 from={0}
                 to={3200}
@@ -94,11 +94,11 @@ const OurImpact: React.FC = () => {
               Volunteer
             </h6>
           </div>
-          <div className="w-1/4 flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
+          <div className="sm:w-1/4 w-full flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
             <span>
               <ListTodo className="w-14 h-14 text-sky-600" />
             </span>
-            <h5 className="totaldata text-slate-700 font-semibold text-3xl">
+            <h5 className="totaldata text-slate-700 font-semibold text-lg">
               <CountUp
                 from={0}
                 to={100}
@@ -112,11 +112,11 @@ const OurImpact: React.FC = () => {
               Programs
             </h6>
           </div>
-          <div className="w-1/4 flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
+          <div className="sm:w-1/4 w-full flex flex-col justify-center items-center gap-x-4 bg-white p-4 rounded-2xl">
             <span>
               <Banknote className="w-14 h-14 text-sky-600" />
             </span>
-            <h5 className="totaldata text-slate-700 font-semibold text-3xl">
+            <h5 className="totaldata text-slate-700 font-semibold text-lg">
               <CountUp
                 from={0}
                 to={113969507912}

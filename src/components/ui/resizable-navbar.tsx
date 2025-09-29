@@ -1,5 +1,7 @@
 'use client';
 import {cn} from '@/lib/utils';
+import {Menu} from 'lucide-react';
+import {X} from 'lucide-react';
 import {TiThMenu} from 'react-icons/ti';
 import {IoCloseSharp} from 'react-icons/io5';
 import {
@@ -225,12 +227,9 @@ export const MobileNavToggle = ({
   onClick: () => void;
 }) => {
   return isOpen ? (
-    <IoCloseSharp
-      className="text-slate-600 dark:text-white w-8 h-8"
-      onClick={onClick}
-    />
+    <X className="text-slate-600 dark:text-white w-8 h-8" onClick={onClick} />
   ) : (
-    <TiThMenu
+    <Menu
       className="text-slate-600 dark:text-white w-8 h-8"
       onClick={onClick}
     />

@@ -27,7 +27,7 @@ const SubMenu: React.FC<SubMenuProps> = ({items}) => {
     return scopedT(key);
   };
   return (
-    <ul className="hidden group-hover:block sm:absolute w-44 relative bg-transaparent sm:bg-white drop-shadow-2xl rounded-lg transition duration-500 ease-in sm:mt-o mt-2">
+    <ul className="hidden group-hover:block sm:absolute sm:w-44 w-full relative bg-transaparent sm:bg-white drop-shadow-2xl rounded-lg transition duration-500 ease-in sm:mt-o mt-2">
       {items.map((item) => (
         <li key={item.id} className="w-full">
           <Link

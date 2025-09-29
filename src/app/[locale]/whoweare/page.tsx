@@ -359,14 +359,14 @@ const WhoWeAre = () => {
     return false;
   });
   return (
-    <main className="flex flex-col sm:py-24 py-6 sm:pt-28 pt-24 dark:bg-slate-950 bg-white">
+    <main className="flex flex-col sm:py-24 py-6 sm:pt-28 pt-8 dark:bg-slate-950 bg-white">
       <section className="flex flex-col sm:pt-16 pt-0 sm:px-24 px-6 dark:bg-slate-950 bg-white">
         <div
           data-aos="fade-up"
           data-aos-duration="700"
-          className="flex flex-row gap-x-12 justify-center items-end pb-20"
+          className="flex flex-row gap-x-12 justify-center items-end pb-10"
         >
-          <h5 className="text-slate-800 dark:text-slate-300 text-5xl font-semibold sm:w-full w-full leading-tight">
+          <h5 className="text-slate-800 dark:text-slate-300 sm:text-5xl text-2xl font-semibold sm:w-full w-full leading-tight">
             {t('whoWeArePage.sectionOne.titleWe')}{' '}
             <FlipWords
               words={wordFlips}
@@ -385,14 +385,14 @@ const WhoWeAre = () => {
           </p> */}
         </div>
       </section>
-      <section className="flex flex-col w-full h-[900px] sm:px-0 px-6">
-        <div className="h-[1200px] bg-gradient-to-b from-blue-500 to-white">
+      <section className="flex flex-col w-full sm:h-[900px] h-[400px] sm:px-0 px-6">
+        <div className="sm:h-[1200px] h-[400px] bg-gradient-to-b from-blue-500 to-white">
           <Image
             src="/02 Psikososial.jpeg"
             width={2400}
             height={1000}
             alt="Who We Are Human Initiative"
-            className="w-full h-[900px] bg-cover bg-center"
+            className="w-full sm:h-[900px] h-[400px] bg-cover bg-center"
           />
         </div>
       </section>
@@ -477,9 +477,9 @@ const WhoWeAre = () => {
             {t('whoWeArePage.sectionThree.descOne')}
           </p>
         </div>
-        <div className="flex flex-row gap-x-16">
+        <div className="flex sm:flex-row flex-col sm:gap-x-16 gap-y-10">
           <div
-            className="w-1/4 h-[180px] rounded-xl object-cover object-center"
+            className="sm:w-1/4 w-full h-[180px] rounded-xl object-cover object-center"
             data-aos="fade-up"
             data-aos-easing="ease-in-sine"
             data-aos-duration="2000"
@@ -493,7 +493,7 @@ const WhoWeAre = () => {
             />
           </div>
           <div
-            className="w-1/4 h-[180px] rounded-xl object-cover object-center"
+            className="sm:w-1/4 w-full h-[180px] rounded-xl object-cover object-center"
             data-aos="fade-up"
             data-aos-easing="ease-in-sine"
             data-aos-duration="2500"
@@ -507,7 +507,7 @@ const WhoWeAre = () => {
             />
           </div>
           <div
-            className="w-1/4 h-[180px] rounded-xl object-cover object-center"
+            className="sm:w-1/4 w-full h-[180px] rounded-xl object-cover object-center"
             data-aos="fade-up"
             data-aos-easing="ease-in-sine"
             data-aos-duration="3000"
@@ -521,7 +521,7 @@ const WhoWeAre = () => {
             />
           </div>
           <div
-            className="w-1/4 h-[180px] rounded-xl object-cover object-center"
+            className="sm:w-1/4 w-full h-[180px] rounded-xl object-cover object-center"
             data-aos="fade-up"
             data-aos-easing="ease-in-sine"
             data-aos-duration="3500"
@@ -536,10 +536,10 @@ const WhoWeAre = () => {
           </div>
         </div>
       </section>
-      <section className="flex flex-row sm:gap-x-16 gap-x-10 sm:py-16 py-10 sm:px-28 px-6 dark:bg-slate-950 bg-sky-50">
-        <div className="flex flex-col justify-center items-start gap-y-10 w-1/2">
+      <section className="flex sm:flex-row flex-col sm:gap-x-16 gap-y-10 sm:py-16 py-10 sm:px-28 px-6 dark:bg-slate-950 bg-sky-50">
+        <div className="flex flex-col justify-center items-start gap-y-10 sm:w-1/2 w-full">
           <h5
-            className="text-slate-700 dark:text-white font-semibold text-6xl"
+            className="text-slate-700 dark:text-white font-semibold sm:text-6xl text-3xl"
             data-aos="fade-up"
             data-aos-duration="300"
           >
@@ -627,8 +627,8 @@ const WhoWeAre = () => {
         </div>
       </section>
       <section className="relative flex flex-col sm:gap-y-16 gap-y-10 sm:py-16 py-14 sm:px-28 px-6 dark:bg-slate-950 bg-white">
-        <div className="flex flex-row justify-start items-center gap-x-10">
-          <div className="w-1/2 ">
+        <div className="flex sm:flex-row flex-col justify-start items-center sm:gap-x-10 gap-y-8">
+          <div className="sm:w-1/2 w-full">
             <Image
               src="/DSC00794 (1).jpg"
               alt="Positioning Organizations Human Initiative"
@@ -639,7 +639,7 @@ const WhoWeAre = () => {
               data-aos-duration="700"
             />
           </div>
-          <div className="flex w-1/2 flex-col gap-y-10">
+          <div className="flex sm:w-1/2 w-full flex-col gap-y-10">
             <h5
               className="text-slate-700 dark:text-white font-semibold sm:text-4xl text-xl"
               data-aos="fade-up"
@@ -692,8 +692,8 @@ const WhoWeAre = () => {
         </div>
       </section>
       <section className="relative flex flex-col sm:gap-y-16 gap-y-10 sm:py-16 py-14 sm:px-28 px-6 dark:bg-slate-950 bg-white">
-        <div className="flex flex-row justify-start items-center gap-x-10">
-          <div className="flex w-1/2 flex-col gap-y-8">
+        <div className="flex sm:flex-row flex-col-reverse justify-start items-center sm:gap-x-10 gap-y-8">
+          <div className="flex sm:w-1/2 w-full flex-col sm:gap-y-8 gap-y-4">
             <h5
               className="text-slate-700 dark:text-white font-semibold sm:text-4xl text-xl"
               data-aos="fade-up"
@@ -712,7 +712,7 @@ const WhoWeAre = () => {
               {t('whoWeArePage.sectionSix.desc')}
             </p>
           </div>
-          <div className="w-1/2 ">
+          <div className="sm:w-1/2 w-full">
             <Image
               src="/DSC00796.jpg"
               alt="Positioning Organizations Human Initiative"
@@ -728,7 +728,7 @@ const WhoWeAre = () => {
       <section className="flex flex-col sm:gap-y-16 gap-y-10 sm:py-16 py-10 sm:px-24 px-6 dark:bg-slate-950 bg-white">
         <div className="flex flex-col justify-center items-center gap-y-10 w-full">
           <h5
-            className="text-slate-700 text-center w-full dark:text-white font-semibold text-5xl"
+            className="text-slate-700 text-center w-full dark:text-white font-semibold sm:text-5xl text-2xl"
             data-aos="fade-up"
             data-aos-duration="700"
           >
@@ -745,11 +745,11 @@ const WhoWeAre = () => {
             {t('whoWeArePage.sectionSeven.desc')}
           </p>
         </div>
-        <div className="flex flex-row gap-x-16">
+        <div className="flex sm:flex-row flex-col sm:gap-x-16 gap-y-8">
           {teams.map((teams, index) => (
             <div
               key={index}
-              className="w-1/4 flex flex-col gap-y-4"
+              className="sm:w-1/4 w-full flex flex-col gap-y-4"
               data-aos="fade-up"
               data-aos-duration="700"
             >
@@ -775,7 +775,7 @@ const WhoWeAre = () => {
       <section className="flex flex-col justify-center items-center sm:gap-y-16 gap-y-10 sm:py-16 py-10 sm:px-24 px-6 dark:bg-slate-950 bg-white w-full">
         <div className="flex flex-col justify-center items-center gap-y-6 w-full">
           <h5
-            className="text-slate-700 text-center dark:text-white font-semibold text-5xl"
+            className="text-slate-700 text-center dark:text-white font-semibold sm:text-5xl text-3xl"
             data-aos="fade-up"
             data-aos-duration="1000"
           >
@@ -828,13 +828,13 @@ const WhoWeAre = () => {
       </section>
       <section className="relative flex flex-col sm:gap-y-16 gap-y-10 sm:py-24 py-10 sm:px-24 px-6 dark:bg-slate-900 bg-sky-100 mx-4 rounded-3xl">
         <div className="flex flex-row justify-center items-center gap-x-6 w-full">
-          <h5 className="text-slate-700 text-center dark:text-white font-semibold text-5xl">
+          <h5 className="text-slate-700 text-center dark:text-white font-semibold sm:text-5xl text-3xl">
             <span className="text-sky-900 dark:text-sky-600">
               {t('whoWeArePage.sectionNine.title')}
             </span>
           </h5>
         </div>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-4 grid-cols-1 gap-4">
           {awards.map((award, index) => (
             <div
               key={index}
@@ -1116,8 +1116,8 @@ const WhoWeAre = () => {
         </div>
       </section>
       <section className="flex flex-col sm:gap-y-16 gap-y-10 sm:py-24 py-10 sm:px-[240px] px-6 dark:bg-slate-950 bg-white">
-        <div className="flex flex-row gap-x-24">
-          <div className="flex flex-col gap-y-3 w-1/2">
+        <div className="flex sm:flex-row flex-col sm:gap-x-24 gap-y-10">
+          <div className="flex flex-col gap-y-3 sm:w-1/2 w-full">
             <h6 className="text-sky-600 text-base font-normal">
               {t('whoWeArePage.sectionTwelve.title')}
             </h6>
@@ -1154,7 +1154,7 @@ const WhoWeAre = () => {
               </div>
             </div>
           </div>
-          <div className="bg-slate-100 w-1/2 dark:bg-slate-700 py-8 px-4">
+          <div className="bg-slate-100 sm:w-1/2 w-full dark:bg-slate-700 py-8 px-4">
             <form action="" className="flex flex-col w-full gap-y-6">
               <input
                 type="text"

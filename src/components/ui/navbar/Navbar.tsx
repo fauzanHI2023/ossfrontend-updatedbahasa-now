@@ -26,6 +26,7 @@ import {TfiMicrosoftAlt} from 'react-icons/tfi';
 import {FaApple} from 'react-icons/fa';
 import {motion, AnimatePresence} from 'framer-motion';
 import LoadingOverlay from '../utility/loading/LoadingOverlayLogin';
+import {FloatingDockDemo} from './FloatingDock';
 
 const Navbar = () => {
   const router = useRouter();
@@ -184,20 +185,23 @@ const Navbar = () => {
           isPageDetailsCareer ? 'sm:bg-transparent text-white' : ''
         } ${isPageContact ? 'hidden' : 'flex'} ${
           isScrolled
-            ? 'fixed sm:sticky text-slate-700 dark:text-white dark:bg-slate-800 bg-white/75 shadow transition duration-300 z-[100]'
+            ? 'sticky sm:sticky text-slate-700 dark:text-white dark:bg-slate-800 bg-white/75 shadow transition duration-300 z-[100]'
             : 'bg-transparent z-[100]'
         } flex-center top-0 z-30 py-1 w-full body-font`}
       >
-        <nav className="container w-full justify-between mx-auto flex flex-wrap py-4 px-4 sm:py-4 sm:px-5 sm:flex-row flex-row items-center">
+        <nav className="container w-full justify-between mx-auto flex flex-wrap py-2 px-4 sm:py-4 sm:px-5 sm:flex-row flex-row items-center">
           <Logo />
           <Menu />
-          <MobileNav className="sm:hidden w-full flex flex-row justify-between ">
+          <MobileNav className="sm:hidden w-full flex flex-row justify-between">
             <MobileNavHeader>
               <LogoMobile />
-              <MobileNavToggle
-                isOpen={isMobileMenuOpen}
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              />
+              <div className="flex flex-row justify-between items-center gap-x-4">
+                <LocaleSwitcher />
+                <MobileNavToggle
+                  isOpen={isMobileMenuOpen}
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                />
+              </div>
             </MobileNavHeader>
             <MobileNavMenu
               isOpen={isMobileMenuOpen}
@@ -241,16 +245,11 @@ const Navbar = () => {
                 </div>
               </Suspense>
               <MobileMenu />
-              <div className="flex flex-col gap-x-4 justify-center items-start">
-                <div className="flex shrink-0 items-center gap-x-4">
-                  <Cart />
-                  <LocaleSwitcher />
-                </div>
-              </div>
             </MobileNavMenu>
           </MobileNav>
           <div className="hidden sm:flex flex-row gap-x-4 ">
             <div className="flex shrink-0 items-center gap-x-4">
+              {/* <Theme /> */}
               <Cart />
               <LocaleSwitcher />
               <Link

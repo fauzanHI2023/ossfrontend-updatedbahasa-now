@@ -62,7 +62,7 @@ const Cart = () => {
   };
   return (
     <div
-      className="relative flex justify-center items-center bg-slate-200 dark:bg-slate-700 py-2 px-2 rounded"
+      className="relative flex justify-center items-center bg-slate-200 dark:bg-slate-700 py-2 px-2 sm:rounded rounded-3xl"
       onMouseEnter={() => setShowCartDropdown(true)}
       onMouseLeave={() => setShowCartDropdown(false)}
     >

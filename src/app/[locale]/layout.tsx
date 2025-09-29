@@ -19,6 +19,7 @@ import Navbar from '@/components/ui/navbar/Navbar';
 import Footer from '@/components/ui/footer/Footer';
 import QueryProvider from '@/components/ui/utility/QueryProvider';
 import 'aos/dist/aos.css';
+import {FloatingDockDemo} from '@/components/ui/navbar/FloatingDock';
 
 type Props = {
   children: ReactNode;
@@ -79,6 +80,7 @@ export default async function LocaleLayout({children, params}: Props) {
               <CartProvider>
                 <Navbar />
                 <QueryProvider>{children}</QueryProvider>
+                <FloatingDockDemo />
                 <Footer />
               </CartProvider>
             </NextIntlClientProvider>

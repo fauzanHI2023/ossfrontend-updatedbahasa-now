@@ -200,7 +200,7 @@ const BannerHomeNew = () => {
           delay: 10000,
           disableOnInteraction: false
         }}
-        className="w-full h-[650px]"
+        className="w-full sm:h-[650px] h-[450px]"
       >
         {heroBanner.map((hero) => (
           <SwiperSlide key={hero.id}>
@@ -211,9 +211,9 @@ const BannerHomeNew = () => {
               } w-full h-full ${hero.img} bg-cover bg-left bg-no-repeat`}
             >
               <div className="absolute inset-0 bg-black/30"></div>
-              <div className="flex sm:flex-row flex-col gap-y-4 w-full justify-start items-end px-12">
+              <div className="flex sm:flex-row flex-col gap-y-4 w-full justify-start items-end sm:px-12 px-4">
                 <div
-                  className="flex flex-col gap-y-7 sm:w-5/12 w-full h-full px-10 px-16 justify-center items-start sm:pb-0 pb-8 h-[260px] mt-10"
+                  className="flex flex-col gap-y-7 sm:w-5/12 w-full h-full sm:px-16 px-0 justify-center items-start sm:pb-0 pb-8 h-[260px] mt-10"
                   data-aos="fade-left"
                 >
                   <SplitText
@@ -227,7 +227,7 @@ const BannerHomeNew = () => {
                     threshold={0.1}
                     rootMargin="-100px"
                     textAlign="left"
-                    className="font-raleway font-bold text-white text-4xl px-2 py-3"
+                    className="font-raleway font-bold text-white sm:text-4xl text-2xl px-2 py-3"
                   />
                   <Link
                     href={hero.link}
@@ -253,9 +253,9 @@ const BannerHomeNew = () => {
             } w-full h-full bg-hero-white bg-cover bg-left bg-no-repeat`}
           >
             <div className="absolute inset-0 bg-black/30"></div>
-            <div className="flex sm:flex-row flex-col gap-y-4 w-full justify-start items-end px-12">
+            <div className="flex sm:flex-row flex-col gap-y-4 w-full justify-start items-end sm:px-12 px-4">
               <div
-                className="flex flex-col gap-y-7 sm:w-5/12 w-full h-full px-10 px-16 justify-center items-start sm:pb-0 pb-8 h-[260px] mt-10"
+                className="flex flex-col gap-y-7 sm:w-5/12 w-full h-full sm:px-16 px-0 justify-center items-start sm:pb-0 pb-8 h-[260px] mt-10"
                 data-aos="fade-left"
               >
                 <SplitText
@@ -269,7 +269,7 @@ const BannerHomeNew = () => {
                   threshold={0.1}
                   rootMargin="-100px"
                   textAlign="left"
-                  className="font-raleway font-bold text-white text-4xl px-2 py-3"
+                  className="font-raleway font-bold text-white sm:text-4xl text-2xl px-2 py-3"
                 />
                 <Button
                   className="one-time py-2 px-6 w-auto bg-sky-500 text-white dark:text-white rounded-lg text-xl font-semibold"

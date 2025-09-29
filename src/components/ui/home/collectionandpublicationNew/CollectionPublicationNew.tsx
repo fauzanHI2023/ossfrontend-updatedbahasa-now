@@ -33,7 +33,7 @@ const CollectionPublicationNew = () => {
           </p>
         </div>
       </div>
-      <div className="w-full flex flex-row gap-x-3 sm:px-24 px-6 pt-3">
+      <div className="w-full flex flex-row gap-x-3 sm:px-24 px-0 pt-3">
         <Swiper
           slidesPerView={5}
           spaceBetween={30}
@@ -45,10 +45,10 @@ const CollectionPublicationNew = () => {
             clickable: true
           }}
           breakpoints={{
-            0: {slidesPerView: 2}, // default (mobile kecil)
+            0: {slidesPerView: 1}, // default (mobile kecil)
             640: {slidesPerView: 2}, // mobile
-            768: {slidesPerView: 2}, // tablet
-            1024: {slidesPerView: 3} // desktop
+            768: {slidesPerView: 3}, // tablet
+            1024: {slidesPerView: 5} // desktop
           }}
           loop={true}
           modules={[Autoplay, Pagination]}

@@ -19,7 +19,7 @@ const Page = () => {
   const user = session?.data?.user?.full_name;
   return (
     <DashboardLayout>
-      <div className="gap-8 px-16 py-12 pb-0">
+      <div className="gap-8 sm:px-16 px-8 sm:py-12 py-0 pb-0">
         <div className="relative h-[688px] overflow-scroll flex flex-col gap-y-10 bg-white dark:bg-slate-900 p-4 rounded-3xl">
           <div className="bg-gradient-to-r to-blue-500 from-sky-300 p-10 rounded-3xl">
             <h6 className="text-white font-semibold">

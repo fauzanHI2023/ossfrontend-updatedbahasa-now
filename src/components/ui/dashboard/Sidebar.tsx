@@ -51,7 +51,7 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`h-full sticky top-32 dark:bg-slate-900 bg-white h-96 w-1/5 py-4 rounded-3xl mt-12`}
+      className={`h-full sticky top-32 dark:bg-slate-900 bg-white h-96 sm:w-1/5 w-2/5 py-4 rounded-3xl sm:mt-12 mt-0`}
     >
       <ul className="h-full text-sm">
         {menuDashboard.map((menuItem, index) => (

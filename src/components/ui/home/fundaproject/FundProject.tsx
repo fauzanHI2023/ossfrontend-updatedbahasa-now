@@ -85,7 +85,7 @@ const FundProject = () => {
       className="sm:px-24 py-12 p-6 flex flex-col sm:gap-y-4 gap-y-2 w-full dark:bg-slate-950 bg-[#f6fcff]"
     >
       <div className="flex flex-row justify-between items-end">
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col justify-center items-center gap-y-4">
           <h5
             className="text-slate-700 dark:text-white font-semibold sm:text-[36px] text-2xl leading-8"
             data-aos="fade-up"
@@ -105,13 +105,12 @@ const FundProject = () => {
         </div>
         <Link
           href="/takeaction/donate"
-          className="text-sky-500 dark:text-sky-700 hover:dark:text-sky-500 py-3 px-3 rounded-lg w-[100px] h-[42px] hover:w-[200px] hover:dark:border-sky-500 overflow-hidden relative transition duration-700 ease-in"
+          className="text-sky-500 dark:text-sky-700 hover:dark:text-sky-500 sm:py-3 sm:px-3 p-0 rounded-lg"
           data-aos="fade-left"
           data-aos-easing="linear"
           data-aos-duration="700"
         >
-          See other{' '}
-          <span className="transition duration-600 ease-in">Campaign</span>​
+          See other
         </Link>
       </div>
       <div className="flex flex-col sm:grid sm:grid-cols-4 gap-x-8 flex-wrap">

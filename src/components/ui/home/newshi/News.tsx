@@ -127,9 +127,9 @@ const News = () => {
           setSelectedTab(value);
         }}
       >
-        <TabsList className="pb-10 flex flex-row justify-between">
+        <TabsList className="sm:pb-10 pb-0 sm:my-0 my-4 flex flex-row justify-between">
           <div
-            className="flex flex-row"
+            className="sm:flex sm:flex-row sm:gap-x-4 flex gap-x-4 sm:overflow-auto overflow-x-auto w-3/5"
             data-aos="fade-right"
             data-aos-easing="linear"
             data-aos-duration="700"
@@ -141,10 +141,9 @@ const News = () => {
           </div>
           <Link
             href="/publication/news&stories"
-            className="text-sky-700 font-bold dark:text-sky-700 hover:dark:text-sky-500 py-3 px-3 rounded-lg relative transition duration-700 ease-in"
+            className="text-sky-700 font-bold dark:text-sky-700 hover:dark:text-sky-500 py-3 px-3 rounded-lg relative transition duration-700 ease-in w-[100px]"
           >
             See more
-            <span className="hidden transition duration-600 ease-in">News</span>
           </Link>
         </TabsList>
         <TabsContent

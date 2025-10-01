@@ -263,7 +263,7 @@ const Donate = () => {
       <section
         className={`relative flex flex-col w-full sm:px-32 sm:py-20 p-6 bg-white dark:bg-slate-950`}
       >
-        <div className="flex sm:flex-row flex-col sm:pb-20 pb-12">
+        <div className="flex sm:flex-row flex-col sm:pb-8 pb-12">
           <h5
             className={`font-semibold sm:text-[54px] text-2xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4 leading-tight`}
             data-aos="fade-up"
@@ -284,9 +284,9 @@ const Donate = () => {
             {t('takeactionDonatePage.sectionTwo.desc')}
           </p>
         </div>
-        <div className="flex flex-row gap-x-8">
+        <div className="flex sm:flex-row flex-col gap-x-8">
           <Tabs defaultValue="all" onValueChange={setActiveTab}>
-            <TabsList className="pb-6">
+            <TabsList className="sm:mb-4 mb-8 flex justify-start sm:overflow-auto overflow-x-auto gap-x-4">
               <TabsTrigger value="all">All</TabsTrigger>
               <TabsTrigger value="children">Children</TabsTrigger>
               <TabsTrigger value="disaster">Disaster</TabsTrigger>
@@ -319,7 +319,7 @@ const Donate = () => {
               ) : error ? (
                 <p className="text-red-500">{error}</p>
               ) : (
-                <div className="flex flex-col sm:grid sm:grid-cols-3 gap-x-8 gap-y-6 flex-wrap">
+                <div className="flex flex-col sm:grid sm:grid-cols-3 gap-x-8 gap-y-6 flex flex-col gap-y-4">
                   {campaigns.map((campaign) => (
                     <div
                       key={campaign.id}
@@ -330,9 +330,9 @@ const Donate = () => {
                           <Image
                             src={`https://cdnx.human-initiative.org/image/${campaign.campaign_img}`}
                             alt={campaign.campaign_name}
-                            width={500}
-                            height={500}
-                            className="w-full h-full object-cover"
+                            width={300}
+                            height={300}
+                            className="w-full sm:h-full h-[160px] object-cover"
                           />
                         </div>
                       </Link>
@@ -372,7 +372,7 @@ const Donate = () => {
                           </div>
                           <Link
                             href={`/campaign/${campaign.slug}`}
-                            className="flex justify-center items-center w-1/3 bg-sky-700 text-center hover:bg-sky-600 transition duration-200 ease-in text-white dark:text-white py-3 px-4 rounded-xl"
+                            className="flex justify-center items-center w-1/3 bg-sky-700 text-center transition duration-200 ease-in text-white dark:text-white py-3 px-4 rounded-xl hover:bg-sky-600"
                           >
                             Donate
                           </Link>

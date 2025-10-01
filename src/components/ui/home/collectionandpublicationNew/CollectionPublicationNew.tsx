@@ -21,14 +21,14 @@ const CollectionPublicationNew = () => {
       <div className="flex flex-col gap-y-[67px] w-full pt-3">
         <div className="flex flex-col justify-center items-center gap-y-4 w-full h-[200px]">
           <h5
-            className={`text-gray-800 dark:text-slate-400 dark:text-white font-semibold text-[46px] leading-8 leading-snug`}
+            className={`text-center text-gray-800 dark:text-slate-400 dark:text-white font-semibold sm:text-[46px] text-3xl leading-8 leading-snug`}
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="700"
           >
             Explore Our Publications
           </h5>
-          <p className="text-gray-600 text-sm">
+          <p className="text-center text-gray-600 text-sm">
             Uncover engaging stories through everyday items at the office.
           </p>
         </div>

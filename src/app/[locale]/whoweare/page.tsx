@@ -458,9 +458,9 @@ const WhoWeAre = () => {
       <section className="relative flex flex-col sm:gap-y-16 gap-y-10 sm:py-28 py-14 sm:px-28 px-6 dark:bg-slate-950 bg-white">
         <div className="bg-dot-thick-sky-600 dark:bg-dot-thick-sky-600 absolute w-[100px] h-[70px] left-0 top-0"></div>
         <div className="bg-dot-thick-sky-600 dark:bg-dot-thick-sky-600 absolute w-[100px] h-[70px] right-0 bottom-0"></div>
-        <div className="flex flex-row justify-start items-center gap-x-10">
+        <div className="flex sm:flex-row flex-col sm:justify-start justify-center items-center sm:gap-x-10 gap-y-2">
           <h5
-            className="text-slate-700 dark:text-white font-semibold sm:text-6xl text-xl"
+            className="text-slate-700 dark:text-white font-semibold sm:text-6xl text-3xl"
             data-aos="fade-up"
             data-aos-duration="1000"
           >
@@ -470,7 +470,7 @@ const WhoWeAre = () => {
             </span>
           </h5>
           <p
-            className="text-slate-600 dark:text-white font-medium sm:text-3xl text-base"
+            className="text-slate-600 dark:text-white font-medium sm:text-3xl text-xl"
             data-aos="fade-up"
             data-aos-duration="2000"
           >
@@ -537,7 +537,7 @@ const WhoWeAre = () => {
         </div>
       </section>
       <section className="flex sm:flex-row flex-col sm:gap-x-16 gap-y-10 sm:py-16 py-10 sm:px-28 px-6 dark:bg-slate-950 bg-sky-50">
-        <div className="flex flex-col justify-center items-start gap-y-10 sm:w-1/2 w-full">
+        <div className="flex flex-col justify-center sm:items-start items-center gap-y-10 sm:w-1/2 w-full">
           <h5
             className="text-slate-700 dark:text-white font-semibold sm:text-6xl text-3xl"
             data-aos="fade-up"
@@ -762,7 +762,7 @@ const WhoWeAre = () => {
                   className="w-full h-[410px] rounded-lg object-cover object-top"
                 />
               </div>
-              <h5 className="text-sky-600 dark:text-white text-2xl font-semibold">
+              <h5 className="text-sky-600 dark:text-white sm:text-2xl text-xl font-semibold">
                 {teams.nama}
               </h5>
               <p className="text-slate-500 dark:text-slate-300 text-base">
@@ -854,16 +854,16 @@ const WhoWeAre = () => {
       </section>
       <section className="relative flex flex-col sm:gap-y-16 gap-y-10 sm:py-28 py-14 sm:px-28 px-6 dark:bg-slate-950 bg-white">
         <div className="flex flex-col justify-start items-center gap-y-12">
-          <div className="flex w-[1000px] flex-col gap-y-8">
-            <h5 className="text-slate-700 dark:text-white font-semibold sm:text-4xl text-xl">
+          <div className="flex sm:w-[1000px] w-full flex-col gap-y-8">
+            <h5 className="text-slate-700 dark:text-white font-semibold sm:text-4xl text-3xl">
               {/* {t('whoWeArePage.sectionTen.titleOur')}{' '} */}
               <span className="text-sky-600">
                 {t('whoWeArePage.sectionTen.titleLegality')}
               </span>
             </h5>
           </div>
-          <Tabs defaultValue="terdaftar" className="w-[1000px]">
-            <TabsList className="grid w-full grid-cols-4 gap-4">
+          <Tabs defaultValue="terdaftar" className="sm:w-[1000px] w-full">
+            <TabsList className="sm:grid w-full sm:grid-cols-4 sm:gap-4 flex overflow-x-auto gap-x-4">
               <TabsTrigger value="terdaftar">
                 {t('whoWeArePage.sectionTen.tabOne')}
               </TabsTrigger>
@@ -878,15 +878,15 @@ const WhoWeAre = () => {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="terdaftar">
-              <div className="grid grid-cols-3 gap-10 py-6">
-                <div className="flex flex-row gap-x-4 border border-solid border-slate-300 dark:border-slate-400 bg-slate-200 dark:bg-slate-800 rounded-xl px-4 py-6">
-                  <span className="w-32 h-full">
+              <div className="sm:grid sm:grid-cols-3 sm:gap-10 py-6 flex flex-col gap-y-4 w-full">
+                <div className="flex flex-row gap-x-4 border border-solid border-slate-300 dark:border-slate-400 bg-slate-200 dark:bg-slate-800 rounded-xl px-4 py-6 w-full">
+                  <span className="sm:w-32 w-[300px] h-full">
                     <Image
                       src="/legality (7).png"
                       alt="Human Initiative"
                       width={80}
                       height={70}
-                      className="w-32"
+                      className="sm:w-32 w-[80px]"
                     />
                   </span>
                   <h5 className="text-slate-600 dark:text-slate-200 text-base font-normal">
@@ -926,7 +926,7 @@ const WhoWeAre = () => {
               </div>
             </TabsContent>
             <TabsContent value="anggota">
-              <div className="grid grid-cols-3 gap-10 py-6">
+              <div className="sm:grid sm:grid-cols-3 sm:gap-10 py-6 flex flex-col gap-y-4 w-full">
                 <div className="flex flex-row gap-x-4 border border-solid border-slate-300 dark:border-slate-400 bg-slate-200 dark:bg-slate-800 rounded-xl px-4 py-6">
                   <span className="w-32 h-full">
                     <Image
@@ -986,7 +986,7 @@ const WhoWeAre = () => {
               </div>
             </TabsContent>
             <TabsContent value="standarisasi">
-              <div className="grid grid-cols-3 gap-10 py-6">
+              <div className="sm:grid sm:grid-cols-3 sm:gap-10 py-6 flex flex-col gap-y-4 w-full">
                 <div className="flex flex-row gap-x-4 border border-solid border-slate-300 dark:border-slate-400 bg-slate-200 dark:bg-slate-800 rounded-xl px-4 py-6">
                   <span className="w-32 h-full">
                     <Image
@@ -1018,7 +1018,7 @@ const WhoWeAre = () => {
               </div>
             </TabsContent>
             <TabsContent value="manajemenmutu">
-              <div className="grid grid-cols-3 gap-10 py-6">
+              <div className="sm:grid sm:grid-cols-3 sm:gap-10 py-6 flex flex-col gap-y-4 w-full">
                 <div className="flex flex-row gap-x-4 border border-solid border-slate-300 dark:border-slate-400 bg-slate-200 dark:bg-slate-800 rounded-xl px-4 py-6">
                   <span className="w-32 h-full">
                     <Image
@@ -1054,14 +1054,14 @@ const WhoWeAre = () => {
       </section>
       <section className="flex flex-col sm:gap-y-16 gap-y-10 sm:py-24 py-10 sm:px-24 px-6 dark:bg-slate-950 bg-white">
         <div className="flex flex-row justify-center items-center gap-x-6 w-full">
-          <h5 className="text-slate-700 text-center dark:text-white font-semibold text-5xl">
+          <h5 className="text-slate-700 text-center dark:text-white font-semibold sm:text-5xl text-3xl">
             <span className="text-sky-600">
               {t('whoWeArePage.sectionEleven.titleBranch')}
             </span>
           </h5>
         </div>
         <div>
-          <div className="flex space-x-4 justify-center items-center mb-8">
+          <div className="flex sm:space-x-4 overflow-x-auto sm:justify-center justify-start items-center mb-8 gap-x-4">
             <button
               className={`px-4 py-2 rounded-2xl text-sm font-medium ${
                 selectedBranchType === 'Pusat'
@@ -1094,7 +1094,7 @@ const WhoWeAre = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-3 gap-6">
+          <div className="sm:grid sm:grid-cols-3 sm:gap-6 flex flex-col gap-y-4">
             {filteredBranches.map((b, index) => (
               <div
                 key={index}

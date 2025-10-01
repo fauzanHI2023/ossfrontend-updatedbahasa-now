@@ -127,9 +127,9 @@ const News = () => {
           setSelectedTab(value);
         }}
       >
-        <TabsList className="sm:pb-10 pb-0 sm:my-0 my-4 flex flex-row justify-between">
+        <TabsList className="sm:pb-10 pb-0 sm:my-0 my-4 flex sm:flex-row flex-col justify-between h-full">
           <div
-            className="sm:flex sm:flex-row sm:gap-x-4 flex gap-x-4 sm:overflow-auto overflow-x-auto w-3/5"
+            className="sm:flex sm:flex-row sm:gap-x-4 flex gap-x-4 sm:overflow-auto overflow-x-auto w-full"
             data-aos="fade-right"
             data-aos-easing="linear"
             data-aos-duration="700"
@@ -148,7 +148,7 @@ const News = () => {
         </TabsList>
         <TabsContent
           value={selectedTab}
-          className="flex flex-col gap-y-8 justify-center items-center w-full"
+          className="flex flex-col gap-y-8 justify-center items-center w-full "
         >
           <div className="sm:grid sm:grid-cols-4 sm:gap-8 flex flex-col w-full">
             {loading ? (
@@ -184,7 +184,7 @@ const News = () => {
                       {formatDate(news.post_date)}
                     </span>
                     <Link href={`/publication/news&stories/${news.slug}`}>
-                      <h2 className="text-sky-800 hover:text-sky-500 transition duration-300 ease-in dark:text-white sm:text-base text-base font-semibold dark:text-white leading-6 h-[50px] overflow-hidden">
+                      <h2 className="text-sky-800 hover:text-sky-500 transition duration-300 ease-in dark:text-white sm:text-base text-base font-semibold dark:text-white leading-6 sm:h-[50px] h-full overflow-hidden">
                         {news.post_title}
                       </h2>
                     </Link>

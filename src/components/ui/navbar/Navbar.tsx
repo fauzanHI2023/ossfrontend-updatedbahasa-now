@@ -438,7 +438,7 @@ const Navbar = () => {
                       )}
                     </button>
                     <button
-                      className="w-full border border-black px-4 py-3 flex flex-row items-center justify-center hover:bg-slate-900 hover:text-white transition duration-300 ease-in"
+                      className="hidden w-full border border-black px-4 py-3 flex flex-row items-center justify-center hover:bg-slate-900 hover:text-white transition duration-300 ease-in"
                       onClick={handleLoginApple}
                     >
                       <span className="pr-2 text-xl">

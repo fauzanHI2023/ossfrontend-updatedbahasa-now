@@ -127,7 +127,7 @@ const News = () => {
           setSelectedTab(value);
         }}
       >
-        <TabsList className="sm:pb-10 pb-0 sm:my-0 my-4 flex sm:flex-row flex-col justify-between h-full">
+        <TabsList className="sm:pb-2 pb-0 sm:my-0 my-4 flex sm:flex-row flex-col justify-between h-full">
           <div
             className="sm:flex sm:flex-row sm:gap-x-4 flex gap-x-4 sm:overflow-auto overflow-x-auto w-full"
             data-aos="fade-right"
@@ -141,7 +141,7 @@ const News = () => {
           </div>
           <Link
             href="/publication/news&stories"
-            className="text-sky-700 font-bold dark:text-sky-700 hover:dark:text-sky-500 py-3 px-3 rounded-lg relative transition duration-700 ease-in w-[100px]"
+            className="text-sky-700 font-bold dark:text-sky-700 hover:dark:text-sky-500 py-3 px-3 rounded-lg relative transition duration-700 ease-in sm:w-[120px]"
           >
             See more
           </Link>

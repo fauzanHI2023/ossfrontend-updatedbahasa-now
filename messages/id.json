@@ -344,16 +344,20 @@
   },
   "HeroBannerHome": {
     "SlideOne": {
-      "desc": "Menyelesaikan persoalan kemanusiaan bukan sekadar kerja baik, tapi tentang menemukan makna sejati dari kolaborasi antarhati dan aksi"
+      "desc": "Menyelesaikan persoalan kemanusiaan bukan sekadar kerja baik, tapi tentang menemukan makna sejati dari kolaborasi antarhati dan aksi",
+      "namelink": "Pelajari Selengkapnya"
     },
     "SlideTwo": {
-      "desc": "Dunia berubah bukan karena mereka yang paling kuat, tapi karena mereka yang memilih untuk saling memberdayakan"
+      "desc": "Dunia berubah bukan karena mereka yang paling kuat, tapi karena mereka yang memilih untuk saling memberdayakan",
+      "namelink": "Pelajari Selengkapnya"
     },
     "SlideThree": {
-      "desc": "Kita mungkin tak bisa menyelesaikan semua hal sendiri, tapi dengan saling menguatkan, kita bisa menghadapi apa pun bersama"
+      "desc": "Kita mungkin tak bisa menyelesaikan semua hal sendiri, tapi dengan saling menguatkan, kita bisa menghadapi apa pun bersama",
+      "namelink": "Learn More"
     },
     "SlideFour": {
-      "desc": "Mari bergerak bersama, karena kebaikan tak akan pernah cukup jika berjalan sendiri"
+      "desc": "Mari bergerak bersama, karena kebaikan tak akan pernah cukup jika berjalan sendiri",
+      "namelink": "Learn More"
     }
   }
 }

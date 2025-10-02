@@ -233,7 +233,7 @@ const BannerHomeNew = () => {
                     href={hero.link}
                     className="py-2 px-6 w-auto bg-sky-500 text-white dark:text-white rounded-lg text-xl font-semibold"
                   >
-                    {hero.namelink}
+                    {t(hero.namelink as any, {})}
                   </Link>
                 </div>
               </div>

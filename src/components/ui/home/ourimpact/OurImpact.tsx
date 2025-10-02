@@ -21,7 +21,7 @@ const OurImpact: React.FC = () => {
 
   return (
     <div className="relative flex flex-col w-full sm:py-12 sm:px-24 py-8 px-4 p-6 bg-white bg-center ">
-      <div className="flex flex-col sm:gap-y-6 gap-y-2 backdrop-blur-sm bg-white/50 sm:p-16 p-4 pt-0 rounded-tr-3xl rounded-tl-3xl">
+      <div className="flex flex-col sm:gap-y-6 gap-y-2 backdrop-blur-sm bg-white/50 sm:px-16 p-4 pt-0 rounded-tr-3xl rounded-tl-3xl">
         <div className="flex justify-center items-center sm:pb-4 pb-0">
           <h5
             className="text-center text-slate-600 font-semibold sm:text-4xl text-3xl sm:w-1/2 w-full pr-0 sm:pr-3 pb-0 sm:pb-4"

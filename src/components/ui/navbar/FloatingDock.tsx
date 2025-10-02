@@ -33,14 +33,14 @@ export function FloatingDockDemo() {
       icon: (
         <IconCreditCardPay className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: '#'
+      href: '/takeaction/donate'
     },
     {
-      title: 'User',
+      title: 'Login',
       icon: (
         <IconUsers className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: '#'
+      href: '/login'
     },
     {
       title: 'Changelog',

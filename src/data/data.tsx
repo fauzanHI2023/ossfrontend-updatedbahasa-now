@@ -706,28 +706,28 @@ export const heroBanner = [
     desc: 'HeroBannerHome.SlideOne.desc',
     img: 'bg-herosatu',
     link: '#section-fundraisinghome',
-    namelink: 'Fundraising Now'
+    namelink: 'HeroBannerHome.SlideOne.namelink'
   },
   {
     id: 2,
     desc: 'HeroBannerHome.SlideTwo.desc',
     img: 'bg-herodua',
     link: '#section-valuestreamhome',
-    namelink: 'Value Stream'
+    namelink: 'HeroBannerHome.SlideTwo.namelink'
   },
   {
     id: 3,
     desc: 'HeroBannerHome.SlideThree.desc',
     img: 'bg-herotiga',
     link: '#section-newshome',
-    namelink: 'Read Story'
+    namelink: 'HeroBannerHome.SlideThree.namelink'
   },
   {
     id: 4,
     desc: 'HeroBannerHome.SlideFour.desc',
     img: 'bg-heroempat',
     link: '#section-publicationhome',
-    namelink: 'Publication'
+    namelink: 'HeroBannerHome.SlideFour.namelink'
   }
 ];
 

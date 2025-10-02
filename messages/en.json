@@ -344,16 +344,20 @@
   },
   "HeroBannerHome": {
     "SlideOne": {
-      "desc": "Resolving humanitarian issues is not merely a good deed, but about discovering the true meaning of heartfelt collaboration and action."
+      "desc": "Resolving humanitarian issues is not merely a good deed, but about discovering the true meaning of heartfelt collaboration and action.",
+      "namelink": "Learn More"
     },
     "SlideTwo": {
-      "desc": "The world changes not because of those who are strongest, but because of those who choose to empower one another."
+      "desc": "The world changes not because of those who are strongest, but because of those who choose to empower one another.",
+      "namelink": "Learn More"
     },
     "SlideThree": {
-      "desc": "We may not be able to accomplish everything on our own, but by supporting each other, we can face anything together."
+      "desc": "We may not be able to accomplish everything on our own, but by supporting each other, we can face anything together.",
+      "namelink": "Learn More"
     },
     "SlideFour": {
-      "desc": "Let's move forward together, because goodness will never be enough if we walk alone."
+      "desc": "Let's move forward together, because goodness will never be enough if we walk alone.",
+      "namelink": "Learn More"
     }
   }
 }

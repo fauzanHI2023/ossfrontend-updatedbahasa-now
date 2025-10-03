@@ -349,9 +349,9 @@ const PostDetail: React.FC = () => {
   };
 
   return (
-    <main className="flex flex-col text-center justify-center items-center mt-24 sm:py-0 sm:pb-36 py-12 w-full">
-      <section className="flex flex-row gap-x-8 w-10/12 mt-10 relative">
-        <div className="flex flex-col gap-y-6 w-8/12">
+    <main className="flex flex-col text-center justify-center items-center sm:mt-24 mt-0 sm:py-0 sm:pb-36 py-4 w-full">
+      <section className="flex sm:flex-row flex-col gap-x-8 sm:w-10/12 w-full px-4 mt-10 relative">
+        <div className="flex flex-col gap-y-6 sm:w-8/12 w-full">
           <div className="flex flex-col justify-center items-start h-auto w-full h-16 relative">
             <Image
               src={`https://cdnx.human-initiative.org/image/${post.campaign_img}`}
@@ -360,6 +360,597 @@ const PostDetail: React.FC = () => {
               height={500}
               className="bg-cover bg-center relative w-full h-full rounded-xl"
             />
+            <aside className="sm:hidden flex flex-col gap-y-6 sm:w-4/12 w-full sm:pt-0 pt-6">
+              <h4 className="flex flex-col gap-y-2 sm:text-2xl text-xl text-slate-700 font-semibold pb-4 pt- text-left w-full">
+                {post.campaign_name}
+                <span className="text-sky-500 text-xs font-medium capitalize">
+                  {post.core_program}
+                </span>
+              </h4>
+              <div className="sm:w-full mx-0 relative">
+                <div className="flex flex-col gap-y-4 mt-[-2rem]">
+                  <div className="flex flex-col justify-center items-center gap-x-4 bg-white dark:bg-slate-700 dark:text-white">
+                    <div className="flex flex-row gap-x-0 text-sky-600 font-black text-2xl">
+                      {/* {formatCurrency(post.donation_collected)} */}
+                      Rp
+                      <CountUp
+                        from={0}
+                        to={post.donation_collected}
+                        separator=","
+                        direction="up"
+                        duration={0.2}
+                        className="count-up-text"
+                      />
+                    </div>
+                  </div>
+                  {/* <div className="flex flex-col justify-center items-start gap-x-4 bg-white dark:bg-slate-700 dark:text-white">
+                <div className="flex text-sm flex-row gap-x-2">
+                  {formatCurrency(post.amount_distributed)}
+                </div>
+                <p className="text-xs font-normal text-sky-700 dark:text-sky-500">
+                  Amount Distributed
+                </p>
+              </div> */}
+                  <Progress
+                    value={calculateProgress(post.donation_collected || 0)}
+                  />
+                  {/* <div className="flex flex-col justify-center items-start gap-x-4 bg-white dark:bg-slate-700 dark:text-white">
+                <div className="flex text-sm flex-row gap-x-2">
+                  {post.support}
+                </div>
+                <p className="text-xs font-normal text-sky-700 dark:text-sky-500">
+                  Donor
+                </p>
+              </div> */}
+                  <div className="flex flex-row justify-center items-center gap-x-2 bg-white dark:bg-slate-700 dark:text-white">
+                    <div className="flex text-sm flex-row gap-x-2">
+                      {formatCurrency(post.target_donation)}
+                    </div>
+                    <p className="text-xs font-normal text-sky-700 dark:text-sky-500">
+                      Target Donation
+                    </p>
+                    <div className="flex text-sm flex-row gap-x-2">
+                      {post.support}
+                    </div>
+                    <p className="text-xs font-normal text-sky-700 dark:text-sky-500">
+                      Donor
+                    </p>
+                  </div>
+                </div>
+                <form className="flex flex-col mt-6">
+                  {post.campaign_category === 'reguler' ? (
+                    <>
+                      <div className="grid grid-cols-2 gap-4 mb-4">
+                        {nominalOptions.map((option) => (
+                          <button
+                            key={option.value}
+                            type="button"
+                            onClick={() => handleAmountClick(option.value)}
+                            className={`px-[4px] py- h-[40px] text-xs text-center rounded-3xl transition transition duration-300 ease-in ${
+                              selectedAmount === option.value
+                                ? 'bg-sky-600 text-white hover:bg-sky-500'
+                                : 'bg-gray-300 text-gray-600 hover:bg-gray-200'
+                            }`}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                      <div className="w-full flex flex-col justify-center items-center gap-y-4">
+                        <input
+                          type="text"
+                          value={customAmount}
+                          onChange={handleCustomAmountChange}
+                          placeholder="Enter Donation Amount"
+                          className="w-full py-0 px-3 h-[48px] text-sm bg-gray-50 border border-gray-200 rounded-lg dark:text-slate-200 text-slate-700"
+                        />
+                        <div className="w-full flex flex-row gap-x-4">
+                          <div className="w-2/12">
+                            <Link href="/share">
+                              <button
+                                onMouseEnter={() => setHoveredShare(true)}
+                                onMouseLeave={() => setHoveredShare(false)}
+                                className="relative w-full h-12 px-4 py-2 bg-sky-100 text-sky-700 rounded-xl overflow-hidden flex items-center justify-center"
+                              >
+                                <AnimatePresence mode="wait">
+                                  {!hoveredShare ? (
+                                    <motion.span
+                                      key="text"
+                                      initial={{opacity: 1, x: 0}}
+                                      animate={{opacity: 1, x: 0}}
+                                      exit={{opacity: 0, x: -20}}
+                                      transition={{duration: 0.3}}
+                                      className="absolute"
+                                    >
+                                      <SendHorizontal size={20} />
+                                    </motion.span>
+                                  ) : (
+                                    <motion.span
+                                      key="icon"
+                                      initial={{opacity: 0, x: 20}}
+                                      animate={{opacity: 1, x: 0}}
+                                      exit={{opacity: 0, x: -20}}
+                                      transition={{duration: 0.3}}
+                                      className="absolute"
+                                    >
+                                      <Link2 size={20} />
+                                    </motion.span>
+                                  )}
+                                </AnimatePresence>
+                              </button>
+                            </Link>
+                          </div>
+                          <div className="w-10/12">
+                            <button
+                              type="button"
+                              onMouseEnter={() => setHoveredDonate(true)}
+                              onMouseLeave={() => setHoveredDonate(false)}
+                              onClick={handleDonasiClick}
+                              className="relative w-full h-12 px-4 py-2 bg-sky-700 text-white rounded-xl overflow-hidden flex items-center justify-center"
+                            >
+                              <AnimatePresence mode="wait">
+                                {!hoveredDonate ? (
+                                  <motion.span
+                                    key="text"
+                                    initial={{opacity: 1, x: 0}}
+                                    animate={{opacity: 1, x: 0}}
+                                    exit={{opacity: 0, x: -20}}
+                                    transition={{duration: 0.3}}
+                                    className="absolute"
+                                  >
+                                    Donate
+                                  </motion.span>
+                                ) : (
+                                  <motion.span
+                                    key="icon"
+                                    initial={{opacity: 0, x: 20}}
+                                    animate={{opacity: 1, x: 0}}
+                                    exit={{opacity: 0, x: -20}}
+                                    transition={{duration: 0.3}}
+                                    className="absolute"
+                                  >
+                                    <HandHeart size={20} />
+                                  </motion.span>
+                                )}
+                              </AnimatePresence>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : post.campaign_category === 'qurban' ? (
+                    <>
+                      <div className="flex flex-col justify-center items-start gap-4 mb-4">
+                        <div className="w-full flex flex-row justify-between items-center">
+                          <div className="flex items-center gap-4 text-slate-800">
+                            <button
+                              type="button"
+                              onClick={handleDecrease}
+                              className="text-lg px-4 py-2 hover:bg-gray-100 transition duration-300 ease-in rounded-l-lg"
+                            >
+                              -
+                            </button>
+                            <span className="text-lg font-semibold dark:text-white">
+                              {quantity}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={handleIncrease}
+                              className="text-lg px-4 py-2 hover:bg-gray-100 transition duration-300 ease-in rounded-r-lg"
+                            >
+                              +
+                            </button>
+                          </div>
+                          <div>
+                            <span className="ml-4 text-lg font-semibold text-sky-600 dark:text-sky-400">
+                              Rp {totalDonation.toLocaleString('id-ID')}
+                            </span>
+                          </div>
+                        </div>
+
+                        {post.qurban_type === '1/7sapi' ? (
+                          <>
+                            <div className="flex flex-col w-full">
+                              {Array.from({length: quantity}, (_, index) => (
+                                <div
+                                  key={index}
+                                  className="qurban-1/7sapi flex flex-col justify-center items-start gap-y-2 mt-4"
+                                >
+                                  <div className="flex w-full mb-1 border-b">
+                                    <h4 className="flex flex-row gap-x-2 text-sm font-semibold text-gray-700 mb-4">
+                                      <span>
+                                        <UsersRound className="w-4 h-4 text-sky-500" />
+                                      </span>{' '}
+                                      Hewan {index + 1}
+                                    </h4>
+                                  </div>
+                                  <div className="flex flex-col gap-y-2 justify-start items-start w-full">
+                                    <label className="text-sm font-medium text-gray-500">
+                                      Nama Pequrban
+                                    </label>
+                                    <input
+                                      type="text"
+                                      placeholder="Max. 3 Words : Doremi's son / Doremi's son Family"
+                                      className="w-full p-3 border border-gray-300 rounded-lg dark:text-slate-200 text-slate-700"
+                                    />
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        ) : post.qurban_type === 'sapi' ? (
+                          <>
+                            <div className="flex flex-col w-full">
+                              {Array.from({length: quantity}, (_, index) => (
+                                <div
+                                  key={index}
+                                  className="qurban-sapi flex flex-col w-full mt-4"
+                                >
+                                  <div className="flex flex-col justify-center items-start gap-y-2">
+                                    <div className="flex w-full mb-1 border-b">
+                                      <h4 className="flex flex-row gap-x-2 text-sm font-semibold text-gray-700 mb-4">
+                                        <span>
+                                          <UsersRound className="w-4 h-4 text-sky-500" />
+                                        </span>{' '}
+                                        Hewan {index + 1}
+                                      </h4>
+                                    </div>
+                                    <div className="flex flex-col gap-y-2 justify-start items-start w-full">
+                                      <label className="text-sm font-medium text-gray-500">
+                                        Nama Pequrban
+                                      </label>
+                                      <input
+                                        type="text"
+                                        placeholder="Max. 3 Words : Doremi's son / Doremi's son Family"
+                                        className="w-full p-3 border border-gray-300 rounded-lg dark:text-slate-200 text-slate-700"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col justify-center items-start gap-y-2">
+                                    <div className="flex w-full mb-1 border-b"></div>
+                                    <div className="flex flex-col gap-y-2 justify-start items-start w-full">
+                                      <label className="text-sm font-medium text-gray-500">
+                                        Nama Pequrban
+                                      </label>
+                                      <input
+                                        type="text"
+                                        placeholder="Max. 3 Words : Doremi's son / Doremi's son Family"
+                                        className="w-full p-3 border border-gray-300 rounded-lg dark:text-slate-200 text-slate-700"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col justify-center items-start gap-y-2">
+                                    <div className="flex w-full mb-1 border-b"></div>
+                                    <div className="flex flex-col gap-y-2 justify-start items-start w-full">
+                                      <label className="text-sm font-medium text-gray-500">
+                                        Nama Pequrban
+                                      </label>
+                                      <input
+                                        type="text"
+                                        placeholder="Max. 3 Words : Doremi's son / Doremi's son Family"
+                                        className="w-full p-3 border border-gray-300 rounded-lg dark:text-slate-200 text-slate-700"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col justify-center items-start gap-y-2">
+                                    <div className="flex w-full mb-1 border-b"></div>
+                                    <div className="flex flex-col gap-y-2 justify-start items-start w-full">
+                                      <label className="text-sm font-medium text-gray-500">
+                                        Nama Pequrban
+                                      </label>
+                                      <input
+                                        type="text"
+                                        placeholder="Max. 3 Words : Doremi's son / Doremi's son Family"
+                                        className="w-full p-3 border border-gray-300 rounded-lg dark:text-slate-200 text-slate-700"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col justify-center items-start gap-y-2">
+                                    <div className="flex w-full mb-1 border-b"></div>
+                                    <div className="flex flex-col gap-y-2 justify-start items-start w-full">
+                                      <label className="text-sm font-medium text-gray-500">
+                                        Nama Pequrban
+                                      </label>
+                                      <input
+                                        type="text"
+                                        placeholder="Max. 3 Words : Doremi's son / Doremi's son Family"
+                                        className="w-full p-3 border border-gray-300 rounded-lg dark:text-slate-200 text-slate-700"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col justify-center items-start gap-y-2">
+                                    <div className="flex w-full mb-1 border-b"></div>
+                                    <div className="flex flex-col gap-y-2 justify-start items-start w-full">
+                                      <label className="text-sm font-medium text-gray-500">
+                                        Nama Pequrban
+                                      </label>
+                                      <input
+                                        type="text"
+                                        placeholder="Max. 3 Words : Doremi's son / Doremi's son Family"
+                                        className="w-full p-3 border border-gray-300 rounded-lg dark:text-slate-200 text-slate-700"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col justify-center items-start gap-y-2">
+                                    <div className="flex w-full mb-1 border-b"></div>
+                                    <div className="flex flex-col gap-y-2 justify-start items-start w-full">
+                                      <label className="text-sm font-medium text-gray-500">
+                                        Nama Pequrban
+                                      </label>
+                                      <input
+                                        type="text"
+                                        placeholder="Max. 3 Words : Doremi's son / Doremi's son Family"
+                                        className="w-full p-3 border border-gray-300 rounded-lg dark:text-slate-200 text-slate-700"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="flex flex-col w-full">
+                              {Array.from({length: quantity}, (_, index) => (
+                                <div
+                                  key={index}
+                                  className="qurban-kambing flex flex-col justify-center items-start gap-y-2 mt-4"
+                                >
+                                  <div className="flex w-full mb-1 border-b">
+                                    <h4 className="flex flex-row gap-x-2 text-sm font-semibold text-gray-700 mb-4">
+                                      <span>
+                                        <UsersRound className="w-4 h-4 text-sky-500" />
+                                      </span>{' '}
+                                      Hewan {index + 1}
+                                    </h4>
+                                  </div>
+                                  <div className="flex flex-col gap-y-2 justify-start items-start w-full">
+                                    <label className="text-sm font-medium text-gray-500">
+                                      Nama Pequrban
+                                    </label>
+                                    <input
+                                      type="text"
+                                      placeholder="Max. 3 Words : Doremi's son / Doremi's son Family"
+                                      className="w-full p-3 border border-gray-300 rounded-lg dark:text-slate-200 text-slate-700"
+                                    />
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        )}
+
+                        <div className="w-full">
+                          <button
+                            type="button"
+                            onClick={handleDonasiClick}
+                            className="w-full py-3 text-white font-semibold bg-sky-700 hover:bg-sky-600 transition-all duration-600 ease-in rounded-xl"
+                          >
+                            Donate
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <p className="text-center text-gray-600 dark:text-gray-300">
+                      Unknown campaign category.
+                    </p>
+                  )}
+                </form>
+              </div>
+              <div className="w-full flex flex-col justify-start items-start gap-y-4">
+                <h5 className="text-gray-600 text-lg font-semibold">Donors</h5>
+                <div className="w-full flex flex-col justify-center items-center">
+                  <div className="w-full bg-sky-500 py-6 px-4 rounded-t-3xl">
+                    <h6 className="text-white text-sm font-semibold">
+                      Share with everyone the same as you donate
+                    </h6>
+                  </div>
+                  {loadingDonorlists ? (
+                    <HashLoader
+                      color={color}
+                      loading={loadingDonorlists}
+                      cssOverride={override}
+                      size={50}
+                    />
+                  ) : errorDonorlists ? (
+                    <p className="text-lg font-semibold text-red-600">
+                      Failed to load appointments
+                    </p>
+                  ) : donorlists.length === 0 ? (
+                    <p className="text-lg font-semibold text-gray-600 dark:text-gray-300">
+                      No appointments found
+                    </p>
+                  ) : (
+                    <div className="flex flex-col gap-4 w-full py-4">
+                      {donorlists.map((programfollowed: any, index: number) => (
+                        <div
+                          key={index}
+                          className="flex flex-row justify-between items-center bg-slate-50 px-4 py-4 rounded-2xl w-full"
+                        >
+                          <div className="flex flex-row items-center justify-center gap-x-2">
+                            <HandHeart
+                              strokeWidth={1}
+                              className="text-slate-400 w-7 h-7"
+                            />
+                            <div className="flex flex-col items-start justify-center gap-x-3">
+                              <h1 className="text-slate-700-500 text-sm leading-none">
+                                {programfollowed.is_anonim
+                                  ? 'Anonim'
+                                  : programfollowed.full_name}
+                              </h1>
+                              <h2 className="text-xs text-slate-500">
+                                {formatRelativeTime(
+                                  programfollowed.transaction_date
+                                )}
+                              </h2>
+                            </div>
+                          </div>
+                          <h3 className="text-sm">
+                            {formatCurrency(programfollowed.total_amount)}
+                          </h3>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="text-center bg-white text-sky-600 border border-sky-600 rounded-full py-1 px-2 font-semibold text-sm">
+                        See All
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[700px]">
+                      <DialogHeader>
+                        <DialogTitle>Donation ({post.support})</DialogTitle>
+                        <DialogDescription>
+                          <Tabs defaultValue="all" className="w-full pt-8">
+                            <TabsList>
+                              <TabsTrigger value="new">Newest</TabsTrigger>
+                              <TabsTrigger value="top">Top</TabsTrigger>
+                            </TabsList>
+                            <TabsContent value="new">
+                              <h5>Newest Donation</h5>
+                              {loadingDonorlists ? (
+                                <HashLoader
+                                  color={color}
+                                  loading={loadingDonorlists}
+                                  cssOverride={override}
+                                  size={50}
+                                />
+                              ) : errorDonorlists ? (
+                                <p className="text-lg font-semibold text-red-600">
+                                  Failed to load appointments
+                                </p>
+                              ) : donorlists.length === 0 ? (
+                                <p className="text-lg font-semibold text-gray-600 dark:text-gray-300">
+                                  No appointments found
+                                </p>
+                              ) : (
+                                <div className="flex flex-col gap-4 w-full py-4">
+                                  {donorlists.map(
+                                    (programfollowed: any, index: number) => (
+                                      <div
+                                        key={index}
+                                        className="flex flex-row justify-between items-center bg-slate-50 px-4 py-4 rounded-2xl w-full"
+                                      >
+                                        <div className="flex flex-row items-center justify-center gap-x-2">
+                                          <HandHeart
+                                            strokeWidth={1}
+                                            className="text-slate-400 w-7 h-7"
+                                          />
+                                          <div className="flex flex-col items-start justify-center gap-x-3">
+                                            <h1 className="text-slate-700-500 text-sm leading-none">
+                                              {programfollowed.is_anonim
+                                                ? 'Anonim'
+                                                : programfollowed.full_name}
+                                            </h1>
+                                            <h2 className="text-xs text-slate-500">
+                                              {formatRelativeTime(
+                                                programfollowed.transaction_date
+                                              )}
+                                            </h2>
+                                          </div>
+                                        </div>
+                                        <h3 className="text-sm">
+                                          {formatCurrency(
+                                            programfollowed.total_amount
+                                          )}
+                                        </h3>
+                                      </div>
+                                    )
+                                  )}
+                                </div>
+                              )}
+                            </TabsContent>
+                            <TabsContent value="top">
+                              <h5>Tops Donation</h5>
+                              {loadingDonorlistnominals ? (
+                                <HashLoader
+                                  color={color}
+                                  loading={loadingDonorlistnominals}
+                                  cssOverride={override}
+                                  size={50}
+                                />
+                              ) : errorDonorlistnominals ? (
+                                <p className="text-lg font-semibold text-red-600">
+                                  Failed to load appointments
+                                </p>
+                              ) : donorlistnominals.length === 0 ? (
+                                <p className="text-lg font-semibold text-gray-600 dark:text-gray-300">
+                                  No appointments found
+                                </p>
+                              ) : (
+                                <div className="flex flex-col gap-4 w-full py-4">
+                                  {donorlistnominals.map(
+                                    (
+                                      programfollowednominal: any,
+                                      index: number
+                                    ) => (
+                                      <div
+                                        key={index}
+                                        className="flex flex-row justify-between items-center bg-slate-50 px-4 py-4 rounded-2xl w-full"
+                                      >
+                                        <div className="flex flex-row items-center justify-center gap-x-2">
+                                          <HandHeart
+                                            strokeWidth={1}
+                                            className="text-slate-400 w-7 h-7"
+                                          />
+                                          <div className="flex flex-col items-start justify-center gap-x-3">
+                                            <h1 className="text-slate-700-500 text-sm leading-none">
+                                              {programfollowednominal.is_anonim
+                                                ? 'Anonim'
+                                                : programfollowednominal.full_name}
+                                            </h1>
+                                            <h2 className="text-xs text-slate-500">
+                                              {formatRelativeTime(
+                                                programfollowednominal.transaction_date
+                                              )}
+                                            </h2>
+                                          </div>
+                                        </div>
+                                        <h3 className="text-sm">
+                                          {formatCurrency(
+                                            programfollowednominal.total_amount
+                                          )}
+                                        </h3>
+                                      </div>
+                                    )
+                                  )}
+                                </div>
+                              )}
+                            </TabsContent>
+                          </Tabs>
+                        </DialogDescription>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
+                  <div className="w-full bg-white rounded-b-3xl py-6 px-4"></div>
+                </div>
+              </div>
+              <div className="w-full flex flex-col justify-start items-start gap-y-4">
+                <div className="w-full flex flex-row justify-between items-center">
+                  <h5 className="text-gray-600 text-lg font-semibold">
+                    Updates
+                  </h5>
+                  <div className="flex flex-row justify-center items-center gap-x-1 bg-white dark:bg-slate-700 dark:text-white">
+                    <p className="text-xs font-normal text-sky-700 dark:text-sky-500">
+                      Amount Distributed
+                    </p>
+                    <div className="flex text-sm flex-row gap-x-2">
+                      {formatCurrency(post.amount_distributed)}
+                    </div>
+                  </div>
+                </div>
+                <div className="w-full flex flex-col justify-start items-start">
+                  <div className="w-full bg-gray-100 py-6 px-4 rounded-t-3xl">
+                    <h6 className="text-slate-900 text-sm font-semibold">
+                      Recent Update
+                    </h6>
+                  </div>
+                  <div className="w-full bg-white rounded-b-3xl py-6 px-4"></div>
+                </div>
+              </div>
+            </aside>
             <div
               className="prose text-justify max-w-none leading-7 text-sm text-[#666] mt-6 campaign-description"
               dangerouslySetInnerHTML={{
@@ -368,7 +959,7 @@ const PostDetail: React.FC = () => {
             />
           </div>
         </div>
-        <aside className="flex flex-col gap-y-6 w-4/12">
+        <aside className="sm:flex hidden flex-col gap-y-6 sm:w-4/12 w-full">
           <h4 className="flex flex-col gap-y-2 text-2xl text-slate-700 font-semibold pb-4 pt- text-left w-full">
             {post.campaign_name}
             <span className="text-sky-500 text-xs font-medium capitalize">

@@ -97,10 +97,10 @@ const News = () => {
 
   return (
     <section
-      className={`scroll-smooth relative flex flex-col w-full sm:px-24 sm:py-16 p-6 dark:bg-slate-950 bg-white`}
+      className={`scroll-smooth relative flex flex-col w-full sm:px-24 sm:py-16 py-6 px-0 dark:bg-slate-950 bg-white`}
       id="section-newshome"
     >
-      <div className="flex sm:flex-row flex-col justify-between sm:pb-14 pb-2">
+      <div className="flex sm:flex-row flex-col sm:justify-between justify-center sm:pb-14 sm:px-0 px-4 pb-2">
         <h5
           className={`font-semibold text-slate-700 dark:text-slate-200 sm:text-[36px] text-2xl w-full pr-3 sm:pb-0 pb-4 leading-tight`}
           data-aos="fade-up"
@@ -127,7 +127,7 @@ const News = () => {
           setSelectedTab(value);
         }}
       >
-        <TabsList className="sm:pb-2 pb-0 sm:my-0 my-4 flex sm:flex-row flex-col justify-between h-full">
+        <TabsList className="sm:pb-2 pb-0 sm:my-0 sm:px-0 px-4 my-4 flex sm:flex-row flex-col justify-between h-full">
           <div
             className="sm:flex sm:flex-row sm:gap-x-4 flex gap-x-4 sm:overflow-auto overflow-x-auto w-full"
             data-aos="fade-right"
@@ -150,7 +150,7 @@ const News = () => {
           value={selectedTab}
           className="flex flex-col gap-y-8 justify-center items-center w-full "
         >
-          <div className="sm:grid sm:grid-cols-4 sm:gap-8 flex flex-col w-full">
+          <div className="sm:grid sm:grid-cols-4 sm:gap-8 flex flex-row gap-x-4 overflow-x-auto w-full sm:px-0 px-4">
             {loading ? (
               <div className="w-full">
                 <AnimationCardPulse />
@@ -159,12 +159,12 @@ const News = () => {
               filterNews().map((news) => (
                 <div
                   key={news.id}
-                  className="publikasi-card mb-4 border-b pb-4 w-full flex flex-col transition duration-500 ease-in"
+                  className="publikasi-card mb-4 border-b pb-4 sm:w-full w-[260px] flex flex-col transition duration-500 ease-in"
                   data-aos="fade-up"
                   data-aos-easing="linear"
                   data-aos-duration="700"
                 >
-                  <span className="w-full h-[300px] overflow-hidden relative">
+                  <span className="sm:w-full w-[260px] h-[300px] overflow-hidden relative">
                     <Link href={`/publication/news&stories/${news.slug}`}>
                       <Image
                         src={

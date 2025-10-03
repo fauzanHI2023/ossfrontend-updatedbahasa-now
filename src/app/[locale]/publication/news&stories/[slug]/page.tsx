@@ -118,9 +118,9 @@ const PostDetail: React.FC = () => {
 
   return (
     <main className="flex flex-col text-center justify-center items-center sm:mt-36 sm:mb-14 py-0 w-full">
-      <header className="flex flex-col justify-center items-center w-full h-auto px-12">
+      <header className="flex flex-col justify-center items-center w-full h-auto sm:px-12 px-4">
         <div className="flex flex-col justify-center items-center w-full mb-4">
-          <h1 className="text-4xl w-[800px] font-semibold z-[1] text-sky-900 dark:text-white leading-[3.5rem]">
+          <h1 className="sm:text-4xl sm:w-[800px] text-2xl w-full font-semibold z-[1] text-sky-900 dark:text-white sm:leading-[3.5rem] leading-1">
             {post.post_title}
           </h1>
           <span className="dark:text-slate-300 text-slate-400 py-3 px-2 rounded-2xl w-max mb-6">
@@ -148,14 +148,14 @@ const PostDetail: React.FC = () => {
           alt={post.post_title}
           width={500}
           height={300}
-          className="rounded-xl w-11/12 h-[500px] object-cover"
+          className="rounded-xl sm:w-11/12 w-full sm:h-[500px] h-full object-cover"
         />
       </header>
 
       {/* 🔵 Konten */}
-      <div className="sm:w-8/12 sm:max-w-[1430px] mx-auto mx-16 mt-8 mb-8">
+      <div className="sm:w-8/12 sm:max-w-[1430px] w-full sm:mx-auto mt-8 mb-8">
         <div
-          className="prose text-justify max-w-none leading-9 text-base text-[#666] dark:text-white"
+          className="text-justify max-w-none leading-9 text-base text-[#666] dark:text-white sm:px-0 px-4"
           dangerouslySetInnerHTML={{
             __html: processContent(post.post_content)
           }}
@@ -163,8 +163,8 @@ const PostDetail: React.FC = () => {
       </div>
 
       {/* 🔵 More News */}
-      <section className="flex flex-col justify-center items-center w-full sm:px-20 px-6 sm:py-8 py-10">
-        <h3 className="flex flex-row gap-x-2 text-3xl font-bold text-slate-500 mb-8">
+      <section className="flex flex-col justify-center items-center w-full sm:px-20 px-0 sm:py-8 py-0">
+        <h3 className="flex flex-row gap-x-2 sm:text-3xl text-2xl font-bold text-slate-500 mb-8">
           More
           <GradientText
             colors={['#0284c7', '#172554']}
@@ -176,13 +176,13 @@ const PostDetail: React.FC = () => {
           </GradientText>
         </h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-11/12">
+        <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 flex flex-row justify-start overflow-x-auto sm:w-11/12 w-full pl-4">
           {moreNews.map((item) => (
             <div
               key={item.id}
               className="publikasi-card mb-4 border-b pb-4 w-full flex flex-col transition duration-500 ease-in"
             >
-              <span className="w-full h-[300px] overflow-hidden relative">
+              <span className="sm:w-full w-[280px] sm:h-[300px] h-[280px] overflow-hidden relative">
                 <Link href={`/publication/news&stories/${item.slug}`}>
                   <Image
                     src={

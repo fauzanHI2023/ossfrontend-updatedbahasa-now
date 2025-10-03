@@ -82,9 +82,9 @@ const FundProject = () => {
   return (
     <section
       id="section-fundraisinghome"
-      className="sm:px-24 py-12 p-6 flex flex-col sm:gap-y-4 gap-y-2 w-full dark:bg-slate-950 bg-[#f6fcff]"
+      className="sm:px-24 sm:py-12 py-8 px-0 flex flex-col sm:gap-y-4 gap-y-2 w-full dark:bg-slate-950 bg-[#f6fcff]"
     >
-      <div className="flex flex-row justify-between items-end">
+      <div className="flex flex-row justify-between items-end sm:px-0 px-4">
         <div className="flex flex-col justify-center items-center gap-y-4">
           <h5
             className="text-slate-700 dark:text-white font-semibold sm:text-[36px] text-2xl leading-8"
@@ -113,17 +113,17 @@ const FundProject = () => {
           See other
         </Link>
       </div>
-      <div className="flex flex-col sm:grid sm:grid-cols-4 gap-x-8 flex-wrap">
+      <div className="flex flex-row overflow-x-auto w-full sm:grid sm:grid-cols-4 gap-x-4 sm:flex-wrap sm:pl-0 px-4">
         {projects.slice(0, 4).map((projectItem: any) => (
           <div
             key={projectItem.id}
-            className="h-full flex flex-col justify-between rounded-2xl"
+            className="h-full flex flex-col justify-between rounded-2xl sm:w-full w-[260px]"
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="700"
           >
             <Link href={`/campaign/${projectItem.slug}`}>
-              <div className="publikasi-card flex flex-col gap-y-4 h-[200px] pt-4">
+              <div className="publikasi-card flex flex-col gap-y-4 sm:h-[200px] pt-4 sm:w-full w-[260px] h-[160px]">
                 <Image
                   src={`https://cdnx.human-initiative.org/image/${projectItem.campaign_img}`}
                   alt={projectItem.campaign_name}
@@ -139,7 +139,7 @@ const FundProject = () => {
                   {projectItem.core_program}
                 </span>
                 <Link href={`/campaign/${projectItem.slug}`}>
-                  <h6 className="text-lg font-semibold text-slate-700 dark:text-white h-[60px] overflow-hidden">
+                  <h6 className="sm:text-lg text-base font-semibold text-slate-700 dark:text-white h-[60px] overflow-hidden">
                     {projectItem.campaign_name}
                   </h6>
                 </Link>
@@ -165,7 +165,7 @@ const FundProject = () => {
                 </div>
                 <Link
                   href={`/campaign/${projectItem.slug}`}
-                  className="flex justify-center w-1/3 bg-sky-700 hover:bg-sky-600 transition duration-200 ease-in text-white dark:text-white py-3 px-4 rounded-xl"
+                  className="flex justify-center w-1/3 bg-sky-700 hover:bg-sky-600 transition duration-200 ease-in text-white dark:text-white sm:py-3 sm:px-4 py-2 px-3 rounded-xl"
                 >
                   Donate
                 </Link>

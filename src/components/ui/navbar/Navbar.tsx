@@ -27,6 +27,7 @@ import {FaApple} from 'react-icons/fa';
 import {motion, AnimatePresence} from 'framer-motion';
 import LoadingOverlay from '../utility/loading/LoadingOverlayLogin';
 import {FloatingDockDemo} from './FloatingDock';
+import {NewMenu} from './NewMenu';
 
 const Navbar = () => {
   const router = useRouter();

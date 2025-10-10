@@ -265,7 +265,7 @@ const Donate = () => {
       >
         <div className="flex sm:flex-row flex-col sm:pb-8 pb-12">
           <h5
-            className={`font-semibold sm:text-[54px] text-2xl sm:w-1/2 w-full pr-3 sm:pb-0 pb-4 leading-tight`}
+            className={`font-semibold sm:text-[54px] text-2xl sm:w-[60%] w-full pr-3 sm:pb-0 pb-4 leading-tight`}
             data-aos="fade-up"
             data-aos-easing="linear"
             data-aos-duration="700"
@@ -276,7 +276,7 @@ const Donate = () => {
             </span>
           </h5>
           <p
-            className={`flex justify-end items-center font-normal text-slate-600 dark:text-slate-200 text-base sm:w-1/2 w-full pr-6`}
+            className={`flex justify-end items-center font-normal text-slate-600 dark:text-slate-200 text-base sm:w-[60%] w-full pr-6`}
             data-aos="fade-right"
             data-aos-easing="linear"
             data-aos-duration="1000"

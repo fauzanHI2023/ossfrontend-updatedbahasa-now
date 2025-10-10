@@ -165,6 +165,12 @@ const Page = () => {
                               .reverse()
                               .map((report: any, idx: number, arr: any[]) => {
                                 const isLatest = idx === 0; // karena sudah di-reverse, index 0 adalah yang terakhir
+
+                                // Cek apakah value mengandung URL
+                                const urlRegex = /(https?:\/\/[^\s]+)/g;
+                                const hasUrl = urlRegex.test(report.value);
+                                const parts = report.value.split(urlRegex); // pecah teks berdasarkan URL
+
                                 return (
                                   <li
                                     key={idx}
@@ -194,7 +200,28 @@ const Page = () => {
                                     >
                                       <h4>
                                         {report.key}:{' '}
-                                        <span>{report.value}</span>
+                                        {hasUrl ? (
+                                          <span>
+                                            {parts.map(
+                                              (part: string, i: number) =>
+                                                urlRegex.test(part) ? (
+                                                  <a
+                                                    key={i}
+                                                    href={part}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-blue-600 underline hover:text-blue-800"
+                                                  >
+                                                    Lihat Laporan
+                                                  </a>
+                                                ) : (
+                                                  <span key={i}>{part}</span>
+                                                )
+                                            )}
+                                          </span>
+                                        ) : (
+                                          <span>{report.value}</span>
+                                        )}
                                       </h4>
                                     </span>
                                   </li>

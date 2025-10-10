@@ -230,7 +230,7 @@ const LoginPage = () => {
                   )}
                 </Button>
                 <Button
-                  className="hidden w-full border-gray-100 rounded px-4 py-3 flex flex-row items-center justify-center"
+                  className="hidden w-full border-gray-100 rounded px-4 py-3 flex-row items-center justify-center"
                   variant="outline"
                   size="icon"
                 >
